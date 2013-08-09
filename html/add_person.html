@@ -1,0 +1,90 @@
+<html>
+<head>
+<link rel="stylesheet" href="../app/scripts/libs/bootstrap/css/bootstrap.css">
+
+</head>
+<body>
+		<div id="form">
+			<div>
+				<div id="form_div">
+					<form name="person" class="">
+						<fieldset>
+							<legend>Add Person</legend>
+							<p class="bold-helptext">All fields in bold are required</p>
+							<div class="control-group">
+								<label class="control-label"><b>Name</b></label>
+								<div class="controls">
+									<input type="text" name="name" placeholder="Name">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label"><b>Father Name/Spouse Name</b></label>
+								<div class="controls">
+									<input type="text" name="name" placeholder="Name">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label"><b>Gender</b></label>
+								<div class="controls">
+									<select name="gender">
+										<option value="" selected="selected">---------</option>
+										<option value="M">Male</option>
+										<option value="F">Female</option>
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+				            	<label class="control-label">Age</label>
+				            	<div class="controls"> 
+				            	<input class="input-mini" name="age" type="text" placeholder="Age">
+				            	</div>
+				            </div>
+							<div class="control-group">
+								<label class="control-label"><b>Village</b></label>
+								<div class="controls">
+									<select id="id_village" name="village">
+										<option value="1">Banapadar</option>
+										<option value="2">Girliput</option>
+										<option value="3">AKTAPUT</option>
+										<option value="4">ARLABPUT</option>
+										<option value="5">ASHRAMPUT</option>
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label"><b>Type</b></label>
+								<div class="controls">
+									<select id="id_type" name="type">
+										<option value="">------------</option>
+										<option value="1">Pregnant</option>
+										<option value="2">Lactating</option>
+										<option value="3">Mother in law</option>
+										<option value="4">Sister in law</option>
+										<option value="5">PRADHAN</option>
+										<option value="5">ANM</option>
+										<option value="5">ASHA</option>
+									</select>
+								</div>
+							</div>
+							<div class="control-group"> 
+								<label class="control-label">Date Of Delivery</label>
+			                	<div class="controls">
+			                        <input class="input-small date-picker" id="date" type="text" placeholder="Date" name="date_of_delivery">  
+			                 	</div>
+			                 	<span class="help-block">Date should be in the format of yyyy-mm-dd</span>
+			                </div>
+						</fieldset>
+						<div class="form-actions">
+							<button id="button1" type="submit"
+								class="btn btn-primary action_button"
+								data-loading-text="Saving...">Save and Add Another</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+<script type='text/javascript'>
+
+</script>
+</body>
+</html>

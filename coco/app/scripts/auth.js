@@ -6,38 +6,40 @@ define([
     'auth_offline_backend',
     'configs',
     'offline_utils',
+    'check_internet_connectivity',
     'jquery_cookie'
-], function(User, OfflineAuthBackend, all_configs, Offline) {
-
-    var internet_connected = function() {
-        return navigator.onLine;
-    }
+], function(User, OfflineAuthBackend, all_configs, Offline, check_connectivity) {
 
     // checks whether the user is logged in or not in both backends- based on internet connectivity 
     var check_login = function() {
-        var dfd = new $.Deferred()
-        console.log("checking login");
-        if (check_online_login()) {
+        //ideally shd have been exacty same as the server uses. But approximating it to avoid network request.
+    	check_connectivity.is_internet_connected()
+        .fail(function(){
             check_offline_login()
-                .done(function() {
+            .done(function(){
+                dfd.resolve();
+            })
+            .fail(function(error){
+                dfd.reject(error);
+            });
+
+        })
+        .done(function(){
+      	  if($.cookie('sessionid')){
+                check_offline_login()
+                .done(function(){
                     dfd.resolve();
                 })
-                .fail(function(error) {
+                .fail(function(error){
                     dfd.reject(error);
                 });
-        } else {
-            dfd.reject("Not logged in on server");
-        }
+      	  }
+      	  else{
+      		  dfd.reject("Not logged in on server");
+      	  }
+        });
         return dfd.promise();
-    }
-
-    
-    //ideally shd have been exacty same as the server uses. But approximating it to avoid network request.
-    var check_online_login = function() {
-        if (!internet_connected || $.cookie('sessionid'))
-            return true;
-        return false;
-    }
+    };
 
     //is exactly same as the offline backend uses. (Since offline backend auth is custom written by us)
     var check_offline_login = function() {
@@ -56,39 +58,40 @@ define([
         });
         return dfd;
     }
-
+;
     // logs out of the offline backend, if internet accessible- logs out of the server backend
     var logout = function() {
         var dfd = new $.Deferred();
-        var that = this;
         online_logout()
             .always(function() {
                 offline_logout()
                     .always(function() {
                         dfd.resolve();
-                    })
+                    });
             });
         return dfd;
-    }
+    };
     
     // logs out of the online backend if internet accessible
     var online_logout = function() {
         var dfd = new $.Deferred();
 
-        if (!internet_connected())
-            dfd.resolve();
-            
-        // the logout endpoint should be made configurable
-        $.post("/coco/logout/")
-            .done(function(resp) {
+        check_connectivity.is_internet_connected()
+        .fail(function(){
+      	  dfd.resolve();
+        })
+        .done(function(){
+            // the logout endpoint should be made configurable
+            $.post("/coco/logout/")
+            .done(function(resp){
                 return dfd.resolve();
             })
-            .fail(function(resp) {
+            .fail(function(resp){
                 return dfd.reject(resp);
             });
-
+        });
         return dfd.promise();
-    }
+    };
 
     // contact OfflineAuthBackend to log out of the offline backend 
     var offline_logout = function() {
@@ -101,14 +104,16 @@ define([
                 dfd.reject();
             });
         return dfd;
-    }
+    };
 
     // logs-in to the offline backend, if internet accessible - logs-in to the server backend
     var login = function(username, password) {
         var dfd = new $.Deferred();
         console.log("Attemting login");
         // internet accessible - login to server backend - when successfull - login to offline backend
-        if (internet_connected()) {
+        
+        check_connectivity.is_internet_connected()
+        .done(function(){
             // try server backend login
             online_login(username, password)
                 .fail(function(error) {
@@ -144,8 +149,9 @@ define([
                             dfd.resolve();
                         });
                 });
-        } else {
-            // internet nt accessible - only try loggin into offline backend
+        })
+        .fail(function(){
+        	// internet nt accessible - only try loggin into offline backend
             offline_login(username, password)
                 .fail(function(error) {
                     console.log("Offline login failed - " + error);
@@ -162,31 +168,35 @@ define([
                         all_configs.misc.onLogin(Offline, this);
                     dfd.resolve();
                 });
-        }
+        });
         return dfd;
-    }
+    };
 
     // resolves if server returns 1 or internet is not connected otherwise rejects
     var online_login = function(username, password) {
         var dfd = new $.Deferred();
-        if (!internet_connected())
-            return dfd.resolve();
-        //the endpoint should be made configurable     
-        $.post("/coco/login/", {
-            "username": username,
-            "password": password
+        check_connectivity.is_internet_connected()
+        .fail(function(){
+      	  return dfd.resolve();
         })
-            .done(function(resp) {
-                if (resp == "1")
-                    return dfd.resolve();
-                else
-                    return dfd.reject("Username or password is incorrect (Server)");
-            })
-            .fail(function(resp) {
-                return dfd.reject("Could not contact server. Try again in a minute.");
-            });
+        .done(function(){
+	        //the endpoint should be made configurable     
+	        $.post("/coco/login/", {
+	            "username": username,
+	            "password": password
+	        })
+	            .done(function(resp) {
+	                if (resp == "1")
+	                    return dfd.resolve();
+	                else
+	                    return dfd.reject("Username or password is incorrect (Server)");
+	            })
+	            .fail(function(resp) {
+	                return dfd.reject("Could not contact server. Try again in a minute.");
+	            });
+        });
         return dfd.promise();
-    }
+    };
     
 
     //contact OfflineAuthBackend to authenticate a user against offline backend  
@@ -200,7 +210,7 @@ define([
                 dfd.reject(error);
             });
         return dfd.promise();
-    }
+    };
 
     // contact OfflineAuthBackend to register a new user in offline backend
     var offline_register = function(username, password) {
@@ -213,7 +223,7 @@ define([
                 dfd.reject(error);
             });
         return dfd.promise();
-    }
+    };
 
     return {
         check_login: check_login,

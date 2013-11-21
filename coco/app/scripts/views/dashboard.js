@@ -1,7 +1,7 @@
 //This view contains the links to add and list pages of entities, the sync button, logout link, online-offline indicator
-define(['jquery', 'underscore', 'configs', 'indexeddb_backbone_config', 'collections/upload_collection', 'views/upload', 'views/incremental_download', 'views/notification', 'layoutmanager', 'models/user_model', 'auth', 'offline_utils', 'views/full_download' ],
+define(['jquery', 'underscore', 'configs', 'indexeddb_backbone_config', 'collections/upload_collection', 'views/upload', 'views/incremental_download', 'views/notification', 'layoutmanager', 'models/user_model', 'auth', 'offline_utils', 'views/full_download', 'check_internet_connectivity'],
 
-function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDownloadView, notifs_view, layoutmanager, User, Auth, Offline, FullDownloadView) {
+function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDownloadView, notifs_view, layoutmanager, User, Auth, Offline, FullDownloadView, check_connectivity) {
 
     var DashboardView = Backbone.Layout.extend({
         template: "#dashboard",
@@ -72,18 +72,20 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
             });
             
             //keep the online-offline indicator up-to-date
-            window.addEventListener("offline", this.user_offline);
+//            window.addEventListener("offline", this.user_offline);
             //keep the online-offline indicator up-to-date
-            window.addEventListener("online", this.user_online);
+//            window.addEventListener("online", this.user_online);
 
-            //set the online-offline indicator
-            if (User.isOnline()) {
-                this.user_online();
-            } else {
-                this.user_offline();
-            }
             var that = this;
-            
+            //set the online-offline indicator
+			User.isOnline()
+			.done(function(){
+				that.user_online();
+			})
+			.fail(function(){
+				that.user_offline();
+			});
+                        
             //disable all links of db not yet downloaded
             Offline.fetch_object("meta_data", "key", "last_full_download")
                 .done(function(model) {
@@ -143,64 +145,67 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
                 alert("Please wait till background download is finished.");
                 return;
             }
-            Offline.fetch_object("meta_data", "key", "last_full_download")
-                .done(function(model) {
-                console.log("In Sync: db completely downloaded");
-                that.sync_in_progress = true;
-                //start upload
-                that.upload()
-                    .done(function() {
-                    console.log("UPLOAD FINISHED");
-                    notifs_view.add_alert({
-                        notif_type: "success",
-                        message: "Sync successfully finished"
-                    });
-                })
-                    .fail(function(error) {
-                    console.log("ERROR IN UPLOAD :" + error);
-                    notifs_view.add_alert({
-                        notif_type: "error",
-                        message: "Sync Incomplete. Failed to finish upload : " + error
-                    });
-                })
-                    .always(function() {
-                    //upload finished
-                    //start inc download - even if upload failed    
-                    that.inc_download({
-                        background: false
-                    })
-                        .done(function() {
-                        console.log("INC DOWNLOAD FINISHED");
-                        that.sync_in_progress = false;
-                        notifs_view.add_alert({
-                            notif_type: "success",
-                            message: "Incremental download successfully finished"
-                        });
-                    })
-                        .fail(function(error) {
-                        console.log("ERROR IN INC DOWNLOAD");
-                        console.log(error);
-                        that.sync_in_progress = false;
-                        notifs_view.add_alert({
-                            notif_type: "error",
-                            message: "Sync Incomplete. Failed to do Incremental Download: " + error
-                        });
-
-                    });
-                });
-
-            })
-                .fail(function(model, error) {
-                // if DB is not downloaded, start the full download    
-                if (error == "Not Found") {
-                    that.render()
-                        .done(function() {
-                        console.log("In Sync: db not completely downloaded");
-                        that.download();
-                    });
-                }
+            check_connectivity.is_internet_connected()
+            .fail(function(){
+	            	alert("Internet doesn't seem to be connected this computer. Please try sync after some time.");
+	        })
+            .done(function(){
+	            	Offline.fetch_object("meta_data", "key", "last_full_download")
+	                .done(function(model) {
+			                console.log("In Sync: db completely downloaded");
+			                that.sync_in_progress = true;
+			                //start upload
+			                that.upload()
+		                    .done(function() {
+			                    console.log("UPLOAD FINISHED");
+			                    notifs_view.add_alert({
+			                        notif_type: "success",
+			                        message: "Sync successfully finished"
+			                    });
+		                    })
+		                    .fail(function(error) {
+			                    console.log("ERROR IN UPLOAD :" + error);
+			                    notifs_view.add_alert({
+			                        notif_type: "error",
+			                        message: "Sync Incomplete. Failed to finish upload : " + error
+			                    });
+		                    })
+		                    .always(function() {
+				                    //upload finished
+				                    //start inc download - even if upload failed    
+				                    that.inc_download({
+				                        background: false
+				                    })
+			                        .done(function() {
+				                        console.log("INC DOWNLOAD FINISHED");
+				                        that.sync_in_progress = false;
+				                        notifs_view.add_alert({
+				                            notif_type: "success",
+				                            message: "Incremental download successfully finished"
+				                        });
+				                    })
+			                        .fail(function(error) {
+				                        console.log("ERROR IN INC DOWNLOAD");
+				                        console.log(error);
+				                        that.sync_in_progress = false;
+				                        notifs_view.add_alert({
+				                            notif_type: "error",
+				                            message: "Sync Incomplete. Failed to do Incremental Download: " + error
+			                        });
+		                    });
+	                });
+	              })
+	              .fail(function(model, error) {
+		                // if DB is not downloaded, start the full download    
+		                if (error == "Not Found") {
+		                    that.render()
+		                        .done(function() {
+		                        console.log("In Sync: db not completely downloaded");
+		                        that.download();
+		                    });
+		                }
+	              });
             });
-
         },
         
         //method to initiate full download
@@ -289,11 +294,18 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
             };
 
             //check if uploadqueue is empty and internet is connected - if both true do the background download
-            if (this.is_uploadqueue_empty() && this.is_internet_connected() && !this.sync_in_progress) this.inc_download({
-                background: true
-            })
-            //when the inc download is finished set the timer to start it again later
-                .always(call_again);
+            if(this.is_uploadqueue_empty() && !this.sync_in_progress){
+            	this.is_internet_connected()
+            	.done(function(){
+            		this.inc_download({background:true})
+            		//when the inc download is finished set the timer to start it again later
+                    .always(call_again);
+            	})
+            	.fail(function(){
+            		console.log("Incremental download failed because there is no connectivity.")
+            		call_again();
+            	})
+            }
             //if cant do inc download right now, just set the timer to start it again later    
             else call_again();
         },
@@ -306,7 +318,7 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
 
         // check internet connection
         is_internet_connected: function() {
-            return navigator.onLine;
+        	return check_connectivity.is_internet_connected();
         },
         
         // logout and navigate to login url

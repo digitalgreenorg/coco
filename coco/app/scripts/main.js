@@ -14,7 +14,8 @@ require.config({
         'chosen': 'libs/chosen/chosen.jquery.min',
         'date_picker': 'libs/bootstrap/js/bootstrap-datepicker',
         'time_picker': 'libs/bootstrap/js/bootstrap-timepicker.min',
-        'jquery_cookie': 'libs/jquery.cookie'
+        'jquery_cookie': 'libs/jquery.cookie',
+        'configs': '../../../configs'
     },
 
     //specifying dependencies of non-amd libraries

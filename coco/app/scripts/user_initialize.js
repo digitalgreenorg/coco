@@ -1,5 +1,5 @@
 //The user of the COCO v2 framework shall write any app initialization logic here
-define(['auth', 'offline_utils', 'configs', 'jquery', 'form_field_validator', ], function(Auth, Offline, all_configs) {
+define(['auth', 'offline_utils', 'configs', 'check_internet_connectivity', 'jquery', 'form_field_validator' ], function(Auth, Offline, all_configs, check_connectivity) {
 
     var run = function() {
         // adding custom validation checks to jquery.Validation plugin
@@ -24,8 +24,13 @@ define(['auth', 'offline_utils', 'configs', 'jquery', 'form_field_validator', ],
             //if the user is logged in call the callback here else call it after login    
             Auth.check_login()
                 .done(function() {
-                if (!navigator.onLine) return;
-                all_configs.misc.onLogin(Offline, Auth);
+                	check_connectivity.is_internet_connected()
+                    .done(function(){
+                    	all_configs.misc.onLogin(Offline, Auth);
+                    })
+                    .fail(function(){
+                    	console.log("Reset databast check failed because of no Connectivity");
+                    });
             });
         }
 

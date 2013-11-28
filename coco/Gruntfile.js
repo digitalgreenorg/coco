@@ -221,6 +221,7 @@ module.exports = function( grunt ) {
                     'jquery_cookie':'libs/jquery.cookie',
                     'tabletools': 'libs/tabletools_media/js/Tabletools.min',
                     'zeroclipboard': 'libs/tabletools_media/js/ZeroClipboard.min'
+                    'configs':'empty:'
                 },
             // name: "main"
             // out: ""

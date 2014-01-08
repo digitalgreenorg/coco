@@ -15,7 +15,7 @@ define([
     'offline_utils',
     'bootstrapjs',
     'check_internet_connectivity'
-], function(jquery, underscore, layoutmanager, indexeddb, all_configs, Offline, check_connectivity) {
+], function(jquery, underscore, layoutmanager, indexeddb, all_configs, Offline, pass, check_connectivity) {
 
 
     var FullDownloadView = Backbone.Layout.extend({
@@ -25,10 +25,6 @@ define([
         },
 
         template: "#download_template",
-
-        internet_connected: function() {
-        	return check_connectivity.is_internet_connected();
-        },
 
         //send the list of entities to the template 
         serialize: function() {
@@ -140,7 +136,7 @@ define([
             this.full_download_dfd = new $.Deferred();
             var that = this;
             //check whether internet is accessible - if not, abort full download
-            this.internet_connected()
+            check_connectivity.is_internet_connected()
             .fail(function(){
             	that.remove_ui();
                 that.full_download_dfd.reject("Can't download database. Internet is not connected");

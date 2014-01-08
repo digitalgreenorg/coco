@@ -132,531 +132,477 @@ function() {
     // //This template would be passed the json of inline model and shall produce the desired row
 //     TODO: maybe instead of relying on users to use templating lang we should fill the rows ourselves in js code, like we are doing in form!
 
-    var village_configs = {
-        'page_header': 'Village',
-        'list_table_header_template': 'village_table_template', 
-        'list_table_row_template': 'village_list_item_template',
-        'rest_api_url': '/coco/api/v1/village/',
-        'entity_name': 'village',
-        'dashboard_display': {
-            listing: false,
-            add: false
-        },
-        'sort_field': 'village_name'
-    };
+	var state_configs = {
+	        'page_header': 'State',
+	        'list_table_header_template': 'state_table_template', 
+	        'list_table_row_template': 'state_list_item_template',
+	    	//'add_template_name': 'state_add_edit_template',
+	        //'edit_template_name': 'state_add_edit_template',
+	        'rest_api_url': '/api/v1/State/',
+	        'entity_name': 'state',
+	        'dashboard_display': {
+	            listing: false,
+	            add: false
+	        },
+	        'sort_field': 'state_name'
+	    };
 
-    var mediator_configs = {
-        'page_header': 'Mediator',
-        'list_table_header_template': 'mediator_table_template',
-        'list_table_row_template': 'mediator_list_item_template',
-        'add_template_name': 'mediator_add_edit_template',
-        'edit_template_name': 'mediator_add_edit_template',
-        'rest_api_url': '/coco/api/v1/mediator/',
-        'entity_name': 'mediator',
-        'unique_together_fields': ['name', 'gender', 'district.id'],
-        'sort_field': 'name',
-        'inc_table_name': 'animator',
-        'foreign_entities': {
-            'village': {
-                "assigned_villages": {
-                    'placeholder': 'id_ass_villages',
-                    'name_field': 'village_name'
-                }, //name of html element in form/ attribute name in json: {placeholder: "id of html element in form", name_field: "attribute in foreign entity's json "} 
-            },
-            district: {
-                district :{
-                    placeholder : 'id_district',
-                    name_field : 'district_name' 
-                }
-            }
-        },
-        'form_field_validation': {
-            ignore: [],
-            rules: {
-                name: {
-                    required: true,
-                    minlength: 2,
-                    maxlength: 100,
-                    allowedChar: true
-                },
-                gender: "required",
-                phone_no: {
-                    digits: true,
-                    maxlength: 10
-                },
-                assigned_villages: "required",
-                district: "required"
-            },
-            messages: {
-                name: {
-                    required: 'Mediator name is required',
-                    minlength: 'Mediator name should contain at least 2 characters',
-                    maxlength: 'Mediator name should contain at most 100 characters',
-                    allowedChar: 'Mediator name should contain only english and local language characters'
-                },
-                gender: "Gender is required",
-                phone_no: {
-                    digits: 'Phone number should contain only digits',
-                    maxlength: "Phone number should not contain more than 10 digits"
-                },
-                assigned_villages: "Assigned villages are required",
-                district: "District is required"
-            },
+	var project_configs = {
+	        'page_header': 'Project',
+	        'list_table_header_template': 'project_table_template', 
+	        'list_table_row_template': 'project_list_item_template',
+	    	//'add_template_name': 'project_add_edit_template',
+	        //'edit_template_name': 'project_add_edit_template',
+	        'rest_api_url': '/api/v1/Project/',
+	        'entity_name': 'project',
+	        'dashboard_display': {
+	            listing: false,
+	            add: false
+	        },
+	        'sort_field': 'project_name'
+	    };
+	
+	var progress_configs = {
+			'entity_name' : 'progress',
+			'rest_api_url' : '/api/v1/Progress/',
+			'dashboard_display' : {
+	    		listing : true,
+	    		add : true
+	    	},
+			'page_header': 'Progres',
+			'list_table_header_template': 'progress_table_template',
+			'list_table_row_template': 'progress_list_item_template',
+	    	'add_template_name': 'progress_add_edit_template',
+	        'edit_template_name': 'progress_add_edit_template',
+	        'foreign_entities': {
+	        	'state':{
+	        		'state':{
+	        			'placeholder': 'id_state',
+	        			'name_field': 'state_name'
+	        		},
+	        	},
+	        	'project':{
+	        		'project':{
+	        			'placeholder': 'id_project',
+	        			'name_field': 'project_name'
+	        		},
+	        	},
+	        },
+	        'unique_together_fields': ['state.id', 'project.id', 'month', 'year'],
+	        'sort_field': 'state',
+	        'form_field_validation': {
+	        	ignore: [],
+	        	rules: {
+	        		state: "required",
+	        		project: "required",
+	        		Two_1: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Two_2: {
+	        			required: true,
+	        			digits: true
+	        		},
+		    		Two_3: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_1: {
+		    			required: true,
+		    			digits: true
+		    		},
+	        		Three_2: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_4: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_5: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_6: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_7: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_8: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Four_1: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Four_2: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Four_3: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Four_4: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Four_5: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Four_6: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_1: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_2: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_5: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_6: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_7: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_8: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_9: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_10: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Five_11: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Five_12: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Five_13: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Five_14: {
+		    			required: true,
+		    			number: true
+		    		},
+	        		Six_1: {
+	        			required: true,
+		    			digits: true
+	        		},
+			        Six_2: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_5: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_6: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_7: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_8: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_9: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_10: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Six_11: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Six_12: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Six_13: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Six_14: {
+		    			required: true,
+		    			number: true
+		    		},
+	        		Seven_1: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_2: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_3: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_4: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_5: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_6: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Seven_7: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_8: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_9: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		month: "required",
+	        		year: {
+	        			required:true,
+	        		}
+	        	},
 
-            highlight: function(element, errorClass, validClass) {
-                $(element)
-                    .parent('div')
-                    .parent('div')
-                    .addClass("error");
-
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element)
-                    .parent('div')
-                    .parent('div')
-                    .removeClass("error");
-
-            },
-            errorElement: "span",
-            errorClass: "help-inline"
-
-        }
-
-    };
-
-    var video_configs = {
-        'page_header': 'Video',
-        'list_table_header_template': 'video_table_template',
-        'list_table_row_template': 'video_list_item_template',
-        'add_template_name': 'video_add_edit_template',
-        'edit_template_name': 'video_add_edit_template',
-        'rest_api_url': '/coco/api/v1/video/',
-        'entity_name': 'video',
-        'unique_together_fields': ['title', 'video_production_start_date', 'video_production_end_date', 'village.id'],
-        'sort_field': 'title',
-        'foreign_entities': {
-            'mediator': {
-                "facilitator": {
-                    'placeholder': 'id_facilitator',
-                    'name_field': 'name'
-                },
-                "cameraoperator": {
-                    'placeholder': 'id_cameraoperator',
-                    'name_field': 'name'
-                },
-            },
-            'person': {
-                "farmers_shown": {
-                    'placeholder': 'id_farmers_shown',
-                    'name_field': 'person_name',
-                    'dependency': [{
-                        'source_form_element': 'village',
-                        'dep_attr': 'village'
-                    }]
-                },
-            },
-            'village': {
-                "village": {
-                    'placeholder': 'id_village',
-                    'name_field': 'village_name'
-                },
-            },
-            'language': {
-                "language": {
-                    'placeholder': 'id_language',
-                    'name_field': 'language_name'
-                }
-            }
-
-
-        },
-        'form_field_validation': {
-            ignore: [],
-            rules: {
-                title: {
-                    required: true,
-                    minlength: 2,
-                    maxlength: 200,
-                    // allowedChar: true
-                },
-                video_type: "required",
-                video_production_start_date: {
-                    required: true,
-                    // validateDate: true
-                },
-                video_production_end_date: {
-                    required: true,
-					dateOrder: {video_production_start_date : "video_production_start_date"}
-                    // validateDate: true
-                },
-                language: "required",
-                summary: {
-                    minlength: 2,
-                    maxlength: 500,
-                    // allowedChar: true
-                },
-                village: "required",
-                facilitator: "required",
-                cameraoperator: "required",
-                farmers_shown: "required",
-                actors: "required",
-                video_suitable_for: "required",
-
-				approval_date: {
-					dateOrder: {video_production_start_date : "video_production_end_date"}
-                    // validateDate: true
-                },
-                youtubeid: {
-                    maxlength: 20
-                }
-            },
-            messages: {
-                title: {
-                    required: 'Video title is required',
-                    minlength: 'Video title should contain at least 2 characters',
-                    maxlength: 'Video title should contain at most 200 characters',
-                    // allowedChar: 'Video title should only contain alphabets and local language characters'
-                },
-                video_type: "Video type is required",
-                video_production_start_date: {
-                    required: 'Video production start date is required',
-                    validateDate: "Enter video production start date in the form of YYYY-MM-DD"
-                },
-                video_production_end_date: {
-                    required: 'Video production end date is required',
-                    validateDate: "Enter video production end date in the form of YYYY-MM-DD",
-					dateOrder: "End date should be later than start date"
-                },
-                language: "Language is required",
-                summary: {
-                    minlength: "Summary should contain at least 2 characters",
-                    maxlength: "Summary should contain at most 500 characters",
-                    // allowedChar: "summary should not contain special characters"
-                },
-                village: "Village is required",
-                facilitator: "Facilitator is required",
-                cameraoperator: "Camera operator is required",
-                farmers_shown: "Persons shown are required",
-                actors: "Actors are required",
-                video_suitable_for: "Video suitable for is required",
-                approval_date: {
-                    validateDate: "Enter Approval Date in the form of YYYY-MM-DD",
-					dateOrder: "Approval date should be later than end date"
-                },
-                youtubeid: {
-                    maxlength: "YoutubeID should contain at most 20 characters"
-                }
-            },
-
-            highlight: function(element, errorClass, validClass) {
-                $(element)
-                    .parent('div')
-                    .parent('div')
-                    .addClass("error");
-
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element)
-                    .parent('div')
-                    .parent('div')
-                    .removeClass("error");
-
-            },
-            errorElement: "span",
-            errorClass: "help-inline"
-
-        }
-    };
-
-    var language_configs = {
-        'rest_api_url': '/coco/api/v1/language/',
-        'entity_name': 'language',
-        'sort_field': 'language_name',
-        'dashboard_display': {
-            listing: false,
-            add: false
-        }
-    };
-
-    var district_configs = {
-        'rest_api_url': '/coco/api/v1/district/',
-        'entity_name': 'district',
-        'sort_field': 'district_name',
-        'dashboard_display': {
-            listing: false,
-            add: false
-        }
-    };
-
-    var group_configs = {
-        'page_header': 'Group',
-        'list_table_header_template': 'group_table_template',
-        'list_table_row_template': 'group_list_item_template',
-        'add_template_name': 'group_add_edit_template',
-        'edit_template_name': 'group_add_edit_template',
-        'rest_api_url': '/coco/api/v1/group/',
-        'entity_name': 'group',
-        'inc_table_name': 'persongroups',
-        'unique_together_fields': ['group_name', 'village.id'],
-        'sort_field': 'group_name',
-        'foreign_entities': {
-            'village': {
-                'village': {
-                    'placeholder': 'id_village',
-                    'name_field': 'village_name'
-                },
-            },
-        },
-        'inline': {
-            'entity': 'person',
-            'default_num_rows': 10,
-            "template": "person_inline",
-            "joining_attribute": {
-                'host_attribute': ["id", "group_name"],
-                'inline_attribute': "group"
-            },
-            "header": "person_inline_header",
-            'borrow_attributes': [{
-                'host_attribute': 'village',
-                'inline_attribute': 'village'
-            }],
-            foreign_entities: { //used at convert_namespace, denormalize only
-                village: {
-                    village: {
-                        placeholder: 'id_village',
-                        name_field: 'village_name'
-                    },
-                },
-                group: {
-                    group: {
-                        placeholder: 'id_group',
-                        name_field: 'group_name'
-                    }
-                }
-            }
-        },
-        'form_field_validation': {
-            ignore: ".donotvalidate",
-            rules: {
-                group_name: {
-                    required: true,
-                    minlength: 2,
-                    maxlength: 100,
-                    allowedChar: true
-                },
-                village: "required"
-            },
-            messages: {
-                name: {
-                    required: 'Group name is required',
-                    minlength: 'Group name  should contain at least 2 characters',
-                    maxlength: 'Group name should contain at most 100 characters',
-                    allowedChar: 'Group name should contain only english and local language characters'
-                },
-                village: "Village is required"
-            },
-
-            highlight: function(element, errorClass, validClass) {
-                $(element)
-                    .parent('div')
-                    .parent('div')
-                    .addClass("error");
-
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element)
-                    .parent('div')
-                    .parent('div')
-                    .removeClass("error");
-
-            },
-            errorElement: "span",
-            errorClass: "help-inline",
-        }
-
-
-    };
-
-    var screening_configs = {
-        'page_header': 'Screening',
-        'list_table_header_template': 'screening_table_template',
-        'list_table_row_template': 'screening_list_item_template',
-        'add_template_name': 'screening_add_edit_template',
-        'edit_template_name': 'screening_add_edit_template',
-        'rest_api_url': '/coco/api/v1/screening/',
-        'entity_name': 'screening',
-        download_chunk_size: 1000,
-        'unique_together_fields': ['date', 'start_time', 'end_time', 'village.id', 'animator.id'],
-        afterSave: function(off_json, Offline){
-            var dfd = new $.Deferred();
-            var videos_shown = off_json.videoes_screened;
-            console.log("recvd off_json in afterSave - "+JSON.stringify(off_json));
-            update_attendees()
-                .done(function(){
-                    dfd.resolve();
-                })
-                .fail(function(){
-                    dfd.reject();
-                });
-            return dfd.promise();
-
-            function update_attendees(){
-                var all_update_dfds = [];
-                $.each(off_json.farmers_attendance, function(index, per){
-                    all_update_dfds.push(update_attendee(per));    
-                });
-                return $.when.apply($,all_update_dfds);
-            }
-            
-            function update_attendee(per){
-                var p_dfd = new $.Deferred();
-                Offline.fetch_object("person", "id", parseInt(per.person_id))
-                    .done(function(p_model){
-                        console.log("old p -"+JSON.stringify(p_model));
-                        var videos_seen = p_model.get("videos_seen");
-                        if(videos_seen)
-                        {
-                            var videos_seen_ids = _.pluck(videos_seen, 'id');
-                            $.each(videos_shown, function(index, vid){
-                                if($.inArray(vid.id, videos_seen_ids)==-1)
-                                    videos_seen.push(vid);
-                            });
-                        }
-                        else
-                            videos_seen = videos_shown;
-                        p_model.set("videos_seen", videos_seen);
-                        Offline.save(p_model, "person", p_model.toJSON())
-                            .done(function(p_model){
-                                console.log("new p -"+JSON.stringify(p_model));
-                                p_dfd.resolve();
-                            })
-                            .fail(function(error){
-                                console.log("error updating person in after save - "+error);
-                                p_dfd.reject(error);
-                            });
-                    })
-                    .fail(function(error){
-                        console.log("error fetching person in after save - "+error);
-                        p_dfd.reject(error);
-                    });
-                return p_dfd;    
-            };
-        },
-        'foreign_entities': {
-            'village': {
-                'village': {
-                    'placeholder': 'id_village',
-                    'name_field': 'village_name'
-                },
-            },
-            'video': {
-                'videoes_screened': {
-                    'placeholder': 'id_videoes_screened',
-                    'name_field': 'title'
-                },
-            },
-            'mediator': {
-                'animator': {
-                    'placeholder': 'id_animator',
-                    'name_field': 'name',
-                    'dependency': [{
-                        'source_form_element': 'village',
-                        'dep_attr': 'assigned_villages'
-                    }]
-                }
-            },
-            'group': {
-                farmer_groups_targeted: {
-                    'placeholder': 'id_group',
-                    'name_field': 'group_name',
-                    'dependency': [{
-                        'source_form_element': 'village',
-                        'dep_attr': 'village'
-                    }]
-                }
-            },
-            'person': {
-                person: {
-                    'placeholder': 'id_person',
-                    'name_field': 'person_name',
-                    'dependency': [{
-                        'source_form_element': 'village',
-                        'dep_attr': 'village'
-                    }],
-                    'filter': {
-                        attr: 'group',
-                        value: null
-                    }
-                },
-                farmers_attendance: {
-                    dependency: [{
-                        'source_form_element': 'farmer_groups_targeted',
-                        'dep_attr': 'group'
-                    }, {
-                        'source_form_element': 'person',
-                        'dep_attr': 'id'
-                    }],
-                    id_field: "person_id", // for convert_namespace conversion      
-                    'expanded': { // won't be denormalised, wud be converted offline to online, render wud use a template declared and nt options template, any field to be denormalised or converted offline to online can be declared - this shd be clubbed and put as foreign entity of expanded.  
-                        template: 'person_pma_template',
-                        placeholder: 'pmas',
-                        denormalize: { // any field in expanded template to be denormalised     
-                            "expressed_adoption_video": {
-                                name_field: 'title'
-                            }
-                        },
-                        foreign_entities: { // any more field in expanded template for offline to online conv
-                            video:{
-                                "expressed_adoption_video": {
-                                    entity_name: "video",
-                                    name_field: 'title'
-                                }
-                            }
-                        },
-                        extra_fields: ["expressed_question", "interested", "expressed_adoption_video"]
-                    }
-                }
-            }
-        },
-        'form_field_validation': {
-            ignore: [],
-            rules: {
-                date: {
-                    required: true,
-                    validateDate: true
-                },
-                start_time: {
-                    required: true,
-                    validateTime: true
-                },
-                end_time: {
-                    required: true,
-                    validateTime: true,
-					timeOrder: {start_time : "start_time"}
-                },
-                animator: "required",
-                village: "required",
-                videoes_screened: "required",
-
-            },
-            messages: {
-				date: {
-					required: 'Screening date is required',
-					validateDate: 'Enter screening date in the form of YYYY-MM-DD',
-				},
-				start_time: {
-					required: 'Screening start time is required',
-					validateTime: 'Enter the start time in the form of HH:MM. Use 24 hour format',
-				},
-				end_time: {
-					required: 'Screening end time is required',
-					validateTime: 'Enter the end time in the form of HH:MM. Use 24 hour format',
-					timeOrder: 'End time should be later than start time',
-				},
-				animator: "Mediator is required",
-				village:"Village is required",
-				videoes_screened:"Videos screened is required",
-			},
+	        messages: {
+	        	month: {
+	        		required: "Please select the month for which data is being reported",
+	        	},
+	        	year: {
+	        		required: "Please select the year for which data is being reported",
+	        	},
+	        	state: "Please select the state for which data is being reported",
+	        	project: "Please select the project name for which data is being reported",
+	        	Two_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Two_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Two_3: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_4: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_5: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_6: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_7: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_8: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Four_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Four_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Four_3: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Four_4: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Four_5: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Four_6: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_5: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_6: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_7: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_8: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_9: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_10: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Five_11: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Five_12: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Five_13: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Five_14: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Six_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_5: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_6: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_7: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_8: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_9: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_10: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Six_11: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Six_12: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Six_13: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Six_14: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Seven_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_3: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_4: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_5: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_6: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Seven_7: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_8: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_9: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        },
 
             highlight: function(element, errorClass, validClass) {
                 $(element)
@@ -674,224 +620,450 @@ function() {
             },
             errorElement: "span",
             errorClass: "help-inline"
-        }
-    };
+	    }
+	};
+	
+	var progresstill13_configs = {
+			'entity_name' : 'progresstill13',
+			'rest_api_url' : '/api/v1/ProgressTill13/',
+			'dashboard_display' : {
+	    		listing : true,
+	    		add : true
+	    	},
+			'page_header': 'Prev Prog',
+			'list_table_header_template': 'progresstill13_table_template',
+			'list_table_row_template': 'progresstill13_list_item_template',
+	    	'add_template_name': 'progresstill13_add_edit_template',
+	        'edit_template_name': 'progresstill13_add_edit_template',
+	        'foreign_entities': {
+	        	'state':{
+	        		'state':{
+	        			'placeholder': 'id_state',
+	        			'name_field': 'state_name'
+	        		},
+	        	},
+	        	'project':{
+	        		'project':{
+	        			'placeholder': 'id_project',
+	        			'name_field': 'project_name'
+	        		},
+	        	},
+	        },
+	        'unique_together_fields': ['state.id', 'project.id', 'month', 'year'],
+	        'sort_field': 'state',
+	        'form_field_validation': {
+	        	ignore: [],
+	        	rules: {
+	        		state: "required",
+	        		project: "required",
+	        		Two_1: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Two_2: {
+	        			required: true,
+	        			digits: true
+	        		},
+		    		Two_3: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_1: {
+		    			required: true,
+		    			digits: true
+		    		},
+	        		Three_2: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_4: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_5: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_6: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_7: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_8: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Four_1: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Four_2: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Four_3: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Four_4: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Four_5: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Four_6: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_1: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_2: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_5: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_6: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_7: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_8: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_9: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_10: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Five_11: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Five_12: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Five_13: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Five_14: {
+		    			required: true,
+		    			number: true
+		    		},
+	        		Six_1: {
+	        			required: true,
+		    			digits: true
+	        		},
+			        Six_2: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_5: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_6: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_7: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_8: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_9: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_10: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Six_11: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Six_12: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Six_13: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Six_14: {
+		    			required: true,
+		    			number: true
+		    		},
+	        		Seven_1: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_2: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_3: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_4: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_5: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_6: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Seven_7: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_8: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_9: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		month: "required",
+	        		year: {
+	        			required:true,
+	        		}
+	        	},
 
-    var adoption_configs = {
-        'page_header': 'Adoption',
-        'list_table_header_template': 'adoption_table_template',
-        'list_table_row_template': 'adoption_list_item_template',
-        'add_template_name': 'adoption_add_template',
-        'edit_template_name': 'adoption_edit_template',
-        'rest_api_url': '/coco/api/v1/adoption/',
-        'entity_name': 'adoption',
-        'inc_table_name': 'personadoptpractice',
-        'unique_together_fields': ['person.id', 'video.id', 'date_of_adoption'],
-        form_field_validation: {
-            ignore: [],
-            highlight: function(element, errorClass, validClass) {
-                $(element)
-                    .parent('div')
-                    .parent('div')
-                    .addClass("error");
-
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element)
-                    .parent('div')
-                    .parent('div')
-                    .removeClass("error");
-
-            },
-            errorElement: "span",
-            errorClass: "help-block",
-            display: "block"
-        },
-        add: {
-            'foreign_entities': {
-                'village': {
-                    'village': {
-                        'placeholder': 'id_village',
-                        'name_field': 'village_name'
-                    },
-                },
-                'group': {
-                    'group': {
-                        'placeholder': 'id_group',
-                        'name_field': 'group_name',
-                        'dependency': [{
-                            'source_form_element': 'village',
-                            'dep_attr': 'village'
-                        }]
-                    }
-                },
-                'person': {
-                    float_person: {
-                        'placeholder': 'id_person',
-                        'name_field': 'person_name',
-                        'dependency': [{
-                            'source_form_element': 'village',
-                            'dep_attr': 'village'
-                        }],
-                        'filter': {
-                            attr: 'group',
-                            value: null
-                        }
-                    },
-                    farmers_attendance: {
-                        dependency: [{
-                            'source_form_element': 'group',
-                            'dep_attr': 'group'
-                        }, {
-                            'source_form_element': 'float_person',
-                            'dep_attr': 'id'
-                        }],
-                        id_field: "person_id", // for convert_namespace conversion      
-                        'expanded': { // won't be denormalised, wud be converted offline to online, render wud use a template declared and nt options template, any field to be denormalised or converted offline to online can be declared - this shd be clubbed and put as foreign entity of expanded.  
-                            template: 'adoption_inline',
-                            placeholder: 'bulk'
-                        }
-                    }
-                }
-            },
-            'bulk': {
-                foreign_fields: { //foreign fields in the individual objects
-                    "video": {
-                        video: {
-                            'name_field': 'title'
-                        }
-                    },
-                    "person": {
-                        person: {
-                            'name_field': 'person_name'
-                        }
-                    },
-                    village: {
-                        village:{
-                            'name_field': 'village_name'
-                        }
-                    },
-                    group: {
-                        group:{
-                            'name_field': 'group_name'
-                        }
-                    }
-                },
-                borrow_fields: ['village', 'group']
-            }
-        },
-        edit: {
-            'foreign_entities': {
-                'person': {
-                    'person': {
-                        'placeholder': 'id_person',
-                        'name_field': 'person_name'
-                    },
-                },
-                'video': {
-                    'video': {
-                        'placeholder': 'id_video',
-                        // 'sub_attr': 'videos_seen',
-                        'name_field': 'title',
-                        'dependency': [{
-                            'source_form_element': 'person',
-                            'dep_attr': 'id',
-                            'src_attr': 'videos_seen',
-                        }]
-                    }
-                }
-            }
-        }
-
-    };
-
-    var person_configs = {
-        'page_header': 'Person',
-        'list_table_header_template': 'person_table_template',
-        'list_table_row_template': 'person_list_item_template',
-        'add_template_name': 'person_add_edit_template',
-        'edit_template_name': 'person_add_edit_template',
-        'rest_api_url': '/coco/api/v1/person/',
-        'entity_name': 'person',
-        'foreign_entities': {
-            'village': {
-                'village': {
-                    'placeholder': 'id_village',
-                    'name_field': 'village_name'
-                },
-            },
-            'group': {
-                'group': {
-                    'placeholder': 'id_group',
-                    'name_field': 'group_name',
-					'dependency': [{
-                        'source_form_element': 'village',
-                        'dep_attr': 'village'
-                    }]
-                }
-            }
-        },
-        'unique_together_fields': ['person_name', 'father_name', 'village.id'],
-        'sort_field': 'person_name',
-        'form_field_validation': {
-            ignore: [],
-            rules: {
-                person_name: {
-                    required: true,
-                    minlength: 2,
-                    maxlength: 100,
-                    // allowedChar:true
-                },
-
-                father_name: {
-                    required: true,
-                    minlength: 2,
-                    maxlength: 100,
-                    // allowedChar:true
-                },
-                age: {
-                    digits: true,
-                    min: 1,
-                    max: 100
-                },
-                gender: "required",
-                phone_no: {
-                    digits: true,
-                    maxlength: 10
-                },
-                village: {
-                    required: true
-                }
-            },
-            messages: {
-				person_name: {
-					required: 'Person name is required',
-					minlength: 'Person name  should contain at least 2 characters',
-					maxlength: 'Person Name should contain at most 100 characters',
-					allowedChar: 'Person name should contain only english and local language characters'
-				},
-				father_name: {
-					required: "Father's name is required",
-					minlength: "Father's name should contain at least 2 characters",
-					maxlength: "Father's name should contain at most 100 characters",
-					allowedChar: "Father's name should contain only english and local language characters"
-				},
-				age: {
-					digits: "Age should contain only digits",
-					min:"Age should not be less than 1 year",
-					max:"Age should not be more than 100 years"
-				},
-				gender:{
-					required: "Gender is required"
-				},
-				phone_number_person: {
-					digits: 'Phone number should contain digits only',
-					maxlength: "Phone number should not contain more than 10 digits"
-				},
-				village: {
-					required: "Village is required"
-				}
-			},
+	        messages: {
+	        	month: {
+	        		required: "Please select the month for which data is being reported",
+	        	},
+	        	year: {
+	        		required: "Please select the year for which data is being reported",
+	        	},
+	        	state: "Please select the state for which data is being reported",
+	        	project: "Please select the project name for which data is being reported",
+	        	Two_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Two_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Two_3: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_4: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_5: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_6: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_7: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_8: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Four_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Four_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Four_3: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Four_4: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Four_5: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Four_6: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_5: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_6: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_7: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_8: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_9: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_10: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Five_11: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Five_12: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Five_13: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Five_14: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Six_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_5: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_6: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_7: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_8: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_9: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_10: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Six_11: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Six_12: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Six_13: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Six_14: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Seven_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_3: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_4: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_5: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_6: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Seven_7: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_8: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_9: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        },
 
             highlight: function(element, errorClass, validClass) {
                 $(element)
@@ -909,11 +1081,1241 @@ function() {
             },
             errorElement: "span",
             errorClass: "help-inline"
-        }
+	    }
+	};
+	
+	var target_configs = {
+			'entity_name' : 'target',
+			'rest_api_url' : '/api/v1/Target/',
+			'dashboard_display' : {
+	    		listing : true,
+	    		add : true
+	    	},
+			'page_header': 'Target',
+			'list_table_header_template': 'target_table_template',
+			'list_table_row_template': 'target_list_item_template',
+	    	'add_template_name': 'target_add_edit_template',
+	        'edit_template_name': 'target_add_edit_template',
+	        'foreign_entities': {
+	        	'state':{
+	        		'state':{
+	        			'placeholder': 'id_state',
+	        			'name_field': 'state_name'
+	        		},
+	        	},
+	        	'project':{
+	        		'project':{
+	        			'placeholder': 'id_project',
+	        			'name_field': 'project_name'
+	        		},
+	        	},
+	        },
+	        'unique_together_fields': ['state.id', 'project.id', 'year'],
+	        'sort_field': 'state',
+	        'form_field_validation': {
+	        	ignore: [],
+	        	rules: {
+	        		state: "required",
+	        		project: "required",
+	        		Two_1: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Two_2: {
+	        			required: true,
+	        			digits: true
+	        		},
+		    		Two_3: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_1: {
+		    			required: true,
+		    			digits: true
+		    		},
+	        		Three_2: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_4: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_5: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_6: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_7: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Three_8: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Four_1: {
+		    			required: true,
+		    			digits: true
+		    		},
+		    		Four_2: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_5: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_6: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_7: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_8: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_9: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Five_10: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Five_11: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Five_12: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Five_13: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Five_14: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Six_2: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_5: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_6: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_7: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_8: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_9: {
+		    			required: true,
+		    			digits: true
+		    		},
+			        Six_10: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Six_11: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Six_12: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Six_13: {
+		    			required: true,
+		    			number: true
+		    		},
+			        Six_14: {
+		    			required: true,
+		    			number: true
+		    		},
+	        		Seven_1: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_2: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_3: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_4: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_5: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_6: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Seven_7: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_8: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Seven_9: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Col4_SC: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col5_SC: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Col7_SC: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col8_SC: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Col4_ST: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col5_ST: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Col7_ST: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col8_ST: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Col4_Min: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col5_Min: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Col7_Min: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col8_Min: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Col4_Oth: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col5_Oth: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Col7_Oth: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col8_Oth: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Col4_PWD: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col5_PWD: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Col7_PWD: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col8_PWD: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		year: {
+	        			required: true,
+	        			validateYear: true
+	        		}
+	        	},
+	        messages: {
+	        	year: {
+	        		required: "Please select the year for which data is being reported",
+	        		validateYear: "Please check year"
+	        	},
+	        	state: "Please select the state for which data is being reported",
+	        	project: "Please select the project name for which data is being reported",
+	        	Two_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Two_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Two_3: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_4: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_5: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_6: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_7: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Three_8: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Four_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Four_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_5: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_6: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_7: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_8: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_9: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Five_10: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Five_11: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Five_12: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Five_13: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Five_14: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Six_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_5: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_6: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_7: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_8: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_9: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Six_10: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Six_11: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Six_12: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Six_13: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Six_14: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Seven_1: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_2: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_3: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_4: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_5: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_6: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+	        	Seven_7: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_8: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+	        	},
+	        	Seven_9: {
+	        		required: "This question is required, please enter the details",
+	        		number: "Please enter a valid amount (Rs. in Lakhs)"
+	        	},
+        		Col4_SC: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col5_SC: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+        		Col7_SC: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col8_SC: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+        		Col4_ST: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col5_ST: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+        		Col7_ST: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col8_ST: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+        		Col4_Min: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col5_Min: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+        		Col7_Min: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col8_Min: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+        		Col4_Oth: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col5_Oth: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+        		Col7_Oth: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col8_Oth: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+        		Col4_PWD: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col5_PWD: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+        		Col7_PWD: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col8_PWD: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+	        },
 
-    };
+            highlight: function(element, errorClass, validClass) {
+                $(element)
+                    .parent('div')
+                    .parent('div')
+                    .addClass("error");
 
-    var misc = {
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element)
+                    .parent('div')
+                    .parent('div')
+                    .removeClass("error");
+
+            },
+            errorElement: "span",
+            errorClass: "help-inline"
+	    }
+	};
+	
+	var hrdetails_configs = {
+			'entity_name' : 'hrdetails',
+			'rest_api_url' : '/api/v1/HrDetails/',
+			'dashboard_display' : {
+	    		listing : true,
+	    		add : true
+	    	},
+			'page_header': 'HR Detail',
+			'list_table_header_template': 'hrdetails_table_template',
+			'list_table_row_template': 'hrdetails_list_item_template',
+	    	'add_template_name': 'hrdetails_add_edit_template',
+	        'edit_template_name': 'hrdetails_add_edit_template',
+	        'foreign_entities': {
+	        	'state':{
+	        		'state':{
+	        			'placeholder': 'id_state',
+	        			'name_field': 'state_name'
+	        		},
+	        	},
+	        	'project':{
+	        		'project':{
+	        			'placeholder': 'id_project',
+	        			'name_field': 'project_name'
+	        		},
+	        	},
+	        },
+	        'unique_together_fields': ['state.id', 'project.id', 'month','year'],
+	        'sort_field': 'state',
+	        'form_field_validation': {
+	        	ignore: [],
+	        	rules: {
+	        		month: "required",
+	        		year: {
+	        			required:true,
+	        		},
+	        		state: "required",
+	        		project: "required",
+	        		Col2_smmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col3_smmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col4_smmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col5_smmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col6_smmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col7_smmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col8_smmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col9_smmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col2_dmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col3_dmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col4_dmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col5_dmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col6_dmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col7_dmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col8_dmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col9_dmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col2_bmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col3_bmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col4_bmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col5_bmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col6_bmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col7_bmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col8_bmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col9_bmmu: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col2_bmmup: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col3_bmmup: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col4_bmmup: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col5_bmmup: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col6_bmmup: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col7_bmmup: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col8_bmmup: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col9_bmmup: {
+	        			required: true,
+	        			digits: true
+	        		}
+	        	},
+	        messages: {
+	        	month: "Please select the month for which data is being reported",
+	        	year: {
+	        		required: "Please select the year for which data is being reported",
+	        	},
+	        	state: "Please select the state for which data is being reported",
+	        	project: "Please select the project name for which data is being reported",
+	        	Col2_smmu: {
+	        		required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"
+        		},
+        		Col3_smmu: {
+        			required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"        		
+	        	},
+        		Col4_smmu: {
+        			required: "This question is required, please enter the details",
+	        		digits: "Please enter only digits"        		
+	        	},
+				Col5_smmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col6_smmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col7_smmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col8_smmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col9_smmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col2_dmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col3_dmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col4_dmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col5_dmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col6_dmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col7_dmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col8_dmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col9_dmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col2_bmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col3_bmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col4_bmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col5_bmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col6_bmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col7_bmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col8_bmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col9_bmmu: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col2_bmmup: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col3_bmmup: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col4_bmmup: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col5_bmmup: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col6_bmmup: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col7_bmmup: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col8_bmmup: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col9_bmmup: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		}
+	        },
+
+            highlight: function(element, errorClass, validClass) {
+                $(element)
+                    .parent('div')
+                    .parent('div')
+                    .addClass("error");
+
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element)
+                    .parent('div')
+                    .parent('div')
+                    .removeClass("error");
+
+            },
+            errorElement: "span",
+            errorClass: "help-inline"
+	    }
+	};
+	
+	var financialassistance_configs = {
+			'entity_name' : 'financialassistance',
+			'rest_api_url' : '/api/v1/FinancialAssistance/',
+			'dashboard_display' : {
+	    		listing : true,
+	    		add : true
+	    	},
+			'page_header': 'Fin Asst',
+			'list_table_header_template': 'financialassistance_table_template',
+			'list_table_row_template': 'financialassistance_list_item_template',
+	    	'add_template_name': 'financialassistance_add_edit_template',
+	        'edit_template_name': 'financialassistance_add_edit_template',
+	        'foreign_entities': {
+	        	'state':{
+	        		'state':{
+	        			'placeholder': 'id_state',
+	        			'name_field': 'state_name'
+	        		},
+	        	},
+	        	'project':{
+	        		'project':{
+	        			'placeholder': 'id_project',
+	        			'name_field': 'project_name'
+	        		},
+	        	},
+	        },
+	        'unique_together_fields': ['state.id', 'project.id', 'month','year'],
+	        'sort_field': 'state',
+	        'form_field_validation': {
+	        	ignore: [],
+	        	rules: {
+	        		month: "required",
+	        		year: {
+	        			required:true,
+	        		},
+	        		state: "required",
+	        		project: "required",
+	        		Col2_SC: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col3_SC: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col4_SC: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col5_SC: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Col6_SC: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col7_SC: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col8_SC: {
+	        			required: true,
+	        			number: true
+	        		},
+					Col2_ST: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col3_ST: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col4_ST: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col5_ST: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Col6_ST: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col7_ST: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col8_ST: {
+	        			required: true,
+	        			number: true
+	        		},
+					Col2_Min: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col3_Min: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col4_Min: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col5_Min: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Col6_Min: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col7_Min: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col8_Min: {
+	        			required: true,
+	        			number: true
+	        		},
+					Col2_Oth: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col3_Oth: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col4_Oth: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col5_Oth: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Col6_Oth: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col7_Oth: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col8_Oth: {
+	        			required: true,
+	        			number: true
+	        		},
+					Col2_PWD: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col3_PWD: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col4_PWD: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col5_PWD: {
+	        			required: true,
+	        			number: true
+	        		},
+	        		Col6_PWD: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col7_PWD: {
+	        			required: true,
+	        			digits: true
+	        		},
+	        		Col8_PWD: {
+	        			required: true,
+	        			number: true
+	        		}
+	        	},
+	        	groups: {
+	        		nrlm_date: "month year"
+	        	},
+	        messages: {
+	        	nrlm_date: "",
+	        	month: "Please select the month for which data is being reported",
+	        	year: {
+	        		required: "Please select the year for which data is being reported",
+	        	},
+	        	state: "Please select the state for which data is being reported",
+	        	project: "Please select the project name for which data is being reported",
+				Col2_SC: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col3_SC: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col4_SC: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col5_SC: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+        		Col6_SC: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col7_SC: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col8_SC: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+				Col2_ST: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col3_ST: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col4_ST: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col5_ST: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+        		Col6_ST: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col7_ST: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col8_ST: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+				Col2_Min: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col3_Min: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col4_Min: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col5_Min: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+        		Col6_Min: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col7_Min: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col8_Min: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+				Col2_Oth: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col3_Oth: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col4_Oth: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col5_Oth: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+        		Col6_Oth: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col7_Oth: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col8_Oth: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+				Col2_PWD: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col3_PWD: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col4_PWD: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col5_PWD: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		},
+        		Col6_PWD: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col7_PWD: {
+        			required: "This question is required, please enter the details",
+        			digits: "Please enter only digits"
+        		},
+        		Col8_PWD: {
+        			required: "This question is required, please enter the details",
+        			number: "Please enter a valid amount (Rs. in Lakhs)"
+        		}
+	        },
+
+            highlight: function(element, errorClass, validClass) {
+                $(element)
+                    .parent('div')
+                    .parent('div')
+                    .addClass("error");
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element)
+                    .parent('div')
+                    .parent('div')
+                    .removeClass("error");
+            },
+            errorElement: "span",
+            errorClass: "help-inline"
+	    }
+	};
+        var misc = {
         download_chunk_size: 2000,
         background_download_interval: 5 * 60 * 1000,
         inc_download_url: "/get_log/",
@@ -927,7 +2329,6 @@ function() {
                 })    
             }
         },
-        reset_database_check_url: '/coco/reset_database_check/',
         onLogin: function(Offline, Auth){
             getLastDownloadTimestamp()
                 .done(function(timestamp){
@@ -939,12 +2340,8 @@ function() {
                     lastdownloadtimestamp: timestamp
                 })
                     .done(function(resp){
-                        console.log(resp);
                         if(resp=="1")
-                        {
-                            alert("Your database will be redownloaded because of some changes in data.");
                             Offline.reset_database();
-                        }
                     });
             }   
             function getLastDownloadTimestamp()
@@ -959,20 +2356,20 @@ function() {
                     });
                 return dfd;    
             } 
-        }
+        },
+        reset_database_check_url: '/coco/reset_database_check/',
     };
 
     return {
-        village: village_configs,
-        mediator: mediator_configs,
-        video: video_configs,
-        group: group_configs,
-        person: person_configs,
-        screening: screening_configs,
-        adoption: adoption_configs,
-        language: language_configs,
-        district: district_configs,
-        misc: misc
+        state: state_configs,
+        project: project_configs,
+        progress: progress_configs,
+        target: target_configs,
+        //hrunit: hrunit_configs,
+        hrdetails: hrdetails_configs,
+        financialassistance: financialassistance_configs,
+        progresstill13: progresstill13_configs,
+        misc:misc
     }
 
 });
@@ -4127,31 +5524,41 @@ define('views/notification',['jquery', 'backbone', ], function($) {
     return new NotificationsView;
 });
 
+define('check_internet_connectivity',['jquery'], function($) {
+	var check_connectivity={
+			is_internet_connected : function(){
+				return $.get("/coco/check_connectivity/");
+	        },
+	}
+	return check_connectivity;
+});
 define('models/user_model',[
   'jquery',
   'backbone',
   'indexeddb_backbone_config',
   'indexeddb-backbone',
-  'collections/upload_collection'
+  'collections/upload_collection',
+  'check_internet_connectivity'
   // Using the Require.js text! plugin, we are loaded raw text
   // which will be used as our views primary template
   // 'text!templates/project/list.html'
-], function(jquery, backbone, indexeddb, idb_backbone_adapter, UploadCollection){
+], function(jquery, backbone, indexeddb, idb_backbone_adapter, UploadCollection, check_connectivity){
     
     var generic_model_offline = Backbone.Model.extend({
         database: indexeddb,
         storeName: "user",
         isOnline: function(){
-            return navigator.onLine;
+        	return check_connectivity.is_internet_connected();
         },
         isLoggedIn: function(){
             //TODO: should fetch itself first to get latest state?
             // should this be handled by the auth module
             return this.get("loggedin");
         },
-        canSaveOnline: function(){
-            return this.isOnline() && UploadCollection.fetched && UploadCollection.length===0
-        }
+        
+//        canSaveOnline: function(){
+//            return this.isOnline() && UploadCollection.fetched && UploadCollection.length===0;
+//        }
     });
     var user_model = new generic_model_offline();
     user_model.set({key: "user_info"});
@@ -8169,38 +9576,40 @@ define('auth',[
     'auth_offline_backend',
     'configs',
     'offline_utils',
+    'check_internet_connectivity',
     'jquery_cookie'
-], function(User, OfflineAuthBackend, all_configs, Offline) {
-
-    var internet_connected = function() {
-        return navigator.onLine;
-    }
+], function(User, OfflineAuthBackend, all_configs, Offline, check_connectivity) {
 
     // checks whether the user is logged in or not in both backends- based on internet connectivity 
     var check_login = function() {
-        var dfd = new $.Deferred()
-        console.log("checking login");
-        if (check_online_login()) {
+        //ideally shd have been exacty same as the server uses. But approximating it to avoid network request.
+    	var dfd = new $.Deferred();
+    	check_connectivity.is_internet_connected()
+        .fail(function(){
             check_offline_login()
-                .done(function() {
+            .done(function(){
+                dfd.resolve();
+            })
+            .fail(function(error){
+                dfd.reject(error);
+            });
+        })
+        .done(function(){
+      	  if($.cookie('sessionid')){
+                check_offline_login()
+                .done(function(){
                     dfd.resolve();
                 })
-                .fail(function(error) {
+                .fail(function(error){
                     dfd.reject(error);
                 });
-        } else {
-            dfd.reject("Not logged in on server");
-        }
+      	  }
+      	  else{
+      		  dfd.reject("Not logged in on server");
+      	  }
+        });
         return dfd.promise();
-    }
-
-    
-    //ideally shd have been exacty same as the server uses. But approximating it to avoid network request.
-    var check_online_login = function() {
-        if (!internet_connected || $.cookie('sessionid'))
-            return true;
-        return false;
-    }
+    };
 
     //is exactly same as the offline backend uses. (Since offline backend auth is custom written by us)
     var check_offline_login = function() {
@@ -8219,39 +9628,40 @@ define('auth',[
         });
         return dfd;
     }
-
+;
     // logs out of the offline backend, if internet accessible- logs out of the server backend
     var logout = function() {
         var dfd = new $.Deferred();
-        var that = this;
         online_logout()
             .always(function() {
                 offline_logout()
                     .always(function() {
                         dfd.resolve();
-                    })
+                    });
             });
         return dfd;
-    }
+    };
     
     // logs out of the online backend if internet accessible
     var online_logout = function() {
         var dfd = new $.Deferred();
 
-        if (!internet_connected())
-            dfd.resolve();
-            
-        // the logout endpoint should be made configurable
-        $.post("/coco/logout/")
-            .done(function(resp) {
+        check_connectivity.is_internet_connected()
+        .fail(function(){
+      	  dfd.resolve();
+        })
+        .done(function(){
+            // the logout endpoint should be made configurable
+            $.post("/coco/logout/")
+            .done(function(resp){
                 return dfd.resolve();
             })
-            .fail(function(resp) {
+            .fail(function(resp){
                 return dfd.reject(resp);
             });
-
+        });
         return dfd.promise();
-    }
+    };
 
     // contact OfflineAuthBackend to log out of the offline backend 
     var offline_logout = function() {
@@ -8264,14 +9674,16 @@ define('auth',[
                 dfd.reject();
             });
         return dfd;
-    }
+    };
 
     // logs-in to the offline backend, if internet accessible - logs-in to the server backend
     var login = function(username, password) {
         var dfd = new $.Deferred();
         console.log("Attemting login");
         // internet accessible - login to server backend - when successfull - login to offline backend
-        if (internet_connected()) {
+        
+        check_connectivity.is_internet_connected()
+        .done(function(){
             // try server backend login
             online_login(username, password)
                 .fail(function(error) {
@@ -8307,8 +9719,9 @@ define('auth',[
                             dfd.resolve();
                         });
                 });
-        } else {
-            // internet nt accessible - only try loggin into offline backend
+        })
+        .fail(function(){
+        	// internet nt accessible - only try loggin into offline backend
             offline_login(username, password)
                 .fail(function(error) {
                     console.log("Offline login failed - " + error);
@@ -8325,31 +9738,35 @@ define('auth',[
                         all_configs.misc.onLogin(Offline, this);
                     dfd.resolve();
                 });
-        }
+        });
         return dfd;
-    }
+    };
 
     // resolves if server returns 1 or internet is not connected otherwise rejects
     var online_login = function(username, password) {
         var dfd = new $.Deferred();
-        if (!internet_connected())
-            return dfd.resolve();
-        //the endpoint should be made configurable     
-        $.post("/coco/login/", {
-            "username": username,
-            "password": password
+        check_connectivity.is_internet_connected()
+        .fail(function(){
+      	  return dfd.resolve();
         })
-            .done(function(resp) {
-                if (resp == "1")
-                    return dfd.resolve();
-                else
-                    return dfd.reject("Username or password is incorrect (Server)");
-            })
-            .fail(function(resp) {
-                return dfd.reject("Could not contact server. Try again in a minute.");
-            });
+        .done(function(){
+	        //the endpoint should be made configurable     
+	        $.post("/coco/login/", {
+	            "username": username,
+	            "password": password
+	        })
+	            .done(function(resp) {
+	                if (resp == "1")
+	                    return dfd.resolve();
+	                else
+	                    return dfd.reject("Username or password is incorrect (Server)");
+	            })
+	            .fail(function(resp) {
+	                return dfd.reject("Could not contact server. Try again in a minute.");
+	            });
+        });
         return dfd.promise();
-    }
+    };
     
 
     //contact OfflineAuthBackend to authenticate a user against offline backend  
@@ -8363,7 +9780,7 @@ define('auth',[
                 dfd.reject(error);
             });
         return dfd.promise();
-    }
+    };
 
     // contact OfflineAuthBackend to register a new user in offline backend
     var offline_register = function(username, password) {
@@ -8376,7 +9793,7 @@ define('auth',[
                 dfd.reject(error);
             });
         return dfd.promise();
-    }
+    };
 
     return {
         check_login: check_login,
@@ -8400,8 +9817,9 @@ define('views/full_download',[
     'indexeddb_backbone_config',
     'configs',
     'offline_utils',
-    'bootstrapjs'
-], function(jquery, underscore, layoutmanager, indexeddb, all_configs, Offline) {
+    'bootstrapjs',
+    'check_internet_connectivity'
+], function(jquery, underscore, layoutmanager, indexeddb, all_configs, Offline, pass, check_connectivity) {
 
 
     var FullDownloadView = Backbone.Layout.extend({
@@ -8411,10 +9829,6 @@ define('views/full_download',[
         },
 
         template: "#download_template",
-
-        internet_connected: function() {
-            return navigator.onLine;
-        },
 
         //send the list of entities to the template 
         serialize: function() {
@@ -8455,13 +9869,6 @@ define('views/full_download',[
             //Django complains when Z is present in timestamp bcoz timezone capab is off
             this.start_time = new Date().toJSON().replace("Z", "");
 
-            //check whether internet is accessible - if not, abort full download
-            if (!this.internet_connected()) {
-                // this function is expected to return a dfd, so create a new dfd, reject it and return it
-                var dfd = new $.Deferred();
-                dfd.reject("Can't download database. Internet is not connected");
-                return dfd;
-            }
             //intialize UI objects
             this.$('#full_download_modal').modal({
                 keyboard: false,
@@ -8532,46 +9939,53 @@ define('views/full_download',[
         start_full_download: function() {
             this.full_download_dfd = new $.Deferred();
             var that = this;
-            //run some intitialization logic - check internt, setup ui etc
-            this.initialize_download()
-                .done(function() {
-                    //iterate over entities and start their download
-                    that.iterate_object_stores()
-                        .done(function() {
-                            //run some finish logic - save the timsetamp 
-                            that.finish_download()
-                                .done(function() {
-                                    //run any after download logic defined by user
-                                    that.call_after_download()
-                                        .done(function() {
-                                            // full download finised successfully
-                                            that.remove_ui();
-                                            that.full_download_dfd.resolve();
-                                        })
-                                        .fail(function(error) {
-                                            //user defined after download failed
-                                            that.remove_ui();
-                                            that.full_download_dfd.reject(error);
-                                        });
-                                })
-                                .fail(function(error) {
-                                    //something in finish download failed
-                                    that.remove_ui();
-                                    that.full_download_dfd.reject(error);
-                                });
-                        })
-                        .fail(function(error) {
-                            //soemthing failed while iterating entities and their download
-                            that.remove_ui();
-                            that.full_download_dfd.reject(error);
-                        })
-                })
-                .fail(function(error) {
-                    //something failed in intialization
-                    that.remove_ui();
-                    that.full_download_dfd.reject(error);
-                });
-
+            //check whether internet is accessible - if not, abort full download
+            check_connectivity.is_internet_connected()
+            .fail(function(){
+            	that.remove_ui();
+                that.full_download_dfd.reject("Can't download database. Internet is not connected");
+            })
+            .done(function(){
+            	//run some intitialization logic - setup ui etc
+	            that.initialize_download()
+	                .done(function() {
+	                    //iterate over entities and start their download
+	                    that.iterate_object_stores()
+	                        .done(function() {
+	                            //run some finish logic - save the timsetamp 
+	                            that.finish_download()
+	                                .done(function() {
+	                                    //run any after download logic defined by user
+	                                    that.call_after_download()
+	                                        .done(function() {
+	                                            // full download finised successfully
+	                                            that.remove_ui();
+	                                            that.full_download_dfd.resolve();
+	                                        })
+	                                        .fail(function(error) {
+	                                            //user defined after download failed
+	                                            that.remove_ui();
+	                                            that.full_download_dfd.reject(error);
+	                                        });
+	                                })
+	                                .fail(function(error) {
+	                                    //something in finish download failed
+	                                    that.remove_ui();
+	                                    that.full_download_dfd.reject(error);
+	                                });
+	                        })
+	                        .fail(function(error) {
+	                            //soemthing failed while iterating entities and their download
+	                            that.remove_ui();
+	                            that.full_download_dfd.reject(error);
+	                        })
+	                })
+	                .fail(function(error) {
+	                    //something failed in intialization
+	                    that.remove_ui();
+	                    that.full_download_dfd.reject(error);
+	                });
+            });
             return this.full_download_dfd;
         },
 
@@ -8963,9 +10377,9 @@ define('views/full_download',[
 });
 
 //This view contains the links to add and list pages of entities, the sync button, logout link, online-offline indicator
-define('views/dashboard',['jquery', 'underscore', 'configs', 'indexeddb_backbone_config', 'collections/upload_collection', 'views/upload', 'views/incremental_download', 'views/notification', 'layoutmanager', 'models/user_model', 'auth', 'offline_utils', 'views/full_download' ],
+define('views/dashboard',['jquery', 'underscore', 'configs', 'indexeddb_backbone_config', 'collections/upload_collection', 'views/upload', 'views/incremental_download', 'views/notification', 'layoutmanager', 'models/user_model', 'auth', 'offline_utils', 'views/full_download', 'check_internet_connectivity'],
 
-function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDownloadView, notifs_view, layoutmanager, User, Auth, Offline, FullDownloadView) {
+function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDownloadView, notifs_view, layoutmanager, User, Auth, Offline, FullDownloadView, check_connectivity) {
 
     var DashboardView = Backbone.Layout.extend({
         template: "#dashboard",
@@ -9036,18 +10450,20 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
             });
             
             //keep the online-offline indicator up-to-date
-            window.addEventListener("offline", this.user_offline);
+//            window.addEventListener("offline", this.user_offline);
             //keep the online-offline indicator up-to-date
-            window.addEventListener("online", this.user_online);
+//            window.addEventListener("online", this.user_online);
 
-            //set the online-offline indicator
-            if (User.isOnline()) {
-                this.user_online();
-            } else {
-                this.user_offline();
-            }
             var that = this;
-            
+            //set the online-offline indicator
+			User.isOnline()
+			.done(function(){
+				that.user_online();
+			})
+			.fail(function(){
+				that.user_offline();
+			});
+                        
             //disable all links of db not yet downloaded
             Offline.fetch_object("meta_data", "key", "last_full_download")
                 .done(function(model) {
@@ -9107,64 +10523,67 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
                 alert("Please wait till background download is finished.");
                 return;
             }
-            Offline.fetch_object("meta_data", "key", "last_full_download")
-                .done(function(model) {
-                console.log("In Sync: db completely downloaded");
-                that.sync_in_progress = true;
-                //start upload
-                that.upload()
-                    .done(function() {
-                    console.log("UPLOAD FINISHED");
-                    notifs_view.add_alert({
-                        notif_type: "success",
-                        message: "Sync successfully finished"
-                    });
-                })
-                    .fail(function(error) {
-                    console.log("ERROR IN UPLOAD :" + error);
-                    notifs_view.add_alert({
-                        notif_type: "error",
-                        message: "Sync Incomplete. Failed to finish upload : " + error
-                    });
-                })
-                    .always(function() {
-                    //upload finished
-                    //start inc download - even if upload failed    
-                    that.inc_download({
-                        background: false
-                    })
-                        .done(function() {
-                        console.log("INC DOWNLOAD FINISHED");
-                        that.sync_in_progress = false;
-                        notifs_view.add_alert({
-                            notif_type: "success",
-                            message: "Incremental download successfully finished"
-                        });
-                    })
-                        .fail(function(error) {
-                        console.log("ERROR IN INC DOWNLOAD");
-                        console.log(error);
-                        that.sync_in_progress = false;
-                        notifs_view.add_alert({
-                            notif_type: "error",
-                            message: "Sync Incomplete. Failed to do Incremental Download: " + error
-                        });
-
-                    });
-                });
-
-            })
-                .fail(function(model, error) {
-                // if DB is not downloaded, start the full download    
-                if (error == "Not Found") {
-                    that.render()
-                        .done(function() {
-                        console.log("In Sync: db not completely downloaded");
-                        that.download();
-                    });
-                }
+            check_connectivity.is_internet_connected()
+            .fail(function(){
+	            	alert("Internet doesn't seem to be connected this computer. Please try sync after some time.");
+	        })
+            .done(function(){
+	            	Offline.fetch_object("meta_data", "key", "last_full_download")
+	                .done(function(model) {
+			                console.log("In Sync: db completely downloaded");
+			                that.sync_in_progress = true;
+			                //start upload
+			                that.upload()
+		                    .done(function() {
+			                    console.log("UPLOAD FINISHED");
+			                    notifs_view.add_alert({
+			                        notif_type: "success",
+			                        message: "Sync successfully finished"
+			                    });
+		                    })
+		                    .fail(function(error) {
+			                    console.log("ERROR IN UPLOAD :" + error);
+			                    notifs_view.add_alert({
+			                        notif_type: "error",
+			                        message: "Sync Incomplete. Failed to finish upload : " + error
+			                    });
+		                    })
+		                    .always(function() {
+				                    //upload finished
+				                    //start inc download - even if upload failed    
+				                    that.inc_download({
+				                        background: false
+				                    })
+			                        .done(function() {
+				                        console.log("INC DOWNLOAD FINISHED");
+				                        that.sync_in_progress = false;
+				                        notifs_view.add_alert({
+				                            notif_type: "success",
+				                            message: "Incremental download successfully finished"
+				                        });
+				                    })
+			                        .fail(function(error) {
+				                        console.log("ERROR IN INC DOWNLOAD");
+				                        console.log(error);
+				                        that.sync_in_progress = false;
+				                        notifs_view.add_alert({
+				                            notif_type: "error",
+				                            message: "Sync Incomplete. Failed to do Incremental Download: " + error
+			                        });
+		                    });
+	                });
+	              })
+	              .fail(function(model, error) {
+		                // if DB is not downloaded, start the full download    
+		                if (error == "Not Found") {
+		                    that.render()
+		                        .done(function() {
+		                        console.log("In Sync: db not completely downloaded");
+		                        that.download();
+		                    });
+		                }
+	              });
             });
-
         },
         
         //method to initiate full download
@@ -9253,11 +10672,18 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
             };
 
             //check if uploadqueue is empty and internet is connected - if both true do the background download
-            if (this.is_uploadqueue_empty() && this.is_internet_connected() && !this.sync_in_progress) this.inc_download({
-                background: true
-            })
-            //when the inc download is finished set the timer to start it again later
-                .always(call_again);
+            if(this.is_uploadqueue_empty() && !this.sync_in_progress){
+            	check_connectivity.is_internet_connected()
+            	.done(function(){
+            		this.inc_download({background:true})
+            		//when the inc download is finished set the timer to start it again later
+                    .always(call_again);
+            	})
+            	.fail(function(){
+            		console.log("Incremental download failed because there is no connectivity.")
+            		call_again();
+            	})
+            }
             //if cant do inc download right now, just set the timer to start it again later    
             else call_again();
         },
@@ -9268,11 +10694,6 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
             return upload_collection.fetched && upload_collection.length <= 0;
         },
 
-        // check internet connection
-        is_internet_connected: function() {
-            return navigator.onLine;
-        },
-        
         // logout and navigate to login url
         logout: function() {
             Auth.logout()
@@ -9550,8 +10971,9 @@ define('views/form_controller',[
     'convert_namespace',
     'offline_utils',
     'online_utils',
-    'indexeddb-backbone'
-], function(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, ConvertNamespace, Offline, Online) {
+    'indexeddb-backbone',
+    'check_internet_connectivity'
+], function(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, ConvertNamespace, Offline, Online, pass, check_connectivity) {
 
     // FormController: Brings up the Add/Edit form
 
@@ -9763,39 +11185,70 @@ define('views/form_controller',[
         save_object: function(json, foreign_entities, entity_name) {
             var dfd = new $.Deferred();
             var that = this;
-            if (this.is_uploadqueue_empty() && this.is_internet_connected()) {
-                //Online mode
-                // convert namespace of object from offline to online
-                ConvertNamespace.convert(json, foreign_entities, "offlinetoonline")
-                    .done(function(on_off_jsons) {
-                        // save in online mode
-                        that.save_when_online(entity_name, on_off_jsons)
-                            .done(function(off_json) {
-                                // call any user defined after-save
-                                call_after_save(off_json)
-                                    .done(function() {
-                                        // successfully saved
-                                        show_suc_notif();
-                                        dfd.resolve(off_json);
-                                    })
-                                    .fail(function(error) {
-                                        // user defined after-save failed
-                                        alert("afterSave failed for entity - " + entity_name + " - " + error);
-                                    });
-                            })
-                            .fail(function(error) {
-                                // error saving the object
-                                // show error on form
-                                show_err_notif();
-                                dfd.reject(error);
-                            });
-                    })
-                    .fail(function(error) {
-                        // namespace conversion failed
-                        show_err_notif();
-                        return dfd.reject(error);
-                    });
+            if (this.is_uploadqueue_empty()) {
+            	check_connectivity.is_internet_connected()
+            	.done(function(){
+                	//Online mode
+	                // convert namespace of object from offline to online
+	                ConvertNamespace.convert(json, foreign_entities, "offlinetoonline")
+	                    .done(function(on_off_jsons) {
+	                        // save in online mode
+	                        that.save_when_online(entity_name, on_off_jsons)
+	                            .done(function(off_json) {
+	                                // call any user defined after-save
+	                                call_after_save(off_json)
+	                                    .done(function() {
+	                                        // successfully saved
+	                                        show_suc_notif();
+	                                        dfd.resolve(off_json);
+	                                    })
+	                                    .fail(function(error) {
+	                                        // user defined after-save failed
+	                                        alert("afterSave failed for entity - " + entity_name + " - " + error);
+	                                    });
+	                            })
+	                            .fail(function(error) {
+	                                // error saving the object
+	                                // show error on form
+	                                show_err_notif();
+	                                dfd.reject(error);
+	                            });
+	                    })
+	                    .fail(function(error) {
+	                        // namespace conversion failed
+	                        show_err_notif();
+	                        return dfd.reject(error);
+	                    });
+            	})
+            	.fail(function(){
+                    //Offline mode
+                    // save in offline mode
+                    that.save_when_offline(entity_name, json)
+                        .done(function(off_json) {
+                            // call any user defined after-save
+                            call_after_save(off_json)
+                                .done(function() {
+                                    // successfully saved
+                                    show_suc_notif();
+                                    dfd.resolve(off_json);
+                                })
+                                .fail(function(error) {
+                                    // user defined after-save failed
+                                    alert("afterSave failed for entity - " + entity_name + " - " + error);
+                                });
+                        })
+                        .fail(function(error) {
+                            // error saving the object
+                            // show error on form
+                            show_err_notif();
+                            return dfd.reject(error);
+                        });
+            		
+            	});
             } else {
+//////////////////////
+// Removing redundancy pending
+/////////////////////
                 //Offline mode
                 // save in offline mode
                 this.save_when_offline(entity_name, json)
@@ -9937,11 +11390,6 @@ define('views/form_controller',[
             console.log(upload_collection);
 
             return upload_collection.length <= 0;
-        },
-
-        // checks whther internet is available
-        is_internet_connected: function() {
-            return navigator.onLine;
         },
         
         // button2 is made null - so this is nevr used 
@@ -10325,7 +11773,7 @@ define('router',['jquery', 'underscore', 'backbone', 'views/app_layout', 'config
 });
 
 //The user of the COCO v2 framework shall write any app initialization logic here
-define('user_initialize',['auth', 'offline_utils', 'configs', 'jquery', 'form_field_validator', ], function(Auth, Offline, all_configs) {
+define('user_initialize',['auth', 'offline_utils', 'configs', 'check_internet_connectivity', 'jquery', 'form_field_validator' ], function(Auth, Offline, all_configs, check_connectivity) {
 
     var run = function() {
         // adding custom validation checks to jquery.Validation plugin
@@ -10350,8 +11798,13 @@ define('user_initialize',['auth', 'offline_utils', 'configs', 'jquery', 'form_fi
             //if the user is logged in call the callback here else call it after login    
             Auth.check_login()
                 .done(function() {
-                if (!navigator.onLine) return;
-                all_configs.misc.onLogin(Offline, Auth);
+                	check_connectivity.is_internet_connected()
+                    .done(function(){
+                    	all_configs.misc.onLogin(Offline, Auth);
+                    })
+                    .fail(function(){
+                    	console.log("Reset databast check failed because of no Connectivity");
+                    });
             });
         }
 
@@ -10548,7 +12001,8 @@ require.config({
         'chosen': 'libs/chosen/chosen.jquery.min',
         'date_picker': 'libs/bootstrap/js/bootstrap-datepicker',
         'time_picker': 'libs/bootstrap/js/bootstrap-timepicker.min',
-        'jquery_cookie': 'libs/jquery.cookie'
+        'jquery_cookie': 'libs/jquery.cookie',
+        'jqueryui': 'lobd/jquery-ui-1.10.3/js/jquery-ui-1.10.3.custom'
     },
 
     //specifying dependencies of non-amd libraries

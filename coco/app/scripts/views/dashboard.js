@@ -295,7 +295,7 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
 
             //check if uploadqueue is empty and internet is connected - if both true do the background download
             if(this.is_uploadqueue_empty() && !this.sync_in_progress){
-            	this.is_internet_connected()
+            	check_connectivity.is_internet_connected()
             	.done(function(){
             		this.inc_download({background:true})
             		//when the inc download is finished set the timer to start it again later
@@ -316,11 +316,6 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
             return upload_collection.fetched && upload_collection.length <= 0;
         },
 
-        // check internet connection
-        is_internet_connected: function() {
-        	return check_connectivity.is_internet_connected();
-        },
-        
         // logout and navigate to login url
         logout: function() {
             Auth.logout()

@@ -226,7 +226,7 @@ define([
             var dfd = new $.Deferred();
             var that = this;
             if (this.is_uploadqueue_empty()) {
-            	this.is_internet_connected()
+            	check_connectivity.is_internet_connected()
             	.done(function(){
                 	//Online mode
 	                // convert namespace of object from offline to online
@@ -263,7 +263,7 @@ define([
             	.fail(function(){
                     //Offline mode
                     // save in offline mode
-                    this.save_when_offline(entity_name, json)
+                    that.save_when_offline(entity_name, json)
                         .done(function(off_json) {
                             // call any user defined after-save
                             call_after_save(off_json)
@@ -430,11 +430,6 @@ define([
             console.log(upload_collection);
 
             return upload_collection.length <= 0;
-        },
-
-        // checks whther internet is available
-        is_internet_connected: function() {
-        	return check_connectivity.is_internet_connected();
         },
         
         // button2 is made null - so this is nevr used 

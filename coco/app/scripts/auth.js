@@ -13,6 +13,7 @@ define([
     // checks whether the user is logged in or not in both backends- based on internet connectivity 
     var check_login = function() {
         //ideally shd have been exacty same as the server uses. But approximating it to avoid network request.
+    	var dfd = new $.Deferred();
     	check_connectivity.is_internet_connected()
         .fail(function(){
             check_offline_login()
@@ -22,7 +23,6 @@ define([
             .fail(function(error){
                 dfd.reject(error);
             });
-
         })
         .done(function(){
       	  if($.cookie('sessionid')){

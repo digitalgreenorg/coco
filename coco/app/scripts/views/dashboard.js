@@ -1,7 +1,7 @@
 //This view contains the links to add and list pages of entities, the sync button, logout link, online-offline indicator
-define(['jquery', 'underscore', 'configs', 'indexeddb_backbone_config', 'collections/upload_collection', 'views/upload', 'views/incremental_download', 'views/notification', 'layoutmanager', 'models/user_model', 'auth', 'offline_utils', 'views/full_download', 'check_internet_connectivity'],
+define(['jquery', 'underscore', 'configs', 'indexeddb_backbone_config', 'collections/upload_collection', 'views/upload', 'views/incremental_download', 'views/notification', 'layoutmanager', 'models/user_model', 'auth', 'offline_utils', 'views/full_download', 'check_internet_connectivity', 'views/sync_button'],
 
-function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDownloadView, notifs_view, layoutmanager, User, Auth, Offline, FullDownloadView, check_connectivity) {
+function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDownloadView, notifs_view, layoutmanager, User, Auth, Offline, FullDownloadView, check_connectivity, sync_button) {
 
     var DashboardView = Backbone.Layout.extend({
         template: "#dashboard",
@@ -70,22 +70,8 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
                     return upload_collection.length;
                 });
             });
-            
-            //keep the online-offline indicator up-to-date
-//            window.addEventListener("offline", this.user_offline);
-            //keep the online-offline indicator up-to-date
-//            window.addEventListener("online", this.user_online);
 
             var that = this;
-            //set the online-offline indicator
-			User.isOnline()
-			.done(function(){
-				that.user_online();
-			})
-			.fail(function(){
-				that.user_offline();
-			});
-                        
             //disable all links of db not yet downloaded
             Offline.fetch_object("meta_data", "key", "last_full_download")
                 .done(function(model) {
@@ -94,26 +80,6 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
                 .fail(function(model, error) {
                 that.db_not_downloaded();
             });
-        },
-        
-        //enable sync button, show online indicator
-        user_online: function() {
-            $('#sync')
-                .removeAttr("disabled");
-            $('#offline')
-                .hide();
-            $('#online')
-                .show();
-        },
-
-        //disable sync button, show offline indicator
-        user_offline: function() {
-            $('#sync')
-                .attr('disabled', true);
-            $('#online')
-                .hide();
-            $('#offline')
-                .show();
         },
 
         //enable add, list links
@@ -306,8 +272,14 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
             		call_again();
             	})
             }
-            //if cant do inc download right now, just set the timer to start it again later    
-            else call_again();
+            //if cant do inc download right now, just set the timer to start it again later
+            //Also check if user is online (for highlighting sync button)
+            else{
+            	if(!this.sync_in_progress){
+            		sync_button.ping_when_offline();
+            	}
+            	call_again();
+            }
         },
 
         // check emptiness of uploadQ
@@ -326,8 +298,6 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
             });
         }
     });
-
-
     // Our module now returns our view
     return DashboardView;
 });

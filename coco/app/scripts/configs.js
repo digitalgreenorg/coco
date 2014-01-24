@@ -1351,14 +1351,12 @@ function() {
 	        			number: true
 	        		},
 	        		year: {
-	        			required: true,
-	        			validateYear: true
+	        			required: true
 	        		}
 	        	},
 	        messages: {
 	        	year: {
 	        		required: "Please select the year for which data is being reported",
-	        		validateYear: "Please check year"
 	        	},
 	        	state: "Please select the state for which data is being reported",
 	        	project: "Please select the project name for which data is being reported",

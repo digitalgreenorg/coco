@@ -12,8 +12,9 @@ define([
     'offline_utils',
     'online_utils',
     'indexeddb-backbone',
-    'check_internet_connectivity'
-], function(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, ConvertNamespace, Offline, Online, pass, check_connectivity) {
+    'check_internet_connectivity',
+    'views/sync_button',
+], function(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, ConvertNamespace, Offline, Online, pass, check_connectivity, sync_button) {
 
     // FormController: Brings up the Add/Edit form
 
@@ -286,9 +287,6 @@ define([
             		
             	});
             } else {
-//////////////////////
-// Removing redundancy pending
-/////////////////////
                 //Offline mode
                 // save in offline mode
                 this.save_when_offline(entity_name, json)
@@ -310,6 +308,10 @@ define([
                         // show error on form
                         show_err_notif();
                         return dfd.reject(error);
+                    })
+                    .always(function() {
+                    	//Check for internet connectivity
+                        sync_button.ping_when_offline();
                     });
             }
             

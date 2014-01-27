@@ -1366,14 +1366,12 @@ function() {
 	        			number: true
 	        		},
 	        		year: {
-	        			required: true,
-	        			validateYear: true
+	        			required: true
 	        		}
 	        	},
 	        messages: {
 	        	year: {
 	        		required: "Please select the year for which data is being reported",
-	        		validateYear: "Please check year"
 	        	},
 	        	state: "Please select the state for which data is being reported",
 	        	project: "Please select the project name for which data is being reported",
@@ -3089,6 +3087,20 @@ define('collections/upload_collection',[
             
   // Our module now returns our view
   return upload_collection;
+});
+define('collections/uploadqueue_status',[
+        'jquery',    
+        'collections/upload_collection',
+], function($, upload_collection) {
+	var uploadqueue_status = {
+			is_uploadqueue_empty: function() {
+	            console.log("FORMCONTROLLER: length of upload_collection - " + upload_collection.length);
+	            console.log(upload_collection);
+
+	            return upload_collection.fetched && upload_collection.length <= 0;
+	        },
+    };	
+    return uploadqueue_status;
 });
 /*!
  * backbone.layoutmanager.js v0.8.1
@@ -5524,10 +5536,47 @@ define('views/notification',['jquery', 'backbone', ], function($) {
     return new NotificationsView;
 });
 
-define('check_internet_connectivity',['jquery'], function($) {
+define('views/sync_button',['jquery'], function($) {
+	var sync_button = {
+		//Method to highlight sync button when connectivity returns
+        highlight_sync: function() {
+        	var highlight_timeout = 5000;
+        	
+        	$('#sync').addClass('btn-success');
+        	setTimeout(function(){
+                $("#sync").removeClass('btn-success');
+             }, highlight_timeout)
+        },        
+    };	
+    return sync_button;
+});
+define('check_internet_connectivity',[
+        'jquery',
+        'views/sync_button',
+        'collections/uploadqueue_status'
+], function($, sync_button, uploadqueue_status) {
 	var check_connectivity={
 			is_internet_connected : function(){
-				return $.get("/coco/check_connectivity/");
+				var dfd = new $.Deferred();
+				var that = this;
+				$.get("/coco/check_connectivity/")
+					.done(function() {
+						if (!uploadqueue_status.is_uploadqueue_empty())
+						{
+							sync_button.highlight_sync();
+						}
+						dfd.resolve();
+					})
+					.fail(function(error) {
+                        dfd.reject(error);
+                    });
+            return dfd.promise();
+	        },
+	        is_uploadqueue_empty: function() {
+	            console.log("FORMCONTROLLER: length of upload_collection - " + upload_collection.length);
+	            console.log(upload_collection);
+
+	            return upload_collection.length <= 0;
 	        },
 	}
 	return check_connectivity;
@@ -5547,15 +5596,16 @@ define('models/user_model',[
     var generic_model_offline = Backbone.Model.extend({
         database: indexeddb,
         storeName: "user",
-        isOnline: function(){
-        	return check_connectivity.is_internet_connected();
-        },
+        // This function is never used
+//        isOnline: function(){
+//        	return check_connectivity.is_internet_connected();
+//        },
         isLoggedIn: function(){
             //TODO: should fetch itself first to get latest state?
             // should this be handled by the auth module
             return this.get("loggedin");
         },
-        
+        // This function is never used
 //        canSaveOnline: function(){
 //            return this.isOnline() && UploadCollection.fetched && UploadCollection.length===0;
 //        }
@@ -10377,9 +10427,9 @@ define('views/full_download',[
 });
 
 //This view contains the links to add and list pages of entities, the sync button, logout link, online-offline indicator
-define('views/dashboard',['jquery', 'underscore', 'configs', 'indexeddb_backbone_config', 'collections/upload_collection', 'views/upload', 'views/incremental_download', 'views/notification', 'layoutmanager', 'models/user_model', 'auth', 'offline_utils', 'views/full_download', 'check_internet_connectivity'],
+define('views/dashboard',['jquery', 'underscore', 'configs', 'indexeddb_backbone_config', 'collections/upload_collection', 'collections/uploadqueue_status', 'views/upload', 'views/incremental_download', 'views/notification', 'layoutmanager', 'models/user_model', 'auth', 'offline_utils', 'views/full_download', 'check_internet_connectivity', 'views/sync_button'],
 
-function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDownloadView, notifs_view, layoutmanager, User, Auth, Offline, FullDownloadView, check_connectivity) {
+function(jquery, pass, configs, indexeddb, upload_collection, uploadqueue_status, UploadView, IncDownloadView, notifs_view, layoutmanager, User, Auth, Offline, FullDownloadView, check_connectivity, sync_button) {
 
     var DashboardView = Backbone.Layout.extend({
         template: "#dashboard",
@@ -10448,22 +10498,8 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
                     return upload_collection.length;
                 });
             });
-            
-            //keep the online-offline indicator up-to-date
-//            window.addEventListener("offline", this.user_offline);
-            //keep the online-offline indicator up-to-date
-//            window.addEventListener("online", this.user_online);
 
             var that = this;
-            //set the online-offline indicator
-			User.isOnline()
-			.done(function(){
-				that.user_online();
-			})
-			.fail(function(){
-				that.user_offline();
-			});
-                        
             //disable all links of db not yet downloaded
             Offline.fetch_object("meta_data", "key", "last_full_download")
                 .done(function(model) {
@@ -10472,26 +10508,6 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
                 .fail(function(model, error) {
                 that.db_not_downloaded();
             });
-        },
-        
-        //enable sync button, show online indicator
-        user_online: function() {
-            $('#sync')
-                .removeAttr("disabled");
-            $('#offline')
-                .hide();
-            $('#online')
-                .show();
-        },
-
-        //disable sync button, show offline indicator
-        user_offline: function() {
-            $('#sync')
-                .attr('disabled', true);
-            $('#online')
-                .hide();
-            $('#offline')
-                .show();
         },
 
         //enable add, list links
@@ -10672,7 +10688,7 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
             };
 
             //check if uploadqueue is empty and internet is connected - if both true do the background download
-            if(this.is_uploadqueue_empty() && !this.sync_in_progress){
+            if(uploadqueue_status.is_uploadqueue_empty() && !this.sync_in_progress){
             	check_connectivity.is_internet_connected()
             	.done(function(){
             		this.inc_download({background:true})
@@ -10684,14 +10700,12 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
             		call_again();
             	})
             }
-            //if cant do inc download right now, just set the timer to start it again later    
-            else call_again();
-        },
-
-        // check emptiness of uploadQ
-        is_uploadqueue_empty: function() {
-            //return false if the check is made before uploadQ collection could be fetched from DB
-            return upload_collection.fetched && upload_collection.length <= 0;
+            //if cant do inc download right now, just set the timer to start it again later
+            //Also check if user is online (for highlighting sync button)
+            else{
+        		check_connectivity.is_internet_connected();
+        		call_again();
+            }
         },
 
         // logout and navigate to login url
@@ -10704,8 +10718,6 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
             });
         }
     });
-
-
     // Our module now returns our view
     return DashboardView;
 });
@@ -10968,12 +10980,14 @@ define('views/form_controller',[
     'configs',
     'views/form',
     'collections/upload_collection',
+    'collections/uploadqueue_status',
     'convert_namespace',
     'offline_utils',
     'online_utils',
     'indexeddb-backbone',
-    'check_internet_connectivity'
-], function(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, ConvertNamespace, Offline, Online, pass, check_connectivity) {
+    'check_internet_connectivity',
+    'views/sync_button',
+], function(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, uploadqueue_status, ConvertNamespace, Offline, Online, pass, check_connectivity, sync_button) {
 
     // FormController: Brings up the Add/Edit form
 
@@ -11185,7 +11199,7 @@ define('views/form_controller',[
         save_object: function(json, foreign_entities, entity_name) {
             var dfd = new $.Deferred();
             var that = this;
-            if (this.is_uploadqueue_empty()) {
+            if (uploadqueue_status.is_uploadqueue_empty()) {
             	check_connectivity.is_internet_connected()
             	.done(function(){
                 	//Online mode
@@ -11246,9 +11260,6 @@ define('views/form_controller',[
             		
             	});
             } else {
-//////////////////////
-// Removing redundancy pending
-/////////////////////
                 //Offline mode
                 // save in offline mode
                 this.save_when_offline(entity_name, json)
@@ -11270,6 +11281,10 @@ define('views/form_controller',[
                         // show error on form
                         show_err_notif();
                         return dfd.reject(error);
+                    })
+                    .always(function() {
+                    	//Check for internet connectivity
+                    	check_connectivity.is_internet_connected();
                     });
             }
             
@@ -11382,14 +11397,6 @@ define('views/form_controller',[
                     return dfd.reject(xhr.responseText);
                 });
             return dfd.promise();
-        },
-        
-        // checks whether the uploadQ is empty or not
-        is_uploadqueue_empty: function() {
-            console.log("FORMCONTROLLER: length of upload_collection - " + upload_collection.length);
-            console.log(upload_collection);
-
-            return upload_collection.length <= 0;
         },
         
         // button2 is made null - so this is nevr used 

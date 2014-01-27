@@ -8,13 +8,14 @@ define([
     'configs',
     'views/form',
     'collections/upload_collection',
+    'collections/uploadqueue_status',
     'convert_namespace',
     'offline_utils',
     'online_utils',
     'indexeddb-backbone',
     'check_internet_connectivity',
     'views/sync_button',
-], function(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, ConvertNamespace, Offline, Online, pass, check_connectivity, sync_button) {
+], function(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, uploadqueue_status, ConvertNamespace, Offline, Online, pass, check_connectivity, sync_button) {
 
     // FormController: Brings up the Add/Edit form
 
@@ -226,7 +227,7 @@ define([
         save_object: function(json, foreign_entities, entity_name) {
             var dfd = new $.Deferred();
             var that = this;
-            if (this.is_uploadqueue_empty()) {
+            if (uploadqueue_status.is_uploadqueue_empty()) {
             	check_connectivity.is_internet_connected()
             	.done(function(){
                 	//Online mode
@@ -311,7 +312,7 @@ define([
                     })
                     .always(function() {
                     	//Check for internet connectivity
-                        sync_button.ping_when_offline();
+                    	check_connectivity.is_internet_connected();
                     });
             }
             
@@ -424,14 +425,6 @@ define([
                     return dfd.reject(xhr.responseText);
                 });
             return dfd.promise();
-        },
-        
-        // checks whether the uploadQ is empty or not
-        is_uploadqueue_empty: function() {
-            console.log("FORMCONTROLLER: length of upload_collection - " + upload_collection.length);
-            console.log(upload_collection);
-
-            return upload_collection.length <= 0;
         },
         
         // button2 is made null - so this is nevr used 

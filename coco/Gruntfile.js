@@ -219,7 +219,9 @@ module.exports = function( grunt ) {
                     'date_picker': 'libs/bootstrap/js/bootstrap-datepicker',    
                     'time_picker': 'libs/bootstrap/js/bootstrap-timepicker.min',    
                     'jquery_cookie':'libs/jquery.cookie',
-                    'jqueryui': 'lobd/jquery-ui-1.10.3/js/jquery-ui-1.10.3.custom'
+                    'tabletools': 'libs/tabletools_media/js/Tabletools.min',
+                    'zeroclipboard': 'libs/tabletools_media/js/ZeroClipboard.min',
+                    'configs': 'empty:',
                 },
             // name: "main"
             // out: ""

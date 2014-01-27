@@ -13,15 +13,16 @@ define([
     var generic_model_offline = Backbone.Model.extend({
         database: indexeddb,
         storeName: "user",
-        isOnline: function(){
-        	return check_connectivity.is_internet_connected();
-        },
+        // This function is never used
+//        isOnline: function(){
+//        	return check_connectivity.is_internet_connected();
+//        },
         isLoggedIn: function(){
             //TODO: should fetch itself first to get latest state?
             // should this be handled by the auth module
             return this.get("loggedin");
         },
-        
+        // This function is never used
 //        canSaveOnline: function(){
 //            return this.isOnline() && UploadCollection.fetched && UploadCollection.length===0;
 //        }

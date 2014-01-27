@@ -63,6 +63,13 @@
 	width: 150px;
 }
 
+#sync {
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}
+
 #coco_nav_add {
     width:10%;
 	padding-right:15%;

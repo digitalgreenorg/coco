@@ -270,10 +270,11 @@ function(jquery, pass, configs, indexeddb, upload_collection, uploadqueue_status
             };
 
             //check if uploadqueue is empty and internet is connected - if both true do the background download
+            var that = this;
             if(uploadqueue_status.is_uploadqueue_empty() && !this.sync_in_progress){
             	check_connectivity.is_internet_connected()
             	.done(function(){
-            		this.inc_download({background:true})
+            		that.inc_download({background:true})
             		//when the inc download is finished set the timer to start it again later
                     .always(call_again);
             	})

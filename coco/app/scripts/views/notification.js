@@ -51,8 +51,34 @@ define(['jquery', 'backbone', ], function($) {
                 });
             }, timeout);
 
+        },
+        
+        show_suc_notif: function(entity_name) {
+            this.add_alert({
+                notif_type: "success",
+                message: "Saved " + entity_name
+            });
+        },
+
+        show_err_notif: function(entity_name, error_text) {
+            if(!error_text){
+            	this.add_alert({
+                    notif_type: "error",
+                    message: "Error saving " + entity_name
+                });
+            }
+            else{
+            	notifs_view.add_alert({
+                    notif_type: "error",
+                    message: "Error saving " + entity_name + ". Error Message: " + error_text
+                });
+            }
         }
     });
+    
+    var notifications = {
+    		
+    }
     //return an initialized view - the app uses a single instance of Notification module
     return new NotificationsView;
 });

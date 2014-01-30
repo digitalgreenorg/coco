@@ -241,7 +241,7 @@ define([
 	                                call_after_save(off_json)
 	                                    .done(function() {
 	                                        // successfully saved
-	                                        show_suc_notif();
+	                                    	notifs_view.show_suc_notif(entity_name);
 	                                        dfd.resolve(off_json);
 	                                    })
 	                                    .fail(function(error) {
@@ -252,13 +252,13 @@ define([
 	                            .fail(function(error) {
 	                                // error saving the object
 	                                // show error on form
-	                                show_err_notif();
+	                                show_err_notif(entity_name);                                
 	                                dfd.reject(error);
 	                            });
 	                    })
 	                    .fail(function(error) {
 	                        // namespace conversion failed
-	                        show_err_notif();
+	                        show_err_notif(entity_name);
 	                        return dfd.reject(error);
 	                    });
             	})
@@ -271,7 +271,7 @@ define([
                             call_after_save(off_json)
                                 .done(function() {
                                     // successfully saved
-                                    show_suc_notif();
+                                	notifs_view.show_suc_notif(entity_name);
                                     dfd.resolve(off_json);
                                 })
                                 .fail(function(error) {
@@ -282,7 +282,7 @@ define([
                         .fail(function(error) {
                             // error saving the object
                             // show error on form
-                            show_err_notif();
+                            show_err_notif(entity_name);
                             return dfd.reject(error);
                         });
             		
@@ -296,7 +296,7 @@ define([
                         call_after_save(off_json)
                             .done(function() {
                                 // successfully saved
-                                show_suc_notif();
+                            	notifs_view.show_suc_notif(entity_name);
                                 dfd.resolve(off_json);
                             })
                             .fail(function(error) {
@@ -307,7 +307,7 @@ define([
                     .fail(function(error) {
                         // error saving the object
                         // show error on form
-                        show_err_notif();
+                    	show_err_notif(entity_name);
                         return dfd.reject(error);
                     })
                     .always(function() {
@@ -330,20 +330,6 @@ define([
                         });
                 else dfd.resolve();
                 return dfd.promise();
-            };
-
-            function show_suc_notif() {
-                notifs_view.add_alert({
-                    notif_type: "success",
-                    message: "Saved " + entity_name
-                });
-            };
-
-            function show_err_notif() {
-                notifs_view.add_alert({
-                    notif_type: "error",
-                    message: "Error saving " + entity_name
-                });
             };
 
             return dfd.promise();
@@ -438,9 +424,6 @@ define([
             //since may already be on the add page, therefore have to call this explicitly
             window.Router.add(entity_name); 
         }
-
-
-
 
     });
 

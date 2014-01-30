@@ -289,7 +289,7 @@ define([
                         .fail(function(error) {
                             // error saving the object
                             // show error on form
-                        	notifs_view.show_err_notif(entity_name,"Please recheck the form entries or contact administrator");
+                        	notifs_view.show_err_notif(entity_name,"Please recheck the form entries.");
                             return dfd.reject(error);
                         });
             	});

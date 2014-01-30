@@ -68,7 +68,7 @@ define(['jquery', 'backbone', ], function($) {
                 });
             }
             else{
-            	notifs_view.add_alert({
+            	this.add_alert({
                     notif_type: "error",
                     message: "Error saving " + entity_name + ". Error Message: " + error_text
                 });

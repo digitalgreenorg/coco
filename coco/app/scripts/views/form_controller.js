@@ -252,13 +252,20 @@ define([
 	                            .fail(function(error) {
 	                                // error saving the object
 	                                // show error on form
-	                                show_err_notif(entity_name);                                
+	                                //show_err_notif(entity_name); //No need to show this now.	                                
 	                                dfd.reject(error);
 	                            });
 	                    })
 	                    .fail(function(error) {
-	                        // namespace conversion failed
-	                        show_err_notif(entity_name);
+	                    	// namespace conversion failed
+	                    	//Tell user to check all the foriegn elements
+	                    	var elements = ""
+	                    	for (element in foreign_entities)
+	                    	{
+	                    		elements = elements + "," + element
+	                    	}
+	                    	elements += " "
+	                        show_err_notif(entity_name, "Please check these fields: " + elements);
 	                        return dfd.reject(error);
 	                    });
             	})
@@ -282,10 +289,9 @@ define([
                         .fail(function(error) {
                             // error saving the object
                             // show error on form
-                            show_err_notif(entity_name);
+                            show_err_notif(entity_name,"Please recheck the form entries or contact administrator");
                             return dfd.reject(error);
                         });
-            		
             	});
             } else {
                 //Offline mode
@@ -307,7 +313,7 @@ define([
                     .fail(function(error) {
                         // error saving the object
                         // show error on form
-                    	show_err_notif(entity_name);
+                    	show_err_notif(entity_name, "Please recheck the form entries.");
                         return dfd.reject(error);
                     })
                     .always(function() {
@@ -402,12 +408,16 @@ define([
                             return dfd.resolve(off_m.toJSON());
                         })
                         .fail(function(error) {
-                            //TODO: what to do abt the model just saved on server? 
+                        	// There is data inconsistency on client's db. Ask him to delete and download again. Or click on sync?
+                        	show_err_notif(entity_name, "Please delete the database and download again");
+                        	//TODO: what to do abt the model just saved on server? 
                             return dfd.reject(error);
                         });
                 })
                 .fail(function(xhr) {
                     // failed to save on server - return the error
+                	//Seems like internet connectivity issue?
+                	show_err_notif(entity_name, "There seem to be internet connectivity issue. Please try again.");                	
                     return dfd.reject(xhr.responseText);
                 });
             return dfd.promise();

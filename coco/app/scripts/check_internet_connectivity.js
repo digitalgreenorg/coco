@@ -20,12 +20,6 @@ define([
                     });
             return dfd.promise();
 	        },
-	        is_uploadqueue_empty: function() {
-	            console.log("FORMCONTROLLER: length of upload_collection - " + upload_collection.length);
-	            console.log(upload_collection);
-
-	            return upload_collection.length <= 0;
-	        },
 	}
 	return check_connectivity;
 });

@@ -14,8 +14,7 @@ define([
     'online_utils',
     'indexeddb-backbone',
     'check_internet_connectivity',
-    'views/sync_button',
-], function(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, uploadqueue_status, ConvertNamespace, Offline, Online, pass, check_connectivity, sync_button) {
+], function(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, uploadqueue_status, ConvertNamespace, Offline, Online, pass, check_connectivity) {
 
     // FormController: Brings up the Add/Edit form
 

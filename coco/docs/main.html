@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -173,26 +163,28 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p>The entry point of application. Configures requirejs, loads &quot;app&quot; module</p>
+              <p>The entry point of application. Configures requirejs, loads “app” module</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>require.config({
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">require</span>.config({
     paths: {
-        <span class="string">'hm'</span>: <span class="string">'libs/hm'</span>,
-        <span class="string">'jquery'</span>: <span class="string">'libs/jquery.min'</span>,
-        <span class="string">'underscore'</span>: <span class="string">'libs/backbone/underscore-min'</span>,
-        <span class="string">'backbone'</span>: <span class="string">'libs/backbone/backbone-min'</span>,
-        <span class="string">'indexeddb-backbone'</span>: <span class="string">'libs/indexeddb-backbonejs-adapter/backbone-indexeddb'</span>,
-        <span class="string">'datatable'</span>: <span class="string">'libs/datatablejs_media/js/jquery.dataTables.min'</span>,
-        <span class="string">'form_field_validator'</span>: <span class="string">'libs/jquery.validate'</span>,
-        <span class="string">'layoutmanager'</span>: <span class="string">'libs/layoutmanager/backbone.layoutmanager'</span>,
-        <span class="string">'syphon'</span>: <span class="string">'libs/backbone.syphon'</span>,
-        <span class="string">'bootstrapjs'</span>: <span class="string">'libs/bootstrap/js/bootstrap.min'</span>,
-        <span class="string">'chosen'</span>: <span class="string">'libs/chosen/chosen.jquery.min'</span>,
-        <span class="string">'date_picker'</span>: <span class="string">'libs/bootstrap/js/bootstrap-datepicker'</span>,
-        <span class="string">'time_picker'</span>: <span class="string">'libs/bootstrap/js/bootstrap-timepicker.min'</span>,
-        <span class="string">'jquery_cookie'</span>: <span class="string">'libs/jquery.cookie'</span>
+        <span class="hljs-string">'hm'</span>: <span class="hljs-string">'libs/hm'</span>,
+        <span class="hljs-string">'jquery'</span>: <span class="hljs-string">'libs/jquery.min'</span>,
+        <span class="hljs-string">'underscore'</span>: <span class="hljs-string">'libs/backbone/underscore-min'</span>,
+        <span class="hljs-string">'backbone'</span>: <span class="hljs-string">'libs/backbone/backbone-min'</span>,
+        <span class="hljs-string">'indexeddb-backbone'</span>: <span class="hljs-string">'libs/indexeddb-backbonejs-adapter/backbone-indexeddb'</span>,
+        <span class="hljs-string">'datatable'</span>: <span class="hljs-string">'libs/datatablejs_media/js/jquery.dataTables.min'</span>,
+        <span class="hljs-string">'form_field_validator'</span>: <span class="hljs-string">'libs/jquery.validate'</span>,
+        <span class="hljs-string">'layoutmanager'</span>: <span class="hljs-string">'libs/layoutmanager/backbone.layoutmanager'</span>,
+        <span class="hljs-string">'syphon'</span>: <span class="hljs-string">'libs/backbone.syphon'</span>,
+        <span class="hljs-string">'bootstrapjs'</span>: <span class="hljs-string">'libs/bootstrap/js/bootstrap.min'</span>,
+        <span class="hljs-string">'chosen'</span>: <span class="hljs-string">'libs/chosen/chosen.jquery.min'</span>,
+        <span class="hljs-string">'date_picker'</span>: <span class="hljs-string">'libs/bootstrap/js/bootstrap-datepicker'</span>,
+        <span class="hljs-string">'time_picker'</span>: <span class="hljs-string">'libs/bootstrap/js/bootstrap-timepicker.min'</span>,
+        <span class="hljs-string">'jquery_cookie'</span>: <span class="hljs-string">'libs/jquery.cookie'</span>,
+        <span class="hljs-string">'tabletools'</span>: <span class="hljs-string">'libs/tabletools_media/js/Tabletools'</span>,
+        <span class="hljs-string">'zeroclipboard'</span>: <span class="hljs-string">'libs/tabletools_media/js/ZeroClipboard.min'</span>,
     },</pre></div></div>
             
         </li>
@@ -209,7 +201,10 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>    shim: {
-        <span class="string">'backbone'</span>: {</pre></div></div>
+    	<span class="hljs-string">'jquery'</span>: {
+    		deps: [<span class="hljs-string">'configs'</span>]
+    	},
+        <span class="hljs-string">'backbone'</span>: {</pre></div></div>
             
         </li>
         
@@ -224,52 +219,57 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            deps: [<span class="string">'underscore'</span>, <span class="string">'jquery'</span>],
-            exports: <span class="string">'Backbone'</span>
+            <div class="content"><div class='highlight'><pre>            deps: [<span class="hljs-string">'underscore'</span>, <span class="hljs-string">'jquery'</span>],
+            exports: <span class="hljs-string">'Backbone'</span>
         },
-        <span class="string">'indexeddb-backbone'</span>: {
-            deps: [<span class="string">'backbone'</span>],
+        <span class="hljs-string">'indexeddb-backbone'</span>: {
+            deps: [<span class="hljs-string">'backbone'</span>],
         },
-        <span class="string">'layoutmanager'</span>: {
-            deps: [<span class="string">'backbone'</span>],
+        <span class="hljs-string">'layoutmanager'</span>: {
+            deps: [<span class="hljs-string">'backbone'</span>],
         },
-        <span class="string">'bootstrapjs'</span>: {
-            deps: [<span class="string">'jquery'</span>],
+        <span class="hljs-string">'bootstrapjs'</span>: {
+            deps: [<span class="hljs-string">'jquery'</span>],
         },
-        <span class="string">'underscore'</span>: {
-            deps: [<span class="string">'jquery'</span>],
-            exports: <span class="string">"_"</span>
+        <span class="hljs-string">'underscore'</span>: {
+            deps: [<span class="hljs-string">'jquery'</span>],
+            exports: <span class="hljs-string">"_"</span>
         },
-        <span class="string">'datatable'</span>: {
-            deps: [<span class="string">"jquery"</span>]
+        <span class="hljs-string">'datatable'</span>: {
+            deps: [<span class="hljs-string">"jquery"</span>]
+        },
+        <span class="hljs-string">'zeroclipboard'</span>: {
+    		deps:[<span class="hljs-string">'jquery'</span>]
+        },
+        <span class="hljs-string">'tabletools'</span>: {
+    		deps:[<span class="hljs-string">'jquery'</span>, <span class="hljs-string">'datatable'</span>,<span class="hljs-string">'zeroclipboard'</span>]
+        },
+        <span class="hljs-string">'form_field_validator'</span>: {
+            deps: [<span class="hljs-string">"jquery"</span>]
         },
 
-        <span class="string">'form_field_validator'</span>: {
-            deps: [<span class="string">"jquery"</span>]
+        <span class="hljs-string">'syphon'</span>: {
+            deps: [<span class="hljs-string">"jquery"</span>, <span class="hljs-string">"backbone"</span>]
         },
 
-        <span class="string">'syphon'</span>: {
-            deps: [<span class="string">"jquery"</span>, <span class="string">"backbone"</span>]
+        <span class="hljs-string">'bootstrapjs'</span>: {
+            deps: [<span class="hljs-string">"jquery"</span>]
         },
-
-        <span class="string">'bootstrapjs'</span>: {
-            deps: [<span class="string">"jquery"</span>]
+        <span class="hljs-string">'chosen'</span>: {
+            deps: [<span class="hljs-string">"jquery"</span>]
         },
-        <span class="string">'chosen'</span>: {
-            deps: [<span class="string">"jquery"</span>]
+        <span class="hljs-string">'date_picker'</span>: {
+            deps: [<span class="hljs-string">"jquery"</span>]
         },
-        <span class="string">'date_picker'</span>: {
-            deps: [<span class="string">"jquery"</span>]
-        },
-        <span class="string">'time_picker'</span>: {
-            deps: [<span class="string">"jquery"</span>]
+        <span class="hljs-string">'time_picker'</span>: {
+            deps: [<span class="hljs-string">"jquery"</span>]
         },
 
 
     }
 });
 
-require([<span class="string">'app'</span>], <span class="keyword">function</span>(app) {</pre></div></div>
+<span class="hljs-built_in">require</span>([<span class="hljs-string">'app'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(app)</span> {</span></pre></div></div>
             
         </li>
         

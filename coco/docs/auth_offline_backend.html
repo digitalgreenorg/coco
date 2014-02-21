@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -180,8 +170,8 @@ Uses a User table in offline db to store the username, password and login-state 
             </div>
             
             <div class="content"><div class='highlight'><pre>define([
-    <span class="string">'models/user_model'</span>,  
-  ], <span class="keyword">function</span>(User){</pre></div></div>
+    <span class="hljs-string">'models/user_model'</span>,  
+  ], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(User)</span>{</span></pre></div></div>
             
         </li>
         
@@ -196,23 +186,23 @@ Uses a User table in offline db to store the username, password and login-state 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> logout = <span class="keyword">function</span>(){
-      <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> logout = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+      <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
       User.fetch({
-          success: <span class="keyword">function</span>(){
-              save_login_state_in_offline(User.get(<span class="string">"username"</span>), User.get(<span class="string">"password"</span>), <span class="literal">false</span>)
-                  .done(<span class="keyword">function</span>(){
+          success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+              save_login_state_in_offline(User.get(<span class="hljs-string">"username"</span>), User.get(<span class="hljs-string">"password"</span>), <span class="hljs-literal">false</span>)
+                  .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
                       dfd.resolve();
                   })
-                  .fail(<span class="keyword">function</span>(){
+                  .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
                       dfd.reject();
                   });
           },
-          error: <span class="keyword">function</span>(){
-               <span class="keyword">return</span> dfd.reject();
+          error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+               <span class="hljs-keyword">return</span> dfd.reject();
           }
       });      
-      <span class="keyword">return</span> dfd;
+      <span class="hljs-keyword">return</span> dfd;
   }</pre></div></div>
             
         </li>
@@ -228,30 +218,30 @@ Uses a User table in offline db to store the username, password and login-state 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> login = <span class="keyword">function</span>(username, password){
-      <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> login = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(username, password)</span>{</span>
+      <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
       User.fetch({
-          success: <span class="keyword">function</span>(){
-              <span class="keyword">if</span>(username==User.get(<span class="string">"username"</span>) &amp;&amp; password==User.get(<span class="string">"password"</span>))
+          success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+              <span class="hljs-keyword">if</span>(username==User.get(<span class="hljs-string">"username"</span>) &amp;&amp; password==User.get(<span class="hljs-string">"password"</span>))
               {
-                  save_login_state_in_offline(username, password, <span class="literal">true</span>)
-                      .done(<span class="keyword">function</span>(){
-                          <span class="keyword">return</span> dfd.resolve(<span class="string">"Successfully Logged In (Offline Backend)"</span>);
+                  save_login_state_in_offline(username, password, <span class="hljs-literal">true</span>)
+                      .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+                          <span class="hljs-keyword">return</span> dfd.resolve(<span class="hljs-string">"Successfully Logged In (Offline Backend)"</span>);
                       })
-                      .fail(<span class="keyword">function</span>(error){
-                          <span class="keyword">return</span> dfd.reject(error);
+                      .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span>{</span>
+                          <span class="hljs-keyword">return</span> dfd.reject(error);
                       });
               }
-              <span class="keyword">else</span>
+              <span class="hljs-keyword">else</span>
               {
-                  <span class="keyword">return</span> dfd.reject(<span class="string">"Username password did not match (Offline Backend)"</span>);
+                  <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-string">"Username password did not match (Offline Backend)"</span>);
               }
           },
-          error: <span class="keyword">function</span>(){
-               <span class="keyword">return</span> dfd.reject(<span class="string">"No user found"</span>);
+          error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+               <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-string">"No user found"</span>);
           }
       });
-      <span class="keyword">return</span> dfd.promise();
+      <span class="hljs-keyword">return</span> dfd.promise();
   }</pre></div></div>
             
         </li>
@@ -267,22 +257,22 @@ Uses a User table in offline db to store the username, password and login-state 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> register = <span class="keyword">function</span>(username, password){
-      <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> register = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(username, password)</span>{</span>
+      <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
       User.save({
-          key: <span class="string">"user_info"</span>,
+          key: <span class="hljs-string">"user_info"</span>,
           username: username,
           password: password,
-          loggedin: <span class="literal">true</span>
+          loggedin: <span class="hljs-literal">true</span>
       },{
-          success: <span class="keyword">function</span>(){
+          success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
               dfd.resolve();
           },
-          error: <span class="keyword">function</span>(){
+          error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
               dfd.reject();
           }
       });
-      <span class="keyword">return</span> dfd;
+      <span class="hljs-keyword">return</span> dfd;
   }</pre></div></div>
             
         </li>
@@ -298,19 +288,19 @@ Uses a User table in offline db to store the username, password and login-state 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> save_login_state_in_offline = <span class="keyword">function</span>(username, password, loggedin){
-      <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-      User.save({<span class="string">'username'</span>:username, <span class="string">'password'</span>:password, <span class="string">'loggedin'</span>:loggedin},{
-          success: <span class="keyword">function</span>(){
-              console.log(<span class="string">"user state saved in offline"</span>);
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> save_login_state_in_offline = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(username, password, loggedin)</span>{</span>
+      <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+      User.save({<span class="hljs-string">'username'</span>:username, <span class="hljs-string">'password'</span>:password, <span class="hljs-string">'loggedin'</span>:loggedin},{
+          success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+              console.log(<span class="hljs-string">"user state saved in offline"</span>);
               dfd.resolve();
           },
-          error: <span class="keyword">function</span>(){
-              console.log(<span class="string">"Error while saving login state in offline (Offline Backend)"</span>);
-              dfd.reject(<span class="string">"Error while saving login state in offline (Offline Backend)"</span>);
+          error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+              console.log(<span class="hljs-string">"Error while saving login state in offline (Offline Backend)"</span>);
+              dfd.reject(<span class="hljs-string">"Error while saving login state in offline (Offline Backend)"</span>);
           }
       });
-      <span class="keyword">return</span> dfd;
+      <span class="hljs-keyword">return</span> dfd;
   }</pre></div></div>
             
         </li>
@@ -326,20 +316,20 @@ Uses a User table in offline db to store the username, password and login-state 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> check_login = <span class="keyword">function</span>(){
-      <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> check_login = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+      <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
       User.fetch({
-          success: <span class="keyword">function</span>(){
-              <span class="keyword">if</span>(User.get(<span class="string">"loggedin"</span>))
-                  <span class="keyword">return</span> dfd.resolve();
-              <span class="keyword">else</span>
-                  <span class="keyword">return</span> dfd.reject(<span class="string">"User is currently logged out. (Offline Backend)"</span>);
+          success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+              <span class="hljs-keyword">if</span>(User.get(<span class="hljs-string">"loggedin"</span>))
+                  <span class="hljs-keyword">return</span> dfd.resolve();
+              <span class="hljs-keyword">else</span>
+                  <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-string">"User is currently logged out. (Offline Backend)"</span>);
           },
-          error: <span class="keyword">function</span>(){
-               <span class="keyword">return</span> dfd.reject(<span class="string">"User couldn't be fetched from offline db (Offline Backend)"</span>);
+          error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+               <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-string">"User couldn't be fetched from offline db (Offline Backend)"</span>);
           }
       });
-      <span class="keyword">return</span> dfd;
+      <span class="hljs-keyword">return</span> dfd;
   }</pre></div></div>
             
         </li>
@@ -355,11 +345,11 @@ Uses a User table in offline db to store the username, password and login-state 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> check_login_approx = <span class="keyword">function</span>(){
-      <span class="keyword">return</span> User.get(<span class="string">"loggedin"</span>);
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> check_login_approx = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+      <span class="hljs-keyword">return</span> User.get(<span class="hljs-string">"loggedin"</span>);
   }
 
-  <span class="keyword">return</span> {
+  <span class="hljs-keyword">return</span> {
     login: login,
     logout: logout,
     register: register,

@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -177,11 +167,11 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>define([<span class="string">'jquery'</span>, <span class="string">'configs'</span>, <span class="string">'backbone'</span>, <span class="string">'indexeddb_backbone_config'</span>], 
+            <div class="content"><div class='highlight'><pre>define([<span class="hljs-string">'jquery'</span>, <span class="hljs-string">'configs'</span>, <span class="hljs-string">'backbone'</span>, <span class="hljs-string">'indexeddb_backbone_config'</span>], 
 
-<span class="keyword">function</span>($, all_configs, pa, indexeddb) {
+<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($, all_configs, pa, indexeddb)</span> {</span>
     
-    <span class="keyword">var</span> online = {</pre></div></div>
+    <span class="hljs-keyword">var</span> online = {</pre></div></div>
             
         </li>
         
@@ -196,9 +186,9 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        create_b_model: <span class="keyword">function</span>(entity_name)
-        {
-            <span class="keyword">var</span> generic_model_online = Backbone.Model.extend({</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        create_b_model: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name)</span>
+        {</span>
+            <span class="hljs-keyword">var</span> generic_model_online = Backbone.Model.extend({</pre></div></div>
             
         </li>
         
@@ -228,11 +218,11 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                url: <span class="keyword">function</span>() {
-                    <span class="keyword">return</span> <span class="keyword">this</span>.id ? all_configs[entity_name].rest_api_url + <span class="keyword">this</span>.id + <span class="string">"/"</span> : all_configs[entity_name].rest_api_url;
+            <div class="content"><div class='highlight'><pre>                url: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.id ? all_configs[entity_name].rest_api_url + <span class="hljs-keyword">this</span>.id + <span class="hljs-string">"/"</span> : all_configs[entity_name].rest_api_url;
                 },
             });
-            <span class="keyword">return</span> <span class="keyword">new</span> generic_model_online();
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> generic_model_online();
         },</pre></div></div>
             
         </li>
@@ -248,10 +238,10 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        save: <span class="keyword">function</span>(on_model, entity_name, json){
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            console.log(<span class="string">"SAVING THIS IN ONLINE DB - "</span>+JSON.stringify(json));
-            <span class="keyword">if</span>(!on_model)
+            <div class="content"><div class='highlight'><pre>        save: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(on_model, entity_name, json)</span>{</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            console.log(<span class="hljs-string">"SAVING THIS IN ONLINE DB - "</span>+<span class="hljs-built_in">JSON</span>.stringify(json));
+            <span class="hljs-keyword">if</span>(!on_model)
             {</pre></div></div>
             
         </li>
@@ -267,7 +257,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                on_model = <span class="keyword">this</span>.create_b_model(entity_name);
+            <div class="content"><div class='highlight'><pre>                on_model = <span class="hljs-keyword">this</span>.create_b_model(entity_name);
             }</pre></div></div>
             
         </li>
@@ -284,14 +274,14 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>            on_model.save(json,{
-                success: <span class="keyword">function</span>(model){
-                    <span class="keyword">return</span> dfd.resolve(model);
+                success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span>{</span>
+                    <span class="hljs-keyword">return</span> dfd.resolve(model);
                 },
-                error: <span class="keyword">function</span>(error, xhr, options){
-                    <span class="keyword">return</span> dfd.reject(xhr);
+                error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error, xhr, options)</span>{</span>
+                    <span class="hljs-keyword">return</span> dfd.reject(xhr);
                 }
             });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -307,9 +297,9 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        delete_object: <span class="keyword">function</span>(on_model, entity_name, id){
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">if</span>(!on_model)
+            <div class="content"><div class='highlight'><pre>        delete_object: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(on_model, entity_name, id)</span>{</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">if</span>(!on_model)
             {</pre></div></div>
             
         </li>
@@ -325,9 +315,9 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                on_model = <span class="keyword">this</span>.create_b_model(entity_name);
+            <div class="content"><div class='highlight'><pre>                on_model = <span class="hljs-keyword">this</span>.create_b_model(entity_name);
             }
-            <span class="keyword">if</span>(id)
+            <span class="hljs-keyword">if</span>(id)
             {</pre></div></div>
             
         </li>
@@ -343,7 +333,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                on_model.set(<span class="string">"id"</span>,id);
+            <div class="content"><div class='highlight'><pre>                on_model.set(<span class="hljs-string">"id"</span>,id);
             }</pre></div></div>
             
         </li>
@@ -355,26 +345,26 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
-              <p>call model&#39;s destroy method - this sends delete request to server</p>
+              <p>call model’s destroy method - this sends delete request to server</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>            on_model.destroy({
-                success: <span class="keyword">function</span>(model){
-                    <span class="keyword">return</span> dfd.resolve(model);
+                success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span>{</span>
+                    <span class="hljs-keyword">return</span> dfd.resolve(model);
                 },
-                error: <span class="keyword">function</span>(error){
+                error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span>{</span>
                     console.log(error);
-                    <span class="keyword">return</span> dfd.reject(<span class="string">"Error destroying object in offline - "</span>+xhr.responseText);
+                    <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-string">"Error destroying object in offline - "</span>+xhr.responseText);
                 }
             });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },
         
         
     }
     
-    <span class="keyword">return</span> online;
+    <span class="hljs-keyword">return</span> online;
 
 });</pre></div></div>
             

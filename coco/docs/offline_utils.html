@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -177,10 +167,10 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>define([<span class="string">'jquery'</span>, <span class="string">'configs'</span>, <span class="string">'backbone'</span>, <span class="string">'indexeddb_backbone_config'</span>, <span class="string">'auth_offline_backend'</span>], 
-<span class="keyword">function</span>($, all_configs, pa, indexeddb, OfflineAuthBackend) {
+            <div class="content"><div class='highlight'><pre>define([<span class="hljs-string">'jquery'</span>, <span class="hljs-string">'configs'</span>, <span class="hljs-string">'backbone'</span>, <span class="hljs-string">'indexeddb_backbone_config'</span>, <span class="hljs-string">'auth_offline_backend'</span>], 
+<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($, all_configs, pa, indexeddb, OfflineAuthBackend)</span> {</span>
     
-    <span class="keyword">var</span> offline = {</pre></div></div>
+    <span class="hljs-keyword">var</span> offline = {</pre></div></div>
             
         </li>
         
@@ -195,13 +185,13 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        create_b_model: <span class="keyword">function</span>(entity_name)
-        {
-            <span class="keyword">var</span> model_offline = Backbone.Model.extend({
+            <div class="content"><div class='highlight'><pre>        create_b_model: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name)</span>
+        {</span>
+            <span class="hljs-keyword">var</span> model_offline = Backbone.Model.extend({
                 database: indexeddb,
                 storeName: entity_name,
             });
-            <span class="keyword">return</span> <span class="keyword">new</span> model_offline();
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> model_offline();
         },</pre></div></div>
             
         </li>
@@ -217,8 +207,8 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        create_b_collection: <span class="keyword">function</span>(entity_name, options){
-            <span class="keyword">var</span> model_offline = Backbone.Model.extend({
+            <div class="content"><div class='highlight'><pre>        create_b_collection: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, options)</span>{</span>
+            <span class="hljs-keyword">var</span> model_offline = Backbone.Model.extend({
                 database: indexeddb,
                 storeName: entity_name,
             });
@@ -227,8 +217,8 @@
                 database: indexeddb,
                 storeName: entity_name,
             },options);
-            <span class="keyword">var</span> collection_offline = Backbone.Collection.extend(options);
-            <span class="keyword">return</span> <span class="keyword">new</span> collection_offline();
+            <span class="hljs-keyword">var</span> collection_offline = Backbone.Collection.extend(options);
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> collection_offline();
         },</pre></div></div>
             
         </li>
@@ -244,10 +234,10 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        save: <span class="keyword">function</span>(off_model, entity_name, json){
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            console.log(<span class="string">"SAVING THIS IN OFFLINE DB - "</span>+JSON.stringify(json));
-            <span class="keyword">if</span>(!off_model)
+            <div class="content"><div class='highlight'><pre>        save: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model, entity_name, json)</span>{</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            console.log(<span class="hljs-string">"SAVING THIS IN OFFLINE DB - "</span>+<span class="hljs-built_in">JSON</span>.stringify(json));
+            <span class="hljs-keyword">if</span>(!off_model)
             {</pre></div></div>
             
         </li>
@@ -263,9 +253,9 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                off_model = <span class="keyword">this</span>.create_b_model(entity_name);
+            <div class="content"><div class='highlight'><pre>                off_model = <span class="hljs-keyword">this</span>.create_b_model(entity_name);
             }
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -280,8 +270,8 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.check_login_wrapper()
-                .done(<span class="keyword">function</span>(){</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.check_login_wrapper()
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span></pre></div></div>
             
         </li>
         
@@ -297,10 +287,10 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>                    off_model.save(json,{
-                        success: <span class="keyword">function</span>(model){
-                            <span class="keyword">return</span> dfd.resolve(off_model);
+                        success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span>{</span>
+                            <span class="hljs-keyword">return</span> dfd.resolve(off_model);
                         },
-                        error: <span class="keyword">function</span>(model,error){
+                        error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model,error)</span>{</span>
                             console.log(error);</pre></div></div>
             
         </li>
@@ -316,7 +306,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            <span class="keyword">var</span> err_json = {};</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                            <span class="hljs-keyword">var</span> err_json = {};</pre></div></div>
             
         </li>
         
@@ -331,27 +321,27 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>							<span class="keyword">var</span> ut = eval(<span class="string">"all_configs."</span> + entity_name +<span class="string">".unique_together_fields"</span>).slice(<span class="number">0</span>); 
-							<span class="keyword">var</span> utStr = that.beautify(ut);
-							cap_entity_name = entity_name.charAt(<span class="number">0</span>).toUpperCase() + entity_name.slice(<span class="number">1</span>);
-							<span class="keyword">var</span> newerr = cap_entity_name + <span class="string">" with this "</span> + utStr + <span class="string">" already exists"</span>;
+            <div class="content"><div class='highlight'><pre>							<span class="hljs-keyword">var</span> ut = <span class="hljs-built_in">eval</span>(<span class="hljs-string">"all_configs."</span> + entity_name +<span class="hljs-string">".unique_together_fields"</span>).slice(<span class="hljs-number">0</span>); 
+							<span class="hljs-keyword">var</span> utStr = that.beautify(ut);
+							cap_entity_name = entity_name.charAt(<span class="hljs-number">0</span>).toUpperCase() + entity_name.slice(<span class="hljs-number">1</span>);
+							<span class="hljs-keyword">var</span> newerr = cap_entity_name + <span class="hljs-string">" with this "</span> + utStr + <span class="hljs-string">" already exists"</span>;
                             err_json[entity_name] = {
                                 __all__: [newerr]
                             }
-                            <span class="keyword">return</span> dfd.reject(JSON.stringify(err_json));
+                            <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-built_in">JSON</span>.stringify(err_json));
                         }
                     });
                 })
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },
 		
-		beautify: <span class="keyword">function</span>(ut){
-			<span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt; ut.length; i++){
-				ut[i] = ut[i].charAt(<span class="number">0</span>).toUpperCase() + ut[i].slice(<span class="number">1</span>)
-				ut[i] = ut[i].replace(<span class="string">"_"</span>,<span class="string">" "</span>);
-				ut[i] = ut[i].replace(<span class="string">".id"</span>,<span class="string">""</span>);
+		beautify: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(ut)</span>{</span>
+			<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>; i&lt; ut.length; i++){
+				ut[i] = ut[i].charAt(<span class="hljs-number">0</span>).toUpperCase() + ut[i].slice(<span class="hljs-number">1</span>)
+				ut[i] = ut[i].replace(<span class="hljs-string">"_"</span>,<span class="hljs-string">" "</span>);
+				ut[i] = ut[i].replace(<span class="hljs-string">".id"</span>,<span class="hljs-string">""</span>);
 			}
-			<span class="keyword">return</span> ut.join(<span class="string">", "</span>);
+			<span class="hljs-keyword">return</span> ut.join(<span class="hljs-string">", "</span>);
 		},</pre></div></div>
             
         </li>
@@ -363,12 +353,12 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
-              <p>fetches an object from Offline DB from &quot;entity_name&quot; table having &quot;value&quot; value for &quot;key&quot; attribute </p>
+              <p>fetches an object from Offline DB from “entity_name” table having “value” value for “key” attribute </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        fetch_object: <span class="keyword">function</span>(entity_name, key, value){
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        fetch_object: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, key, value)</span>{</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();</pre></div></div>
             
         </li>
         
@@ -383,7 +373,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> off_model = <span class="keyword">this</span>.create_b_model(entity_name);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> off_model = <span class="hljs-keyword">this</span>.create_b_model(entity_name);</pre></div></div>
             
         </li>
         
@@ -413,8 +403,8 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.check_login_wrapper()
-                .done(<span class="keyword">function</span>(){</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.check_login_wrapper()
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span></pre></div></div>
             
         </li>
         
@@ -430,7 +420,7 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>                    off_model.fetch({
-                        success: <span class="keyword">function</span>(off_model){</pre></div></div>
+                        success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model)</span>{</span></pre></div></div>
             
         </li>
         
@@ -447,12 +437,12 @@
             
             <div class="content"><div class='highlight'><pre>                            dfd.resolve(off_model);
                         },
-                        error: <span class="keyword">function</span>(model, error){
+                        error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span>{</span>
                             dfd.reject(model, error);
                         }
                     });
                 })
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -464,12 +454,12 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
-              <p>fetches whole &quot;entity_name&quot; table from offline DB as backbone collection </p>
+              <p>fetches whole “entity_name” table from offline DB as backbone collection </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        fetch_collection: <span class="keyword">function</span>(entity_name){
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        fetch_collection: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name)</span>{</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();</pre></div></div>
             
         </li>
         
@@ -484,7 +474,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> off_coll = <span class="keyword">this</span>.create_b_collection(entity_name);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> off_coll = <span class="hljs-keyword">this</span>.create_b_collection(entity_name);</pre></div></div>
             
         </li>
         
@@ -499,8 +489,8 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.check_login_wrapper()
-                .done(<span class="keyword">function</span>(){</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.check_login_wrapper()
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span></pre></div></div>
             
         </li>
         
@@ -516,7 +506,7 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>                    off_coll.fetch({
-                        success: <span class="keyword">function</span>(off_coll){</pre></div></div>
+                        success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_coll)</span>{</span></pre></div></div>
             
         </li>
         
@@ -533,12 +523,12 @@
             
             <div class="content"><div class='highlight'><pre>                            dfd.resolve(off_coll);
                         },
-                        error: <span class="keyword">function</span>(error){
-                            dfd.reject(<span class="string">"Error fetching collection -"</span>+entity_name+<span class="string">"- from offline - "</span>+error);
+                        error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span>{</span>
+                            dfd.reject(<span class="hljs-string">"Error fetching collection -"</span>+entity_name+<span class="hljs-string">"- from offline - "</span>+error);
                         }
                     });
                 })
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -554,9 +544,9 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        delete_object: <span class="keyword">function</span>(off_model, entity_name, id){
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">if</span>(!off_model)
+            <div class="content"><div class='highlight'><pre>        delete_object: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model, entity_name, id)</span>{</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">if</span>(!off_model)
             {</pre></div></div>
             
         </li>
@@ -572,9 +562,9 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                off_model = <span class="keyword">this</span>.create_b_model(entity_name);
+            <div class="content"><div class='highlight'><pre>                off_model = <span class="hljs-keyword">this</span>.create_b_model(entity_name);
             }
-            <span class="keyword">if</span>(id)
+            <span class="hljs-keyword">if</span>(id)
             {</pre></div></div>
             
         </li>
@@ -590,7 +580,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                off_model.set(<span class="string">"id"</span>,id);
+            <div class="content"><div class='highlight'><pre>                off_model.set(<span class="hljs-string">"id"</span>,id);
             }</pre></div></div>
             
         </li>
@@ -606,8 +596,8 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.check_login_wrapper()
-                .done(<span class="keyword">function</span>(){</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.check_login_wrapper()
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span></pre></div></div>
             
         </li>
         
@@ -623,16 +613,16 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>                    off_model.destroy({
-                        success: <span class="keyword">function</span>(model){
-                            <span class="keyword">return</span> dfd.resolve(model);
+                        success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span>{</span>
+                            <span class="hljs-keyword">return</span> dfd.resolve(model);
                         },
-                        error: <span class="keyword">function</span>(error){
+                        error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span>{</span>
                             console.log(error);
-                            <span class="keyword">return</span> dfd.reject(<span class="string">"Error destroying object in offline - "</span>+error.srcElement.error.name);
+                            <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-string">"Error destroying object in offline - "</span>+error.srcElement.error.name);
                         }
                     });
                 })
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -648,14 +638,14 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        check_login_wrapper: <span class="keyword">function</span>(){
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            console.log(<span class="string">"Offline Backend : Authenticating Request"</span>);
+            <div class="content"><div class='highlight'><pre>        check_login_wrapper: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            console.log(<span class="hljs-string">"Offline Backend : Authenticating Request"</span>);
             OfflineAuthBackend.check_login()
-                .done(<span class="keyword">function</span>(){
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
                     dfd.resolve();
                 })
-                .fail(<span class="keyword">function</span>(){
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
                     dfd.reject();</pre></div></div>
             
         </li>
@@ -671,9 +661,9 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    window.Router.navigate(<span class="string">"login"</span>,{trigger:<span class="literal">true</span>});
+            <div class="content"><div class='highlight'><pre>                    window.Router.navigate(<span class="hljs-string">"login"</span>,{trigger:<span class="hljs-literal">true</span>});
                 });  
-            <span class="keyword">return</span> dfd;    
+            <span class="hljs-keyword">return</span> dfd;    
         },</pre></div></div>
             
         </li>
@@ -689,19 +679,19 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        reset_database: <span class="keyword">function</span>(){
-            <span class="keyword">var</span> request = indexedDB.deleteDatabase(<span class="string">"offline-database"</span>);
-            request.onerror = <span class="keyword">function</span>(event) {
+            <div class="content"><div class='highlight'><pre>        reset_database: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+            <span class="hljs-keyword">var</span> request = indexedDB.deleteDatabase(<span class="hljs-string">"offline-database"</span>);
+            request.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(event)</span> {</span>
                 console.log(event);
-                console.log(<span class="string">"RESET DATABASE:Error!"</span>);
-                alert(<span class="string">"Error while resetting database! Refresh the page and try again."</span>);
+                console.log(<span class="hljs-string">"RESET DATABASE:Error!"</span>);
+                alert(<span class="hljs-string">"Error while resetting database! Refresh the page and try again."</span>);
             };
-            request.onsuccess = <span class="keyword">function</span>(event) {
-                console.log(<span class="string">"RESET DATABASE:Success!"</span>);
+            request.onsuccess = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(event)</span> {</span>
+                console.log(<span class="hljs-string">"RESET DATABASE:Success!"</span>);
                 location.reload();
             }
-            request.onblocked = <span class="keyword">function</span>(event) {
-                console.log(<span class="string">"RESET DATABASE:Blocked!"</span>);</pre></div></div>
+            request.onblocked = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(event)</span> {</span>
+                console.log(<span class="hljs-string">"RESET DATABASE:Blocked!"</span>);</pre></div></div>
             
         </li>
         
@@ -723,7 +713,7 @@
         
     }
     
-    <span class="keyword">return</span> offline;
+    <span class="hljs-keyword">return</span> offline;
 
 });</pre></div></div>
             

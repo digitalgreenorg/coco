@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -179,29 +169,29 @@ To use the module create an instance and call start_incremental_download on it <
             </div>
             
             <div class="content"><div class='highlight'><pre>define([
-    <span class="string">'jquery'</span>,
-    <span class="string">'underscore'</span>,
-    <span class="string">'layoutmanager'</span>,
-    <span class="string">'indexeddb_backbone_config'</span>,
-    <span class="string">'configs'</span>,
-    <span class="string">'convert_namespace'</span>,
-    <span class="string">'offline_utils'</span>,
-    <span class="string">'indexeddb-backbone'</span>,
-    <span class="string">'bootstrapjs'</span>,
-], <span class="keyword">function</span>(jquery, underscore, layoutmanager, indexeddb, all_configs, ConvertNamespace, Offline) {
+    <span class="hljs-string">'jquery'</span>,
+    <span class="hljs-string">'underscore'</span>,
+    <span class="hljs-string">'layoutmanager'</span>,
+    <span class="hljs-string">'indexeddb_backbone_config'</span>,
+    <span class="hljs-string">'configs'</span>,
+    <span class="hljs-string">'convert_namespace'</span>,
+    <span class="hljs-string">'offline_utils'</span>,
+    <span class="hljs-string">'indexeddb-backbone'</span>,
+    <span class="hljs-string">'bootstrapjs'</span>,
+], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(jquery, underscore, layoutmanager, indexeddb, all_configs, ConvertNamespace, Offline)</span> {</span>
 
-    <span class="keyword">var</span> IncrementalDownloadView = Backbone.Layout.extend({
+    <span class="hljs-keyword">var</span> IncrementalDownloadView = Backbone.Layout.extend({
 
-        initialize: <span class="keyword">function</span>() {
-            console.log(<span class="string">"UPLOAD: initializing new incremental_download view"</span>);
-            _.bindAll(<span class="keyword">this</span>);
-            <span class="keyword">this</span>.start_timestamp = <span class="literal">null</span>;
-            <span class="keyword">this</span>.in_progress = <span class="literal">false</span>;
+        initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            console.log(<span class="hljs-string">"UPLOAD: initializing new incremental_download view"</span>);
+            _.bindAll(<span class="hljs-keyword">this</span>);
+            <span class="hljs-keyword">this</span>.start_timestamp = <span class="hljs-literal">null</span>;
+            <span class="hljs-keyword">this</span>.in_progress = <span class="hljs-literal">false</span>;
         },
 
-        template: <span class="string">"#incremental_download_template"</span>,
+        template: <span class="hljs-string">"#incremental_download_template"</span>,
         events: {
-            <span class="string">"click #stop_inc_download"</span>: <span class="string">"stop_inc_download"</span>
+            <span class="hljs-string">"click #stop_inc_download"</span>: <span class="hljs-string">"stop_inc_download"</span>
         },</pre></div></div>
             
         </li>
@@ -217,7 +207,7 @@ To use the module create an instance and call start_incremental_download on it <
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        increment_pb: <span class="keyword">function</span>() {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        increment_pb: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -232,7 +222,7 @@ To use the module create an instance and call start_incremental_download on it <
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            w = parseFloat(document.getElementById(<span class="string">'inc_pbar'</span>).style.width);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            w = <span class="hljs-built_in">parseFloat</span>(document.getElementById(<span class="hljs-string">'inc_pbar'</span>).style.width);</pre></div></div>
             
         </li>
         
@@ -247,7 +237,7 @@ To use the module create an instance and call start_incremental_download on it <
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            document.getElementById(<span class="string">'inc_pbar'</span>).style.width = (w + <span class="keyword">this</span>.progress_bar_step) + <span class="string">'%'</span>;
+            <div class="content"><div class='highlight'><pre>            document.getElementById(<span class="hljs-string">'inc_pbar'</span>).style.width = (w + <span class="hljs-keyword">this</span>.progress_bar_step) + <span class="hljs-string">'%'</span>;
         },</pre></div></div>
             
         </li>
@@ -263,9 +253,9 @@ To use the module create an instance and call start_incremental_download on it <
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        update_status: <span class="keyword">function</span>(status) {
+            <div class="content"><div class='highlight'><pre>        update_status: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(status)</span> {</span>
             console.log(status);
-            $(<span class="string">'#inc_status'</span>).html(status);
+            $(<span class="hljs-string">'#inc_status'</span>).html(status);
         },</pre></div></div>
             
         </li>
@@ -277,12 +267,12 @@ To use the module create an instance and call start_incremental_download on it <
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>update the action on the view - for eg - &quot;downloading person&quot;</p>
+              <p>update the action on the view - for eg - “downloading person”</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        update_action: <span class="keyword">function</span>(action) {
-            $(<span class="string">'#inc_action'</span>).html(action);
+            <div class="content"><div class='highlight'><pre>        update_action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(action)</span> {</span>
+            $(<span class="hljs-string">'#inc_action'</span>).html(action);
         },</pre></div></div>
             
         </li>
@@ -298,9 +288,9 @@ To use the module create an instance and call start_incremental_download on it <
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        stop_inc_download: <span class="keyword">function</span>() {
-            console.log(<span class="string">"stopping inc download"</span>);
-            <span class="keyword">this</span>.user_interrupt = <span class="literal">true</span>;
+            <div class="content"><div class='highlight'><pre>        stop_inc_download: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            console.log(<span class="hljs-string">"stopping inc download"</span>);
+            <span class="hljs-keyword">this</span>.user_interrupt = <span class="hljs-literal">true</span>;
         },</pre></div></div>
             
         </li>
@@ -316,11 +306,11 @@ To use the module create an instance and call start_incremental_download on it <
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        initialize_inc_download: <span class="keyword">function</span>(options) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">this</span>.in_progress = <span class="literal">true</span>;
-            <span class="keyword">this</span>.user_interrupt = <span class="literal">false</span>;
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        initialize_inc_download: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(options)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">this</span>.in_progress = <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">this</span>.user_interrupt = <span class="hljs-literal">false</span>;
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -335,13 +325,13 @@ To use the module create an instance and call start_incremental_download on it <
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (!(options.background)) {
-                <span class="keyword">this</span>.template = <span class="string">"#incremental_download_template"</span>;
-                <span class="keyword">this</span>.render()
-                    .done(<span class="keyword">function</span>() {
-                        that.$(<span class="string">'#incremental_download_modal'</span>).modal({
-                            keyboard: <span class="literal">false</span>,
-                            backdrop: <span class="string">"static"</span>,
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (!(options.background)) {
+                <span class="hljs-keyword">this</span>.template = <span class="hljs-string">"#incremental_download_template"</span>;
+                <span class="hljs-keyword">this</span>.render()
+                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                        that.$(<span class="hljs-string">'#incremental_download_modal'</span>).modal({
+                            keyboard: <span class="hljs-literal">false</span>,
+                            backdrop: <span class="hljs-string">"static"</span>,
                         });</pre></div></div>
             
         </li>
@@ -357,10 +347,10 @@ To use the module create an instance and call start_incremental_download on it <
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                        that.$(<span class="string">'#incremental_download_modal'</span>).on(<span class="string">'shown'</span>, <span class="keyword">function</span>() {
+            <div class="content"><div class='highlight'><pre>                        that.$(<span class="hljs-string">'#incremental_download_modal'</span>).on(<span class="hljs-string">'shown'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                             dfd.resolve();
                         });
-                        that.$(<span class="string">'#incremental_download_modal'</span>).modal(<span class="string">'show'</span>);
+                        that.$(<span class="hljs-string">'#incremental_download_modal'</span>).modal(<span class="hljs-string">'show'</span>);
                     });
             }</pre></div></div>
             
@@ -377,14 +367,14 @@ To use the module create an instance and call start_incremental_download on it <
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">else</span> {
-                <span class="keyword">this</span>.template = <span class="string">"#incremental_download_background_template"</span>;
-                <span class="keyword">this</span>.render()
-                    .done(<span class="keyword">function</span>() {
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.template = <span class="hljs-string">"#incremental_download_background_template"</span>;
+                <span class="hljs-keyword">this</span>.render()
+                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                         dfd.resolve();
                     });
             }
-            <span class="keyword">return</span> dfd.promise();
+            <span class="hljs-keyword">return</span> dfd.promise();
         },</pre></div></div>
             
         </li>
@@ -400,10 +390,10 @@ To use the module create an instance and call start_incremental_download on it <
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        tear_down: <span class="keyword">function</span>() {
-            <span class="keyword">this</span>.$(<span class="string">'#incremental_download_modal'</span>).modal(<span class="string">'hide'</span>);
-            <span class="keyword">this</span>.remove();
-            <span class="keyword">this</span>.in_progress = <span class="literal">false</span>;
+            <div class="content"><div class='highlight'><pre>        tear_down: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#incremental_download_modal'</span>).modal(<span class="hljs-string">'hide'</span>);
+            <span class="hljs-keyword">this</span>.remove();
+            <span class="hljs-keyword">this</span>.in_progress = <span class="hljs-literal">false</span>;
         },</pre></div></div>
             
         </li>
@@ -419,11 +409,11 @@ To use the module create an instance and call start_incremental_download on it <
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        start_incremental_download: <span class="keyword">function</span>(options) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;
-            console.log(<span class="string">"INCREMENTAL DOWNLOAD: start the incremental_download"</span>);
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        start_incremental_download: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(options)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+            console.log(<span class="hljs-string">"INCREMENTAL DOWNLOAD: start the incremental_download"</span>);
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -438,8 +428,8 @@ To use the module create an instance and call start_incremental_download on it <
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.initialize_inc_download(options)
-                .done(<span class="keyword">function</span>() {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.initialize_inc_download(options)
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -455,7 +445,7 @@ To use the module create an instance and call start_incremental_download on it <
             </div>
             
             <div class="content"><div class='highlight'><pre>                    that.getIncObjects()
-                        .done(<span class="keyword">function</span>(objects) {</pre></div></div>
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(objects)</span> {</span></pre></div></div>
             
         </li>
         
@@ -471,7 +461,7 @@ To use the module create an instance and call start_incremental_download on it <
             </div>
             
             <div class="content"><div class='highlight'><pre>                            that.iterate_incd_objects(objects)
-                                .done(<span class="keyword">function</span>(last_object_timestamp) {</pre></div></div>
+                                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(last_object_timestamp)</span> {</span></pre></div></div>
             
         </li>
         
@@ -487,7 +477,7 @@ To use the module create an instance and call start_incremental_download on it <
             </div>
             
             <div class="content"><div class='highlight'><pre>                                    that.finish_download(last_object_timestamp)
-                                        .done(<span class="keyword">function</span>() {</pre></div></div>
+                                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -520,7 +510,7 @@ remove the view</p>
             
             <div class="content"><div class='highlight'><pre>                                            dfd.resolve();
                                         })
-                                        .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -539,7 +529,7 @@ remove the view</p>
                                             dfd.reject(error);
                                         });
                                 })
-                                .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -554,7 +544,7 @@ remove the view</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                                    <span class="keyword">if</span> (error.last_object_timestamp) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                                    <span class="hljs-keyword">if</span> (error.last_object_timestamp) {</pre></div></div>
             
         </li>
         
@@ -570,7 +560,7 @@ remove the view</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                                        that.finish_download(error.last_object_timestamp)
-                                            .always(<span class="keyword">function</span>() {
+                                            .always(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                                                 that.tear_down();
                                                 dfd.reject(error.err_msg);
                                             });
@@ -578,7 +568,7 @@ remove the view</p>
                                     dfd.reject(error.err_msg)
                                 });
                         })
-                        .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -597,7 +587,7 @@ remove the view</p>
                             dfd.reject(error);
                         });
                 });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -613,8 +603,8 @@ remove the view</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        getIncObjects: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        getIncObjects: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();</pre></div></div>
             
         </li>
         
@@ -629,7 +619,7 @@ remove the view</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.start_timestamp = <span class="keyword">new</span> Date().toJSON().replace(<span class="string">"Z"</span>, <span class="string">""</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.start_timestamp = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toJSON().replace(<span class="hljs-string">"Z"</span>, <span class="hljs-string">""</span>);</pre></div></div>
             
         </li>
         
@@ -644,9 +634,9 @@ remove the view</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.get_last_download_timestamp()
-                .done(<span class="keyword">function</span>(timestamp) {
-                    console.log(<span class="string">"Timestamp for inc download - "</span> + timestamp);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.get_last_download_timestamp()
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(timestamp)</span> {</span>
+                    console.log(<span class="hljs-string">"Timestamp for inc download - "</span> + timestamp);</pre></div></div>
             
         </li>
         
@@ -663,11 +653,11 @@ remove the view</p>
             
             <div class="content"><div class='highlight'><pre>                    $.get(all_configs.misc.inc_download_url, {
                         timestamp: timestamp
-                    }, <span class="keyword">function</span>() {}, <span class="string">"json"</span>)
-                        .fail(<span class="keyword">function</span>() {
-                            dfd.reject(<span class="string">"Incremental download objects fetch failed!"</span>);
+                    }, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>}, <span class="hljs-string">"json"</span>)
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                            dfd.reject(<span class="hljs-string">"Incremental download objects fetch failed!"</span>);
                         })
-                        .done(<span class="keyword">function</span>(objects) {</pre></div></div>
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(objects)</span> {</span></pre></div></div>
             
         </li>
         
@@ -685,10 +675,10 @@ remove the view</p>
             <div class="content"><div class='highlight'><pre>                            dfd.resolve(objects);
                         });
                 })
-                .fail(<span class="keyword">function</span>(error) {
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                     dfd.reject(error);
                 });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -704,8 +694,8 @@ remove the view</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_last_download_timestamp: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        get_last_download_timestamp: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();</pre></div></div>
             
         </li>
         
@@ -720,11 +710,11 @@ remove the view</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            Offline.fetch_object(<span class="string">"meta_data"</span>, <span class="string">"key"</span>, <span class="string">"last_inc_download"</span>)
-                .done(<span class="keyword">function</span>(model) {
-                    dfd.resolve(model.get(<span class="string">'timestamp'</span>));
+            <div class="content"><div class='highlight'><pre>            Offline.fetch_object(<span class="hljs-string">"meta_data"</span>, <span class="hljs-string">"key"</span>, <span class="hljs-string">"last_inc_download"</span>)
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span> {</span>
+                    dfd.resolve(model.get(<span class="hljs-string">'timestamp'</span>));
                 })
-                .fail(<span class="keyword">function</span>(model, error) {</pre></div></div>
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -740,23 +730,23 @@ fetch and  return the timestamp of last full download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    Offline.fetch_object(<span class="string">"meta_data"</span>, <span class="string">"key"</span>, <span class="string">"last_full_download"</span>)
-                        .done(<span class="keyword">function</span>(model) {
-                            dfd.resolve(model.get(<span class="string">'timestamp'</span>));
+            <div class="content"><div class='highlight'><pre>                    Offline.fetch_object(<span class="hljs-string">"meta_data"</span>, <span class="hljs-string">"key"</span>, <span class="hljs-string">"last_full_download"</span>)
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span> {</span>
+                            dfd.resolve(model.get(<span class="hljs-string">'timestamp'</span>));
                         })
-                        .fail(<span class="keyword">function</span>(model, error) {
-                            dfd.reject(<span class="string">"Neither inc download has happened before nor full download."</span>);
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span>
+                            dfd.reject(<span class="hljs-string">"Neither inc download has happened before nor full download."</span>);
                         });
                 });
 
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },
 
-        iterate_incd_objects: <span class="keyword">function</span>(incd_objects) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">this</span>.incd_objects = incd_objects;
-            <span class="keyword">if</span> (!<span class="keyword">this</span>.incd_objects.length || <span class="keyword">this</span>.incd_objects == <span class="number">0</span>)
-                <span class="keyword">return</span> dfd.resolve();</pre></div></div>
+        iterate_incd_objects: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(incd_objects)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">this</span>.incd_objects = incd_objects;
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.incd_objects.length || <span class="hljs-keyword">this</span>.incd_objects == <span class="hljs-number">0</span>)
+                <span class="hljs-keyword">return</span> dfd.resolve();</pre></div></div>
             
         </li>
         
@@ -771,7 +761,7 @@ fetch and  return the timestamp of last full download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.progress_bar_step = <span class="number">100</span> / incd_objects.length;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.progress_bar_step = <span class="hljs-number">100</span> / incd_objects.length;</pre></div></div>
             
         </li>
         
@@ -786,13 +776,13 @@ fetch and  return the timestamp of last full download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.download_status = {};
-            <span class="keyword">this</span>.download_status[<span class="string">"total"</span>] = incd_objects.length;
-            <span class="keyword">this</span>.download_status[<span class="string">"downloaded"</span>] = <span class="number">0</span>;
-            console.log(<span class="string">"INCD objects received"</span>);
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.download_status = {};
+            <span class="hljs-keyword">this</span>.download_status[<span class="hljs-string">"total"</span>] = incd_objects.length;
+            <span class="hljs-keyword">this</span>.download_status[<span class="hljs-string">"downloaded"</span>] = <span class="hljs-number">0</span>;
+            console.log(<span class="hljs-string">"INCD objects received"</span>);
             console.log(incd_objects);
-            <span class="keyword">this</span>.pick_next(dfd);
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">this</span>.pick_next(dfd);
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -808,11 +798,11 @@ fetch and  return the timestamp of last full download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        pick_next: <span class="keyword">function</span>(whole_download_dfd) {
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;
-            <span class="keyword">this</span>.prev_incd_o = <span class="keyword">this</span>.cur_incd_o;
-            <span class="keyword">this</span>.update_status(<span class="keyword">this</span>.download_status[<span class="string">"downloaded"</span>] + <span class="string">"/"</span> + <span class="keyword">this</span>.download_status[<span class="string">"total"</span>]);
-            <span class="keyword">this</span>.cur_incd_o = <span class="keyword">this</span>.incd_objects.shift();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        pick_next: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(whole_download_dfd)</span> {</span>
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+            <span class="hljs-keyword">this</span>.prev_incd_o = <span class="hljs-keyword">this</span>.cur_incd_o;
+            <span class="hljs-keyword">this</span>.update_status(<span class="hljs-keyword">this</span>.download_status[<span class="hljs-string">"downloaded"</span>] + <span class="hljs-string">"/"</span> + <span class="hljs-keyword">this</span>.download_status[<span class="hljs-string">"total"</span>]);
+            <span class="hljs-keyword">this</span>.cur_incd_o = <span class="hljs-keyword">this</span>.incd_objects.shift();</pre></div></div>
             
         </li>
         
@@ -827,8 +817,8 @@ fetch and  return the timestamp of last full download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (!<span class="keyword">this</span>.cur_incd_o) {
-                <span class="keyword">var</span> update_timestamp;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.cur_incd_o) {
+                <span class="hljs-keyword">var</span> update_timestamp;</pre></div></div>
             
         </li>
         
@@ -843,8 +833,8 @@ fetch and  return the timestamp of last full download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">if</span> (<span class="keyword">this</span>.prev_incd_o)
-                    update_timestamp = <span class="keyword">this</span>.get_timestamp(<span class="keyword">this</span>.prev_incd_o)</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.prev_incd_o)
+                    update_timestamp = <span class="hljs-keyword">this</span>.get_timestamp(<span class="hljs-keyword">this</span>.prev_incd_o)</pre></div></div>
             
         </li>
         
@@ -859,9 +849,9 @@ fetch and  return the timestamp of last full download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">else</span>
-                    update_timestamp = <span class="keyword">this</span>.start_timestamp;
-                <span class="keyword">return</span> whole_download_dfd.resolve(update_timestamp);
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">else</span>
+                    update_timestamp = <span class="hljs-keyword">this</span>.start_timestamp;
+                <span class="hljs-keyword">return</span> whole_download_dfd.resolve(update_timestamp);
             }</pre></div></div>
             
         </li>
@@ -877,8 +867,8 @@ fetch and  return the timestamp of last full download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.user_interrupt) {
-                <span class="keyword">var</span> update_timestamp;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.user_interrupt) {
+                <span class="hljs-keyword">var</span> update_timestamp;</pre></div></div>
             
         </li>
         
@@ -893,12 +883,12 @@ fetch and  return the timestamp of last full download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">if</span> (<span class="keyword">this</span>.prev_incd_o)
-                    update_timestamp = <span class="keyword">this</span>.get_timestamp(<span class="keyword">this</span>.prev_incd_o)
-                <span class="keyword">else</span>
-                    update_timestamp = <span class="literal">null</span>;
-                <span class="keyword">return</span> whole_download_dfd.reject({
-                    err_msg: <span class="string">"User stopped Sync"</span>,
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.prev_incd_o)
+                    update_timestamp = <span class="hljs-keyword">this</span>.get_timestamp(<span class="hljs-keyword">this</span>.prev_incd_o)
+                <span class="hljs-keyword">else</span>
+                    update_timestamp = <span class="hljs-literal">null</span>;
+                <span class="hljs-keyword">return</span> whole_download_dfd.reject({
+                    err_msg: <span class="hljs-string">"User stopped Sync"</span>,
                     last_object_timestamp: update_timestamp
                 });
             }</pre></div></div>
@@ -916,16 +906,16 @@ fetch and  return the timestamp of last full download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">else</span> {
-                <span class="keyword">this</span>.process_incd_object(<span class="keyword">this</span>.cur_incd_o)
-                    .fail(<span class="keyword">function</span>(error) {
-                        console.log(<span class="string">"FAILED TO INC DOWNLOAD AN OBJECT: "</span>);
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.process_incd_object(<span class="hljs-keyword">this</span>.cur_incd_o)
+                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
+                        console.log(<span class="hljs-string">"FAILED TO INC DOWNLOAD AN OBJECT: "</span>);
                         console.log(error);
                     })
-                    .done(<span class="keyword">function</span>() {
-                        console.log(<span class="string">"SUCESSFULLY DOWNLOADED AN OBJECT"</span>);
+                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                        console.log(<span class="hljs-string">"SUCESSFULLY DOWNLOADED AN OBJECT"</span>);
                     })
-                    .always(<span class="keyword">function</span>() {</pre></div></div>
+                    .always(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -956,7 +946,7 @@ fetch and  return the timestamp of last full download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                        that.download_status[<span class="string">"downloaded"</span>]++;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                        that.download_status[<span class="hljs-string">"downloaded"</span>]++;</pre></div></div>
             
         </li>
         
@@ -985,13 +975,13 @@ fetch and  return the timestamp of last full download</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-44">&#182;</a>
               </div>
-              <p>format of each object: {&quot;pk&quot;:9372,&quot;model&quot;:&quot;dashboard.serverlog&quot;,&quot;fields&quot;:{&quot;action&quot;:1,&quot;timestamp&quot;:&quot;2013-04-15T06:47:35&quot;,&quot;entry_table&quot;:&quot;Screening&quot;,&quot;model_id&quot;:10000000132086}}
+              <p>format of each object: {“pk”:9372,”model”:”dashboard.serverlog”,”fields”:{“action”:1,”timestamp”:”2013-04-15T06:47:35”,”entry_table”:”Screening”,”model_id”:10000000132086}}
 get the timestamp from object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_timestamp: <span class="keyword">function</span>(obj) {
-            <span class="keyword">return</span> obj.fields.timestamp;
+            <div class="content"><div class='highlight'><pre>        get_timestamp: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(obj)</span> {</span>
+            <span class="hljs-keyword">return</span> obj.fields.timestamp;
         },</pre></div></div>
             
         </li>
@@ -1007,15 +997,15 @@ get the timestamp from object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_entity_name: <span class="keyword">function</span>(obj) {
-            <span class="keyword">for</span> (<span class="keyword">var</span> member <span class="keyword">in</span> all_configs) {
-                <span class="keyword">if</span> (member == obj.fields.entry_table.toLowerCase()) {
-                    <span class="keyword">return</span> all_configs[member].entity_name;
-                } <span class="keyword">else</span> <span class="keyword">if</span> ((all_configs[member].inc_table_name) &amp;&amp; (all_configs[member].inc_table_name == obj.fields.entry_table.toLowerCase())) {
-                    <span class="keyword">return</span> all_configs[member].entity_name;
+            <div class="content"><div class='highlight'><pre>        get_entity_name: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(obj)</span> {</span>
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> member <span class="hljs-keyword">in</span> all_configs) {
+                <span class="hljs-keyword">if</span> (member == obj.fields.entry_table.toLowerCase()) {
+                    <span class="hljs-keyword">return</span> all_configs[member].entity_name;
+                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ((all_configs[member].inc_table_name) &amp;&amp; (all_configs[member].inc_table_name == obj.fields.entry_table.toLowerCase())) {
+                    <span class="hljs-keyword">return</span> all_configs[member].entity_name;
                 }
             }
-            <span class="keyword">return</span> -<span class="number">1</span>;
+            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
         },</pre></div></div>
             
         </li>
@@ -1031,8 +1021,8 @@ get the timestamp from object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_action: <span class="keyword">function</span>(obj) {
-            <span class="keyword">return</span> obj.fields.action;
+            <div class="content"><div class='highlight'><pre>        get_action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(obj)</span> {</span>
+            <span class="hljs-keyword">return</span> obj.fields.action;
         },</pre></div></div>
             
         </li>
@@ -1048,8 +1038,8 @@ get the timestamp from object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_online_id: <span class="keyword">function</span>(obj) {
-            <span class="keyword">return</span> parseInt(obj.fields.model_id);
+            <div class="content"><div class='highlight'><pre>        get_online_id: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(obj)</span> {</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">parseInt</span>(obj.fields.model_id);
         },</pre></div></div>
             
         </li>
@@ -1065,12 +1055,12 @@ get the timestamp from object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_foreign_field_desc: <span class="keyword">function</span>(obj) {
-            <span class="keyword">var</span> entity_name = <span class="keyword">this</span>.get_entity_name(obj);
-            <span class="keyword">if</span> (all_configs[entity_name].edit) {
-                <span class="keyword">return</span> all_configs[entity_name].edit.foreign_entities;
-            } <span class="keyword">else</span>
-                <span class="keyword">return</span> all_configs[entity_name].foreign_entities;
+            <div class="content"><div class='highlight'><pre>        get_foreign_field_desc: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(obj)</span> {</span>
+            <span class="hljs-keyword">var</span> entity_name = <span class="hljs-keyword">this</span>.get_entity_name(obj);
+            <span class="hljs-keyword">if</span> (all_configs[entity_name].edit) {
+                <span class="hljs-keyword">return</span> all_configs[entity_name].edit.foreign_entities;
+            } <span class="hljs-keyword">else</span>
+                <span class="hljs-keyword">return</span> all_configs[entity_name].foreign_entities;
         },</pre></div></div>
             
         </li>
@@ -1086,9 +1076,9 @@ get the timestamp from object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        process_incd_object: <span class="keyword">function</span>(incd_o) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        process_incd_object: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(incd_o)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -1104,18 +1094,18 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> generic_model_offline = Backbone.Model.extend({
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> generic_model_offline = Backbone.Model.extend({
                 database: indexeddb,
-                storeName: <span class="keyword">this</span>.get_entity_name(incd_o),
+                storeName: <span class="hljs-keyword">this</span>.get_entity_name(incd_o),
             });
-            <span class="keyword">var</span> generic_model_online = Backbone.Model.extend({
+            <span class="hljs-keyword">var</span> generic_model_online = Backbone.Model.extend({
                 sync: Backbone.ajaxSync,
-                url: <span class="keyword">function</span>() {
-                    <span class="keyword">return</span> <span class="keyword">this</span>.id ? all_configs[that.get_entity_name(incd_o)].rest_api_url + <span class="keyword">this</span>.id + <span class="string">"/"</span> : all_configs[that.get_entity_name(incd_o)].rest_api_url;
+                url: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.id ? all_configs[that.get_entity_name(incd_o)].rest_api_url + <span class="hljs-keyword">this</span>.id + <span class="hljs-string">"/"</span> : all_configs[that.get_entity_name(incd_o)].rest_api_url;
                 },
             });
-            <span class="keyword">this</span>.offline_model = <span class="keyword">new</span> generic_model_offline();
-            <span class="keyword">this</span>.online_model = <span class="keyword">new</span> generic_model_online();</pre></div></div>
+            <span class="hljs-keyword">this</span>.offline_model = <span class="hljs-keyword">new</span> generic_model_offline();
+            <span class="hljs-keyword">this</span>.online_model = <span class="hljs-keyword">new</span> generic_model_online();</pre></div></div>
             
         </li>
         
@@ -1130,9 +1120,9 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.update_action(<span class="string">"Downloading "</span> + <span class="keyword">this</span>.get_entity_name(incd_o));
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.update_action(<span class="hljs-string">"Downloading "</span> + <span class="hljs-keyword">this</span>.get_entity_name(incd_o));
             
-            <span class="keyword">switch</span> (<span class="keyword">this</span>.get_action(incd_o)) {</pre></div></div>
+            <span class="hljs-keyword">switch</span> (<span class="hljs-keyword">this</span>.get_action(incd_o)) {</pre></div></div>
             
         </li>
         
@@ -1147,9 +1137,9 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">case</span> <span class="number">1</span>:
-                    <span class="keyword">this</span>.incd_add(incd_o, dfd);
-                    <span class="keyword">break</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+                    <span class="hljs-keyword">this</span>.incd_add(incd_o, dfd);
+                    <span class="hljs-keyword">break</span>;</pre></div></div>
             
         </li>
         
@@ -1164,9 +1154,9 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">case</span> <span class="number">0</span>:
-                    <span class="keyword">this</span>.incd_edit(incd_o, dfd);
-                    <span class="keyword">break</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+                    <span class="hljs-keyword">this</span>.incd_edit(incd_o, dfd);
+                    <span class="hljs-keyword">break</span>;</pre></div></div>
             
         </li>
         
@@ -1181,14 +1171,14 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">case</span> -<span class="number">1</span>:
-                    <span class="keyword">this</span>.incd_delete(incd_o, dfd);
-                    <span class="keyword">break</span>;
-                <span class="keyword">default</span>:
-                    console.log(<span class="string">"ambiguous case"</span>);
-                    dfd.reject(<span class="string">"ambiguous case. None of add, edit , delete!"</span>);
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">case</span> -<span class="hljs-number">1</span>:
+                    <span class="hljs-keyword">this</span>.incd_delete(incd_o, dfd);
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">default</span>:
+                    console.log(<span class="hljs-string">"ambiguous case"</span>);
+                    dfd.reject(<span class="hljs-string">"ambiguous case. None of add, edit , delete!"</span>);
             }
-            <span class="keyword">return</span> dfd.promise();
+            <span class="hljs-keyword">return</span> dfd.promise();
         },</pre></div></div>
             
         </li>
@@ -1204,8 +1194,8 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        incd_add: <span class="keyword">function</span>(incd_o, dfd) {
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        incd_add: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(incd_o, dfd)</span> {</span>
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -1220,13 +1210,13 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.fetch_from_offline(<span class="keyword">this</span>.get_online_id(incd_o))
-                .fail(<span class="keyword">function</span>(error) {
-                    <span class="keyword">if</span> (error == <span class="string">"Not Found"</span>) {
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.fetch_from_offline(<span class="hljs-keyword">this</span>.get_online_id(incd_o))
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
+                    <span class="hljs-keyword">if</span> (error == <span class="hljs-string">"Not Found"</span>) {
                         fetch_and_add();
                     }
                 })
-                .done(<span class="keyword">function</span>(off_model) {</pre></div></div>
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1237,14 +1227,14 @@ should be using the offline_utils and online_utils instead</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-57">&#182;</a>
               </div>
-              <p>console.log(&quot;INCD: The model supposed to be added already exists. Moving on...&quot;);</p>
+              <p>console.log(“INCD: The model supposed to be added already exists. Moving on…”);</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>                    fetch_and_add(off_model);
                 });
 
-            <span class="function"><span class="keyword">function</span> <span class="title">fetch_and_add</span><span class="params">(existing_model)</span> {</span></pre></div></div>
+            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetch_and_add</span><span class="hljs-params">(existing_model)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1260,7 +1250,7 @@ should be using the offline_utils and online_utils instead</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                that.fetch_from_online(that.get_online_id(incd_o))
-                    .done(<span class="keyword">function</span>(on_model) {</pre></div></div>
+                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(on_model)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1275,9 +1265,9 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                        ConvertNamespace.convert(on_model.toJSON(), that.get_foreign_field_desc(incd_o), <span class="string">"onlinetooffline"</span>)
-                            .done(<span class="keyword">function</span>(on_off_obj) {
-                                <span class="keyword">var</span> off_json = on_off_obj.off_json;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                        ConvertNamespace.convert(on_model.toJSON(), that.get_foreign_field_desc(incd_o), <span class="hljs-string">"onlinetooffline"</span>)
+                            .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(on_off_obj)</span> {</span>
+                                <span class="hljs-keyword">var</span> off_json = on_off_obj.off_json;</pre></div></div>
             
         </li>
         
@@ -1292,9 +1282,9 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                                <span class="keyword">if</span> (off_json.id) {
-                                    off_json.online_id = parseInt(off_json.id);
-                                    <span class="keyword">delete</span> off_json.id;
+            <div class="content"><div class='highlight'><pre>                                <span class="hljs-keyword">if</span> (off_json.id) {
+                                    off_json.online_id = <span class="hljs-built_in">parseInt</span>(off_json.id);
+                                    <span class="hljs-keyword">delete</span> off_json.id;
                                 }</pre></div></div>
             
         </li>
@@ -1311,14 +1301,14 @@ should be using the offline_utils and online_utils instead</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                                Offline.save(existing_model, that.get_entity_name(incd_o), off_json)
-                                    .done(<span class="keyword">function</span>(off_model) {
+                                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model)</span> {</span>
                                         dfd.resolve();
                                     })
-                                    .fail(<span class="keyword">function</span>(error) {
+                                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                                         dfd.reject(error);
                                     });
                             })
-                            .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                            .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1334,17 +1324,17 @@ should be using the offline_utils and online_utils instead</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                                Offline.save(existing_model, that.get_entity_name(incd_o), {
-                                    online_id: on_model.get(<span class="string">"id"</span>)
+                                    online_id: on_model.get(<span class="hljs-string">"id"</span>)
                                 })
-                                    .done(<span class="keyword">function</span>(off_model) {
+                                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model)</span> {</span>
                                         dfd.resolve();
                                     })
-                                    .fail(<span class="keyword">function</span>(error) {
+                                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                                         dfd.reject(error);
                                     });
                             });
                     })
-                    .fail(<span class="keyword">function</span>(response) {</pre></div></div>
+                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(response)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1355,7 +1345,7 @@ should be using the offline_utils and online_utils instead</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-63">&#182;</a>
               </div>
-              <p>console.log(&quot;INCD: Error fetching model from server - &quot;+response.statusText);</p>
+              <p>console.log(“INCD: Error fetching model from server - “+response.statusText);</p>
 
             </div>
             
@@ -1377,8 +1367,8 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        incd_edit: <span class="keyword">function</span>(incd_o, dfd) {
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        incd_edit: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(incd_o, dfd)</span> {</span>
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -1393,8 +1383,8 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.fetch_from_offline(<span class="keyword">this</span>.get_online_id(incd_o))
-                .done(<span class="keyword">function</span>(off_model) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.fetch_from_offline(<span class="hljs-keyword">this</span>.get_online_id(incd_o))
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1410,7 +1400,7 @@ should be using the offline_utils and online_utils instead</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                    that.fetch_from_online(that.get_online_id(incd_o))
-                        .done(<span class="keyword">function</span>(on_model) {</pre></div></div>
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(on_model)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1425,8 +1415,8 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            ConvertNamespace.convert(on_model.toJSON(), that.get_foreign_field_desc(incd_o), <span class="string">"onlinetooffline"</span>)
-                                .done(<span class="keyword">function</span>(on_off_obj) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                            ConvertNamespace.convert(on_model.toJSON(), that.get_foreign_field_desc(incd_o), <span class="hljs-string">"onlinetooffline"</span>)
+                                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(on_off_obj)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1442,7 +1432,7 @@ should be using the offline_utils and online_utils instead</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                                    that.edit_offline(off_model, on_off_obj.off_json)
-                                        .done(<span class="keyword">function</span>(off_model) {</pre></div></div>
+                                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1459,7 +1449,7 @@ should be using the offline_utils and online_utils instead</p>
             
             <div class="content"><div class='highlight'><pre>                                            dfd.resolve();
                                         })
-                                        .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1477,7 +1467,7 @@ should be using the offline_utils and online_utils instead</p>
             <div class="content"><div class='highlight'><pre>                                            dfd.reject(error);
                                         });
                                 })
-                                .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1495,7 +1485,7 @@ should be using the offline_utils and online_utils instead</p>
             <div class="content"><div class='highlight'><pre>                                    dfd.reject(error);
                                 });
                         })
-                        .fail(<span class="keyword">function</span>(response) {</pre></div></div>
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(response)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1513,7 +1503,7 @@ should be using the offline_utils and online_utils instead</p>
             <div class="content"><div class='highlight'><pre>                            dfd.reject(response);
                         });
                 })
-                .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1524,11 +1514,11 @@ should be using the offline_utils and online_utils instead</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-73">&#182;</a>
               </div>
-              <p>object which was edited on server does not exist in offline DB...doing nothing...</p>
+              <p>object which was edited on server does not exist in offline DB…doing nothing…</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    dfd.reject(<span class="string">"Error fetching model(to be edited) from offline db. Moving on..."</span> + error);
+            <div class="content"><div class='highlight'><pre>                    dfd.reject(<span class="hljs-string">"Error fetching model(to be edited) from offline db. Moving on..."</span> + error);
                 });
         },</pre></div></div>
             
@@ -1545,9 +1535,9 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        incd_delete: <span class="keyword">function</span>(incd_o, dfd) {
-            console.log(<span class="string">"processing delete - "</span> + JSON.stringify(incd_o));
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        incd_delete: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(incd_o, dfd)</span> {</span>
+            console.log(<span class="hljs-string">"processing delete - "</span> + <span class="hljs-built_in">JSON</span>.stringify(incd_o));
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -1562,8 +1552,8 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.fetch_from_offline(<span class="keyword">this</span>.get_online_id(incd_o))
-                .done(<span class="keyword">function</span>(off_model) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.fetch_from_offline(<span class="hljs-keyword">this</span>.get_online_id(incd_o))
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1579,15 +1569,15 @@ should be using the offline_utils and online_utils instead</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                    off_model.destroy({
-                        success: <span class="keyword">function</span>() {
+                        success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                             dfd.resolve();
                         },
-                        error: <span class="keyword">function</span>(error) {
+                        error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                             dfd.reject();
                         }
                     })
                 })
-                .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1598,7 +1588,7 @@ should be using the offline_utils and online_utils instead</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-77">&#182;</a>
               </div>
-              <p>object to be deleted already doesn&#39;t exists in offline db </p>
+              <p>object to be deleted already doesn’t exists in offline db </p>
 
             </div>
             
@@ -1619,9 +1609,9 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        finish_download: <span class="keyword">function</span>(last_object_timestamp) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        finish_download: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(last_object_timestamp)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -1636,8 +1626,8 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (!last_object_timestamp)
-                last_object_timestamp = <span class="keyword">this</span>.start_timestamp;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (!last_object_timestamp)
+                last_object_timestamp = <span class="hljs-keyword">this</span>.start_timestamp;</pre></div></div>
             
         </li>
         
@@ -1652,28 +1642,28 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            Offline.fetch_object(<span class="string">"meta_data"</span>, <span class="string">"key"</span>, <span class="string">"last_inc_download"</span>)
-                .done(<span class="keyword">function</span>(model) {
+            <div class="content"><div class='highlight'><pre>            Offline.fetch_object(<span class="hljs-string">"meta_data"</span>, <span class="hljs-string">"key"</span>, <span class="hljs-string">"last_inc_download"</span>)
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span> {</span>
                     set_timestamp(model);
                 })
-                .fail(<span class="keyword">function</span>(model, error) {
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span>
                     set_timestamp(model);
                 });
 
-            <span class="function"><span class="keyword">function</span> <span class="title">set_timestamp</span><span class="params">(model)</span> {</span>
-                model.set(<span class="string">'timestamp'</span>, last_object_timestamp);
-                model.save(<span class="literal">null</span>, {
-                    success: <span class="keyword">function</span>() {
+            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">set_timestamp</span><span class="hljs-params">(model)</span> {</span>
+                model.set(<span class="hljs-string">'timestamp'</span>, last_object_timestamp);
+                model.save(<span class="hljs-literal">null</span>, {
+                    success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                         dfd.resolve();
                     },
-                    error: <span class="keyword">function</span>(model, error) {
-                        dfd.reject(<span class="string">"error updating last_full_download in meta_data objectStore"</span>);
+                    error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span>
+                        dfd.reject(<span class="hljs-string">"error updating last_full_download in meta_data objectStore"</span>);
                     }
                 });
             };
 
-            <span class="keyword">return</span> dfd;
-        }</pre></div></div>
+            <span class="hljs-keyword">return</span> dfd;
+        },</pre></div></div>
             
         </li>
         
@@ -1701,21 +1691,21 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        fetch_from_offline: <span class="keyword">function</span>(online_id) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">this</span>.offline_model.clear();
-            <span class="keyword">this</span>.offline_model.set({
-                online_id: parseInt(online_id)
+            <div class="content"><div class='highlight'><pre>        fetch_from_offline: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(online_id)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">this</span>.offline_model.clear();
+            <span class="hljs-keyword">this</span>.offline_model.set({
+                online_id: <span class="hljs-built_in">parseInt</span>(online_id)
             });
-            <span class="keyword">this</span>.offline_model.fetch({
-                success: <span class="keyword">function</span>(off_model) {
+            <span class="hljs-keyword">this</span>.offline_model.fetch({
+                success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model)</span> {</span>
                     dfd.resolve(off_model);
                 },
-                error: <span class="keyword">function</span>(model, error) {
+                error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span>
                     dfd.reject(error);
                 }
             });
-            <span class="keyword">return</span> dfd.promise();
+            <span class="hljs-keyword">return</span> dfd.promise();
         },</pre></div></div>
             
         </li>
@@ -1731,19 +1721,19 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        fetch_from_online: <span class="keyword">function</span>(online_id) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">this</span>.online_model.clear();
-            <span class="keyword">this</span>.online_model.set(<span class="string">'id'</span>, parseInt(online_id));
-            <span class="keyword">this</span>.online_model.fetch({
-                success: <span class="keyword">function</span>(on_model, response) {
+            <div class="content"><div class='highlight'><pre>        fetch_from_online: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(online_id)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">this</span>.online_model.clear();
+            <span class="hljs-keyword">this</span>.online_model.set(<span class="hljs-string">'id'</span>, <span class="hljs-built_in">parseInt</span>(online_id));
+            <span class="hljs-keyword">this</span>.online_model.fetch({
+                success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(on_model, response)</span> {</span>
                     dfd.resolve(on_model);
                 },
-                error: <span class="keyword">function</span>(model, response, options) {
+                error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, response, options)</span> {</span>
                     dfd.reject(response);
                 }
             });
-            <span class="keyword">return</span> dfd.promise();
+            <span class="hljs-keyword">return</span> dfd.promise();
         },</pre></div></div>
             
         </li>
@@ -1759,21 +1749,21 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        add_offline: <span class="keyword">function</span>(json) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">this</span>.offline_model.clear();
-            <span class="keyword">this</span>.offline_model.set(json);
-            <span class="keyword">this</span>.offline_model.set(<span class="string">'online_id'</span>, parseInt(json.id));
-            <span class="keyword">this</span>.offline_model.unset(<span class="string">'id'</span>); <span class="comment">//new id would be generated, not saving by server id</span>
-            <span class="keyword">this</span>.offline_model.save(<span class="literal">null</span>, {
-                success: <span class="keyword">function</span>(off_model) {
+            <div class="content"><div class='highlight'><pre>        add_offline: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(json)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">this</span>.offline_model.clear();
+            <span class="hljs-keyword">this</span>.offline_model.set(json);
+            <span class="hljs-keyword">this</span>.offline_model.set(<span class="hljs-string">'online_id'</span>, <span class="hljs-built_in">parseInt</span>(json.id));
+            <span class="hljs-keyword">this</span>.offline_model.unset(<span class="hljs-string">'id'</span>); <span class="hljs-comment">//new id would be generated, not saving by server id</span>
+            <span class="hljs-keyword">this</span>.offline_model.save(<span class="hljs-literal">null</span>, {
+                success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model)</span> {</span>
                     dfd.resolve(off_model);
                 },
-                error: <span class="keyword">function</span>(model, error) {
+                error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span>
                     dfd.reject(error);
                 }
             });
-            <span class="keyword">return</span> dfd.promise();
+            <span class="hljs-keyword">return</span> dfd.promise();
         },</pre></div></div>
             
         </li>
@@ -1789,27 +1779,27 @@ should be using the offline_utils and online_utils instead</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        edit_offline: <span class="keyword">function</span>(off_model, json) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> offline_id = off_model.get(<span class="string">"id"</span>);
-            <span class="keyword">var</span> online_id = json.id;
+            <div class="content"><div class='highlight'><pre>        edit_offline: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model, json)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> offline_id = off_model.get(<span class="hljs-string">"id"</span>);
+            <span class="hljs-keyword">var</span> online_id = json.id;
             off_model.set(json);
-            off_model.set(<span class="string">'id'</span>, parseInt(offline_id));
-            off_model.set(<span class="string">'online_id'</span>, parseInt(online_id));
-            off_model.save(<span class="literal">null</span>, {
-                success: <span class="keyword">function</span>(off_model) {
+            off_model.set(<span class="hljs-string">'id'</span>, <span class="hljs-built_in">parseInt</span>(offline_id));
+            off_model.set(<span class="hljs-string">'online_id'</span>, <span class="hljs-built_in">parseInt</span>(online_id));
+            off_model.save(<span class="hljs-literal">null</span>, {
+                success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model)</span> {</span>
                     dfd.resolve(off_model);
                 },
-                error: <span class="keyword">function</span>(model, error) {
-                    dfd.reject(<span class="string">"ERRO EDITING model in IDB: "</span>);
+                error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span>
+                    dfd.reject(<span class="hljs-string">"ERRO EDITING model in IDB: "</span>);
                 }
             });
-            <span class="keyword">return</span> dfd.promise();
+            <span class="hljs-keyword">return</span> dfd.promise();
         },
 
     });
 
-    <span class="keyword">return</span> IncrementalDownloadView;
+    <span class="hljs-keyword">return</span> IncrementalDownloadView;
 });</pre></div></div>
             
         </li>

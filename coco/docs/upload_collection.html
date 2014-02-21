@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -177,10 +167,10 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>define([
-  <span class="string">'jquery'</span>,
-  <span class="string">'backbone'</span>,
-  <span class="string">'indexeddb_backbone_config'</span>,
-  <span class="string">'indexeddb-backbone'</span></pre></div></div>
+  <span class="hljs-string">'jquery'</span>,
+  <span class="hljs-string">'backbone'</span>,
+  <span class="hljs-string">'indexeddb_backbone_config'</span>,
+  <span class="hljs-string">'indexeddb-backbone'</span></pre></div></div>
             
         </li>
         
@@ -193,31 +183,31 @@
               </div>
               <p>Using the Require.js text! plugin, we are loaded raw text
 which will be used as our views primary template
-&#39;text!templates/project/list.html&#39;</p>
+‘text!templates/project/list.html’</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>], <span class="keyword">function</span>(jquery, backbone, indexeddb){
+            <div class="content"><div class='highlight'><pre>], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(jquery, backbone, indexeddb)</span>{</span>
     
-    <span class="keyword">var</span> generic_model_offline = Backbone.Model.extend({
+    <span class="hljs-keyword">var</span> generic_model_offline = Backbone.Model.extend({
         database: indexeddb,
-        storeName: <span class="string">"uploadqueue"</span>,
+        storeName: <span class="hljs-string">"uploadqueue"</span>,
     });
 
-    <span class="keyword">var</span> generic_upload_collection = Backbone.Collection.extend({
+    <span class="hljs-keyword">var</span> generic_upload_collection = Backbone.Collection.extend({
         model: generic_model_offline,
         database: indexeddb,
-        storeName: <span class="string">"uploadqueue"</span>,
-        fetched: <span class="literal">false</span>
+        storeName: <span class="hljs-string">"uploadqueue"</span>,
+        fetched: <span class="hljs-literal">false</span>
     });
-    <span class="keyword">var</span> upload_collection = <span class="keyword">new</span> generic_upload_collection();
+    <span class="hljs-keyword">var</span> upload_collection = <span class="hljs-keyword">new</span> generic_upload_collection();
     upload_collection.fetch({
-        success: <span class="keyword">function</span>(coll){
-            console.log(<span class="string">"UPLOADCOLLECTION : successfully fetched"</span>);
-            coll.fetched = <span class="literal">true</span>; 
+        success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(coll)</span>{</span>
+            console.log(<span class="hljs-string">"UPLOADCOLLECTION : successfully fetched"</span>);
+            coll.fetched = <span class="hljs-literal">true</span>; 
         },
-        error: <span class="keyword">function</span>(){
-            console.log(<span class="string">"UPLOADCOLLECTION :  fetch failed"</span>)            
+        error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+            console.log(<span class="hljs-string">"UPLOADCOLLECTION :  fetch failed"</span>)            
         }        
     });</pre></div></div>
             
@@ -230,7 +220,7 @@ which will be used as our views primary template
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>upload_collection.on(&#39;add&#39;)</p>
+              <p>upload_collection.on(‘add’)</p>
 
             </div>
             
@@ -247,7 +237,7 @@ which will be used as our views primary template
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="keyword">return</span> upload_collection;
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">return</span> upload_collection;
 });</pre></div></div>
             
         </li>

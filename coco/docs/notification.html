@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -177,9 +167,9 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>define([<span class="string">'jquery'</span>, <span class="string">'backbone'</span>, ], <span class="keyword">function</span>($) {
+            <div class="content"><div class='highlight'><pre>define([<span class="hljs-string">'jquery'</span>, <span class="hljs-string">'backbone'</span>, ], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($)</span> {</span>
 
-    <span class="keyword">var</span> NotificationsView = Backbone.View.extend({</pre></div></div>
+    <span class="hljs-keyword">var</span> NotificationsView = Backbone.View.extend({</pre></div></div>
             
         </li>
         
@@ -190,17 +180,17 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>A div with id-notifications already exists in DOM. Using the same div as this view&#39;s parent container</p>
+              <p>A div with id-notifications already exists in DOM. Using the same div as this view’s parent container</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        el: <span class="string">'#notifications'</span>,
-        error_notif_template: _.template($(<span class="string">'#'</span> + <span class="string">'error_notifcation_template'</span>)
+            <div class="content"><div class='highlight'><pre>        el: <span class="hljs-string">'#notifications'</span>,
+        error_notif_template: _.template($(<span class="hljs-string">'#'</span> + <span class="hljs-string">'error_notifcation_template'</span>)
             .html()),
-        success_notif_template: _.template($(<span class="string">'#'</span> + <span class="string">'success_notifcation_template'</span>)
+        success_notif_template: _.template($(<span class="hljs-string">'#'</span> + <span class="hljs-string">'success_notifcation_template'</span>)
             .html()),
 
-        add_alert: <span class="keyword">function</span>(options) {</pre></div></div>
+        add_alert: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(options)</span> {</span></pre></div></div>
             
         </li>
         
@@ -215,9 +205,9 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> notif_type = options.notif_type;
-            <span class="keyword">var</span> message = options.message;
-            <span class="keyword">var</span> alert_class, timeout, template;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> notif_type = options.notif_type;
+            <span class="hljs-keyword">var</span> message = options.message;
+            <span class="hljs-keyword">var</span> alert_class, timeout, template;</pre></div></div>
             
         </li>
         
@@ -232,18 +222,18 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (notif_type === <span class="string">"success"</span>) {
-                template = <span class="keyword">this</span>.success_notif_template({
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (notif_type === <span class="hljs-string">"success"</span>) {
+                template = <span class="hljs-keyword">this</span>.success_notif_template({
                     msg: message
                 });
-                alert_class = <span class="string">".alert-success"</span>;
-                timeout = <span class="number">10000</span>;
-            } <span class="keyword">else</span> {
-                template = <span class="keyword">this</span>.error_notif_template({
+                alert_class = <span class="hljs-string">".alert-success"</span>;
+                timeout = <span class="hljs-number">10000</span>;
+            } <span class="hljs-keyword">else</span> {
+                template = <span class="hljs-keyword">this</span>.error_notif_template({
                     msg: message
                 });
-                alert_class = <span class="string">".alert-error"</span>;
-                timeout = <span class="number">20000</span>;
+                alert_class = <span class="hljs-string">".alert-error"</span>;
+                timeout = <span class="hljs-number">20000</span>;
             }</pre></div></div>
             
         </li>
@@ -255,11 +245,11 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>Put the notif in view&#39;s parent element</p>
+              <p>Put the notif in view’s parent element</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            $(<span class="keyword">this</span>.el)
+            <div class="content"><div class='highlight'><pre>            $(<span class="hljs-keyword">this</span>.el)
                 .append(template);</pre></div></div>
             
         </li>
@@ -275,10 +265,10 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            $(<span class="string">"html, body"</span>)
+            <div class="content"><div class='highlight'><pre>            $(<span class="hljs-string">"html, body"</span>)
                 .animate({
-                scrollTop: <span class="number">0</span>
-            }, <span class="number">700</span>);</pre></div></div>
+                scrollTop: <span class="hljs-number">0</span>
+            }, <span class="hljs-number">700</span>);</pre></div></div>
             
         </li>
         
@@ -293,7 +283,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            window.setTimeout(<span class="keyword">function</span>() {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            window.setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -304,14 +294,14 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>can be improved...ryt now all notifs of this type would get removed instead of only this particular notif</p>
+              <p>can be improved…ryt now all notifs of this type would get removed instead of only this particular notif</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>                $(alert_class)
-                    .fadeTo(<span class="number">500</span>, <span class="number">0</span>)
-                    .slideUp(<span class="number">500</span>, <span class="keyword">function</span>() {
-                    $(<span class="keyword">this</span>)
+                    .fadeTo(<span class="hljs-number">500</span>, <span class="hljs-number">0</span>)
+                    .slideUp(<span class="hljs-number">500</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    $(<span class="hljs-keyword">this</span>)
                         .remove();
                 });
             }, timeout);
@@ -332,7 +322,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">return</span> <span class="keyword">new</span> NotificationsView;
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> NotificationsView;
 });</pre></div></div>
             
         </li>

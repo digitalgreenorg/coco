@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -177,9 +167,9 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>define([<span class="string">'auth'</span>, <span class="string">'offline_utils'</span>, <span class="string">'configs'</span>, <span class="string">'jquery'</span>, <span class="string">'form_field_validator'</span>, ], <span class="keyword">function</span>(Auth, Offline, all_configs) {
+            <div class="content"><div class='highlight'><pre>define([<span class="hljs-string">'auth'</span>, <span class="hljs-string">'offline_utils'</span>, <span class="hljs-string">'configs'</span>, <span class="hljs-string">'jquery'</span>, <span class="hljs-string">'form_field_validator'</span>, ], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(Auth, Offline, all_configs)</span> {</span>
 
-    <span class="keyword">var</span> run = <span class="keyword">function</span>() {</pre></div></div>
+    <span class="hljs-keyword">var</span> run = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -194,16 +184,16 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        $.validator.addMethod(<span class="string">'allowedChar'</span>,
-        validateUniCodeChars, <span class="string">'Enter a string.'</span>);
-        $.validator.addMethod(<span class="string">'validateDate'</span>,
-        validateDate, <span class="string">'Enter the date in the form of YYYY-MM-DD.'</span>);
-        $.validator.addMethod(<span class="string">'validateTime'</span>,
-        validateTime, <span class="string">'Enter the time in the form of HH:MM. Use 24 hour format'</span>);
-        $.validator.addMethod(<span class="string">'timeOrder'</span>,
-        timeOrder, <span class="string">'End time should be later than start time'</span>);
-        $.validator.addMethod(<span class="string">'dateOrder'</span>,
-        dateOrder, <span class="string">'End date should be later than start date'</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        $.validator.addMethod(<span class="hljs-string">'allowedChar'</span>,
+        validateUniCodeChars, <span class="hljs-string">'Enter a string.'</span>);
+        $.validator.addMethod(<span class="hljs-string">'validateDate'</span>,
+        validateDate, <span class="hljs-string">'Enter the date in the form of YYYY-MM-DD.'</span>);
+        $.validator.addMethod(<span class="hljs-string">'validateTime'</span>,
+        validateTime, <span class="hljs-string">'Enter the time in the form of HH:MM. Use 24 hour format'</span>);
+        $.validator.addMethod(<span class="hljs-string">'timeOrder'</span>,
+        timeOrder, <span class="hljs-string">'End time should be later than start time'</span>);
+        $.validator.addMethod(<span class="hljs-string">'dateOrder'</span>,
+        dateOrder, <span class="hljs-string">'End date should be later than start date'</span>);</pre></div></div>
             
         </li>
         
@@ -214,16 +204,16 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>onLogin callback ... used to check for reset database trigger
-this thing belongs somewhere else...in app initialize probably...its a framework&#39;s thing</p>
+              <p>onLogin callback … used to check for reset database trigger
+this thing belongs somewhere else…in app initialize probably…its a framework’s thing</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>        reset_database_check();
     }
 
-        <span class="function"><span class="keyword">function</span> <span class="title">reset_database_check</span><span class="params">()</span> {</span>
-            <span class="keyword">if</span> (!all_configs.misc.onLogin) <span class="keyword">return</span>;</pre></div></div>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reset_database_check</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">if</span> (!all_configs.misc.onLogin) <span class="hljs-keyword">return</span>;</pre></div></div>
             
         </li>
         
@@ -239,65 +229,65 @@ this thing belongs somewhere else...in app initialize probably...its a framework
             </div>
             
             <div class="content"><div class='highlight'><pre>            Auth.check_login()
-                .done(<span class="keyword">function</span>() {
-                <span class="keyword">if</span> (!navigator.onLine) <span class="keyword">return</span>;
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">if</span> (!navigator.onLine) <span class="hljs-keyword">return</span>;
                 all_configs.misc.onLogin(Offline, Auth);
             });
         }
 
-        <span class="function"><span class="keyword">function</span> <span class="title">validateUniCodeChars</span><span class="params">(value)</span> {</span>
-            <span class="keyword">if</span> (value) {
-                <span class="keyword">var</span> alphabetCharset = <span class="regexp">/^[a-zA-Z ]+$/</span>;
-                <span class="keyword">var</span> strictUniCodeChars = <span class="regexp">/.*[^\\x20-\\x7E].*/</span>;
-                <span class="keyword">if</span> (alphabetCharset.test(value)) {
-                    <span class="keyword">return</span> <span class="literal">true</span>;
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validateUniCodeChars</span><span class="hljs-params">(value)</span> {</span>
+            <span class="hljs-keyword">if</span> (value) {
+                <span class="hljs-keyword">var</span> alphabetCharset = <span class="hljs-regexp">/^[a-zA-Z ]+$/</span>;
+                <span class="hljs-keyword">var</span> strictUniCodeChars = <span class="hljs-regexp">/.*[^\\x20-\\x7E].*/</span>;
+                <span class="hljs-keyword">if</span> (alphabetCharset.test(value)) {
+                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
                 }
-                <span class="keyword">if</span> (strictUniCodeChars.test(value)) {
-                    <span class="keyword">return</span> <span class="literal">true</span>;
-                } <span class="keyword">else</span> {
-                    <span class="keyword">return</span> <span class="literal">false</span>;
+                <span class="hljs-keyword">if</span> (strictUniCodeChars.test(value)) {
+                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
                 }
-            } <span class="keyword">else</span> {
-                <span class="keyword">return</span> <span class="literal">true</span>;
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
             }
         }
 
-        <span class="function"><span class="keyword">function</span> <span class="title">validateDate</span><span class="params">(value)</span> {</span>
-            <span class="keyword">var</span> check = <span class="literal">false</span>;
-            <span class="keyword">var</span> re = <span class="regexp">/^\d{4}\-\d{1,2}\-\d{1,2}$/</span>;
-            <span class="keyword">if</span> (re.test(value)) {
-                <span class="keyword">var</span> adata = value.split(<span class="string">'-'</span>);
-                <span class="keyword">var</span> year = parseInt(adata[<span class="number">0</span>], <span class="number">10</span>);
-                <span class="keyword">var</span> month = parseInt(adata[<span class="number">1</span>], <span class="number">10</span>);
-                <span class="keyword">var</span> day = parseInt(adata[<span class="number">2</span>], <span class="number">10</span>);
-                <span class="keyword">var</span> xdata = <span class="keyword">new</span> Date(year, month - <span class="number">1</span>, day);
-                <span class="keyword">if</span> ((xdata.getFullYear() === year) &amp;&amp; (xdata.getMonth() === month - <span class="number">1</span>) &amp;&amp; (xdata.getDate() === day)) {
-                    check = <span class="literal">true</span>;
-                } <span class="keyword">else</span> {
-                    check = <span class="literal">false</span>;
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validateDate</span><span class="hljs-params">(value)</span> {</span>
+            <span class="hljs-keyword">var</span> check = <span class="hljs-literal">false</span>;
+            <span class="hljs-keyword">var</span> re = <span class="hljs-regexp">/^\d{4}\-\d{1,2}\-\d{1,2}$/</span>;
+            <span class="hljs-keyword">if</span> (re.test(value)) {
+                <span class="hljs-keyword">var</span> adata = value.split(<span class="hljs-string">'-'</span>);
+                <span class="hljs-keyword">var</span> year = <span class="hljs-built_in">parseInt</span>(adata[<span class="hljs-number">0</span>], <span class="hljs-number">10</span>);
+                <span class="hljs-keyword">var</span> month = <span class="hljs-built_in">parseInt</span>(adata[<span class="hljs-number">1</span>], <span class="hljs-number">10</span>);
+                <span class="hljs-keyword">var</span> day = <span class="hljs-built_in">parseInt</span>(adata[<span class="hljs-number">2</span>], <span class="hljs-number">10</span>);
+                <span class="hljs-keyword">var</span> xdata = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(year, month - <span class="hljs-number">1</span>, day);
+                <span class="hljs-keyword">if</span> ((xdata.getFullYear() === year) &amp;&amp; (xdata.getMonth() === month - <span class="hljs-number">1</span>) &amp;&amp; (xdata.getDate() === day)) {
+                    check = <span class="hljs-literal">true</span>;
+                } <span class="hljs-keyword">else</span> {
+                    check = <span class="hljs-literal">false</span>;
                 }
-            } <span class="keyword">else</span> {
-                check = <span class="literal">false</span>;
+            } <span class="hljs-keyword">else</span> {
+                check = <span class="hljs-literal">false</span>;
             }
-            <span class="keyword">return</span> check;
+            <span class="hljs-keyword">return</span> check;
         }
 
-        <span class="function"><span class="keyword">function</span> <span class="title">validateTime</span><span class="params">(value)</span> {</span>
-            <span class="keyword">var</span> check = <span class="literal">false</span>;
-            <span class="keyword">var</span> adata = value.split(<span class="string">':'</span>);
-            <span class="keyword">var</span> hours = parseInt(adata[<span class="number">0</span>], <span class="number">10</span>);
-            <span class="keyword">var</span> minutes = parseInt(adata[<span class="number">1</span>], <span class="number">10</span>);
-            <span class="keyword">if</span> ((hours &gt; <span class="number">24</span>) &amp;&amp; (minutes &gt; <span class="number">60</span>)) {
-                check = <span class="literal">false</span>;
-            } <span class="keyword">else</span> {
-                check = <span class="literal">true</span>;
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validateTime</span><span class="hljs-params">(value)</span> {</span>
+            <span class="hljs-keyword">var</span> check = <span class="hljs-literal">false</span>;
+            <span class="hljs-keyword">var</span> adata = value.split(<span class="hljs-string">':'</span>);
+            <span class="hljs-keyword">var</span> hours = <span class="hljs-built_in">parseInt</span>(adata[<span class="hljs-number">0</span>], <span class="hljs-number">10</span>);
+            <span class="hljs-keyword">var</span> minutes = <span class="hljs-built_in">parseInt</span>(adata[<span class="hljs-number">1</span>], <span class="hljs-number">10</span>);
+            <span class="hljs-keyword">if</span> ((hours &gt; <span class="hljs-number">24</span>) &amp;&amp; (minutes &gt; <span class="hljs-number">60</span>)) {
+                check = <span class="hljs-literal">false</span>;
+            } <span class="hljs-keyword">else</span> {
+                check = <span class="hljs-literal">true</span>;
             }
-            <span class="keyword">return</span> check;
+            <span class="hljs-keyword">return</span> check;
         }
 
-        <span class="function"><span class="keyword">function</span> <span class="title">dateOrder</span><span class="params">(value, element, options)</span> {</span>
-            <span class="keyword">var</span> check = <span class="literal">false</span>;
-            <span class="keyword">var</span> start = $(<span class="string">'#'</span> + options.video_production_start_date)
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dateOrder</span><span class="hljs-params">(value, element, options)</span> {</span>
+            <span class="hljs-keyword">var</span> check = <span class="hljs-literal">false</span>;
+            <span class="hljs-keyword">var</span> start = $(<span class="hljs-string">'#'</span> + options.video_production_start_date)
                 .val();</pre></div></div>
             
         </li>
@@ -309,43 +299,43 @@ this thing belongs somewhere else...in app initialize probably...its a framework
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>console.log(&quot;START DATE = &quot; + start + &#39; END = &#39; + value);</p>
+              <p>console.log(“START DATE = “ + start + ‘ END = ‘ + value);</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>
-            startDate = start.split(<span class="string">'-'</span>);
-            endDate = value.split(<span class="string">'-'</span>);
+            startDate = start.split(<span class="hljs-string">'-'</span>);
+            endDate = value.split(<span class="hljs-string">'-'</span>);
 
-            <span class="keyword">if</span> (endDate[<span class="number">0</span>] &gt; startDate[<span class="number">0</span>] || String(endDate)
-                .length === <span class="number">0</span>) {
-                check = <span class="literal">true</span>;
-            } <span class="keyword">else</span> <span class="keyword">if</span> (endDate[<span class="number">0</span>] === startDate[<span class="number">0</span>]) {
-                <span class="keyword">if</span> (endDate[<span class="number">1</span>] &gt; startDate[<span class="number">1</span>]) {
-                    check = <span class="literal">true</span>;
-                } <span class="keyword">else</span> <span class="keyword">if</span> (endDate[<span class="number">1</span>] === startDate[<span class="number">1</span>]) {
-                    <span class="keyword">if</span> (endDate[<span class="number">2</span>] &gt;= startDate[<span class="number">2</span>]) {
-                        check = <span class="literal">true</span>;
+            <span class="hljs-keyword">if</span> (endDate[<span class="hljs-number">0</span>] &gt; startDate[<span class="hljs-number">0</span>] || <span class="hljs-built_in">String</span>(endDate)
+                .length === <span class="hljs-number">0</span>) {
+                check = <span class="hljs-literal">true</span>;
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (endDate[<span class="hljs-number">0</span>] === startDate[<span class="hljs-number">0</span>]) {
+                <span class="hljs-keyword">if</span> (endDate[<span class="hljs-number">1</span>] &gt; startDate[<span class="hljs-number">1</span>]) {
+                    check = <span class="hljs-literal">true</span>;
+                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (endDate[<span class="hljs-number">1</span>] === startDate[<span class="hljs-number">1</span>]) {
+                    <span class="hljs-keyword">if</span> (endDate[<span class="hljs-number">2</span>] &gt;= startDate[<span class="hljs-number">2</span>]) {
+                        check = <span class="hljs-literal">true</span>;
                     }
                 }
             }
-            <span class="keyword">return</span> check;
+            <span class="hljs-keyword">return</span> check;
         }
 
 
-        <span class="function"><span class="keyword">function</span> <span class="title">timeOrder</span><span class="params">(value, element, options)</span> {</span>
-            <span class="keyword">var</span> check = <span class="literal">false</span>;
-            <span class="keyword">var</span> start = $(<span class="string">'#'</span> + options.start_time)
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">timeOrder</span><span class="hljs-params">(value, element, options)</span> {</span>
+            <span class="hljs-keyword">var</span> check = <span class="hljs-literal">false</span>;
+            <span class="hljs-keyword">var</span> start = $(<span class="hljs-string">'#'</span> + options.start_time)
                 .val();
-            <span class="keyword">var</span> end = value;
-            <span class="keyword">if</span> (start &lt; end) {
-                check = <span class="literal">true</span>;
-            } <span class="keyword">else</span> {
-                check = <span class="literal">false</span>;
+            <span class="hljs-keyword">var</span> end = value;
+            <span class="hljs-keyword">if</span> (start &lt; end) {
+                check = <span class="hljs-literal">true</span>;
+            } <span class="hljs-keyword">else</span> {
+                check = <span class="hljs-literal">false</span>;
             }
-            <span class="keyword">return</span> check;
+            <span class="hljs-keyword">return</span> check;
         }
-    <span class="keyword">return</span> {
+    <span class="hljs-keyword">return</span> {
         run: run
     };
 

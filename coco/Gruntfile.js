@@ -182,7 +182,7 @@ module.exports = function( grunt ) {
           ]
           
     },
-
+	
     min: {
         'app/scripts/backbone_models1.min.js':['app/scripts/backbone_models.js']
     },
@@ -278,17 +278,45 @@ module.exports = function( grunt ) {
                    
         }
 	   }
-      }
+      },
+	  
+	  uglify: {
+		js: {
+			files: {
+				'dist/scripts/main.min.js': ['dist/scripts/main.js']
+			}
+		}
+	  },
+	  
+	 concat_css: {
+		libs: {
+			src: ['app/scripts/**/*.css', 'app/styles/css/*.css'],
+			dest: 'dist/coco.css'
+
+		},
+		custom: {
+			src: ['app/styles/custom_css/*.css'],
+			dest: 'dist/coco_custom.css'
+		}
+	},
+	
+	  cssmin: {
+		minify: {
+			expand: true,
+			src: ['dist/coco.css'],
+			dest: '.',
+			ext: '.min.css'
+		}
+	  }
   
   });
   
   
   grunt.loadNpmTasks('grunt-requirejs');
-   
-  
-  // Alias the `test` task to run the `mocha` task instead
-  // grunt.registerTask('test', 'server:phantom mocha');
-  // grunt.registerTask('default', 'concat min');
-  grunt.registerTask('roptimize', ['requirejs']);
+  grunt.loadNpmTasks('grunt-concat-css'); 
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');  
+  //grunt.registerTask('roptimize', ['requirejs', 'uglify', 'concat_css', 'cssmin']);
+  grunt.registerTask('roptimize', ['concat_css']);
 
 };

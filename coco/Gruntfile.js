@@ -300,23 +300,21 @@ module.exports = function( grunt ) {
 		}
 	},
 	
-	  cssmin: {
+	cssmin: {
 		minify: {
 			expand: true,
-			src: ['dist/coco.css'],
+			src: ['dist/coco.css','dist/coco_custom.css'],
 			dest: '.',
 			ext: '.min.css'
 		}
-	  }
+  }
   
   });
   
   
   grunt.loadNpmTasks('grunt-requirejs');
-  grunt.loadNpmTasks('grunt-concat-css'); 
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-concat-css');
   grunt.loadNpmTasks('grunt-contrib-cssmin');  
-  //grunt.registerTask('roptimize', ['requirejs', 'uglify', 'concat_css', 'cssmin']);
-  grunt.registerTask('roptimize', ['concat_css']);
-
+  grunt.registerTask('roptimize', ['requirejs', 'uglify', 'concat_css', 'cssmin']);
 };

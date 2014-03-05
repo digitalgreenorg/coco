@@ -307,14 +307,45 @@ module.exports = function( grunt ) {
 			dest: '.',
 			ext: '.min.css'
 		}
-  }
+  },
   
-  });
+  copy: {
+	main: {
+		files: [
+			{
+				src: ['dist/scripts/main.js'],
+				dest: '../coco_library/js/coco.js'
+			},
+			{
+				src: ['dist/scripts/main.min.js'],
+				dest: '../coco_library/js/coco.min.js'
+			},
+			{
+				src: ['dist/coco.css'],
+				dest: '../coco_library/css/coco.css'
+			},
+			{
+				src: ['dist/coco.min.css'],
+				dest: '../coco_library/css/coco.min.css'
+			},
+			{
+				src: ['dist/coco_custom.css'],
+				dest: '../coco_library/css/coco_custom.css'
+			},
+			{
+				src: ['dist/coco_custom.min.css'],
+				dest: '../coco_library/css/coco_custom.min.css'
+			},
+		]
+	}
   
-  
+  }  
+});
+
   grunt.loadNpmTasks('grunt-requirejs');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-concat-css');
   grunt.loadNpmTasks('grunt-contrib-cssmin');  
-  grunt.registerTask('roptimize', ['requirejs', 'uglify', 'concat_css', 'cssmin']);
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.registerTask('roptimize', ['requirejs', 'uglify', 'concat_css', 'cssmin', 'copy']);
 };

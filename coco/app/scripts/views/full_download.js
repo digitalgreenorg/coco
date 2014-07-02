@@ -13,8 +13,9 @@ define([
     'indexeddb_backbone_config',
     'configs',
     'offline_utils',
-    'bootstrapjs'
-], function(jquery, underscore, layoutmanager, indexeddb, all_configs, Offline) {
+    'bootstrapjs',
+    'check_internet_connectivity'
+], function(jquery, underscore, layoutmanager, indexeddb, all_configs, Offline, pass, check_connectivity) {
 
 
     var FullDownloadView = Backbone.Layout.extend({
@@ -24,10 +25,6 @@ define([
         },
 
         template: "#download_template",
-
-        internet_connected: function() {
-            return navigator.onLine;
-        },
 
         //send the list of entities to the template 
         serialize: function() {
@@ -68,13 +65,6 @@ define([
             //Django complains when Z is present in timestamp bcoz timezone capab is off
             this.start_time = new Date().toJSON().replace("Z", "");
 
-            //check whether internet is accessible - if not, abort full download
-            if (!this.internet_connected()) {
-                // this function is expected to return a dfd, so create a new dfd, reject it and return it
-                var dfd = new $.Deferred();
-                dfd.reject("Can't download database. Internet is not connected");
-                return dfd;
-            }
             //intialize UI objects
             this.$('#full_download_modal').modal({
                 keyboard: false,
@@ -145,46 +135,53 @@ define([
         start_full_download: function() {
             this.full_download_dfd = new $.Deferred();
             var that = this;
-            //run some intitialization logic - check internt, setup ui etc
-            this.initialize_download()
-                .done(function() {
-                    //iterate over entities and start their download
-                    that.iterate_object_stores()
-                        .done(function() {
-                            //run some finish logic - save the timsetamp 
-                            that.finish_download()
-                                .done(function() {
-                                    //run any after download logic defined by user
-                                    that.call_after_download()
-                                        .done(function() {
-                                            // full download finised successfully
-                                            that.remove_ui();
-                                            that.full_download_dfd.resolve();
-                                        })
-                                        .fail(function(error) {
-                                            //user defined after download failed
-                                            that.remove_ui();
-                                            that.full_download_dfd.reject(error);
-                                        });
-                                })
-                                .fail(function(error) {
-                                    //something in finish download failed
-                                    that.remove_ui();
-                                    that.full_download_dfd.reject(error);
-                                });
-                        })
-                        .fail(function(error) {
-                            //soemthing failed while iterating entities and their download
-                            that.remove_ui();
-                            that.full_download_dfd.reject(error);
-                        })
-                })
-                .fail(function(error) {
-                    //something failed in intialization
-                    that.remove_ui();
-                    that.full_download_dfd.reject(error);
-                });
-
+            //check whether internet is accessible - if not, abort full download
+            check_connectivity.is_internet_connected()
+            .fail(function(){
+            	that.remove_ui();
+                that.full_download_dfd.reject("Can't download database. Internet is not connected");
+            })
+            .done(function(){
+            	//run some intitialization logic - setup ui etc
+	            that.initialize_download()
+	                .done(function() {
+	                    //iterate over entities and start their download
+	                    that.iterate_object_stores()
+	                        .done(function() {
+	                            //run some finish logic - save the timsetamp 
+	                            that.finish_download()
+	                                .done(function() {
+	                                    //run any after download logic defined by user
+	                                    that.call_after_download()
+	                                        .done(function() {
+	                                            // full download finised successfully
+	                                            that.remove_ui();
+	                                            that.full_download_dfd.resolve();
+	                                        })
+	                                        .fail(function(error) {
+	                                            //user defined after download failed
+	                                            that.remove_ui();
+	                                            that.full_download_dfd.reject(error);
+	                                        });
+	                                })
+	                                .fail(function(error) {
+	                                    //something in finish download failed
+	                                    that.remove_ui();
+	                                    that.full_download_dfd.reject(error);
+	                                });
+	                        })
+	                        .fail(function(error) {
+	                            //soemthing failed while iterating entities and their download
+	                            that.remove_ui();
+	                            that.full_download_dfd.reject(error);
+	                        })
+	                })
+	                .fail(function(error) {
+	                    //something failed in intialization
+	                    that.remove_ui();
+	                    that.full_download_dfd.reject(error);
+	                });
+            });
             return this.full_download_dfd;
         },
 

@@ -729,6 +729,20 @@ define('collections/upload_collection',[
   // Our module now returns our view
   return upload_collection;
 });
+define('collections/uploadqueue_status',[
+        'jquery',    
+        'collections/upload_collection',
+], function($, upload_collection) {
+	var uploadqueue_status = {
+			is_uploadqueue_empty: function() {
+	            console.log("FORMCONTROLLER: length of upload_collection - " + upload_collection.length);
+	            console.log(upload_collection);
+
+	            return upload_collection.fetched && upload_collection.length <= 0;
+	        },
+    };	
+    return uploadqueue_status;
+});
 /*!
  * backbone.layoutmanager.js v0.8.1
  * Copyright 2012, Tim Branyen (@tbranyen)
@@ -3163,31 +3177,79 @@ define('views/notification',['jquery', 'backbone', ], function($) {
     return new NotificationsView;
 });
 
+define('views/sync_button',['jquery'], function($) {
+	var sync_button = {
+		//Method to highlight sync button when connectivity returns
+        highlight_sync: function() {
+        	var highlight_timeout = 5000;
+        	
+        	$('#sync').addClass('btn-success');
+        	setTimeout(function(){
+                $("#sync").removeClass('btn-success');
+             }, highlight_timeout)
+        },        
+    };	
+    return sync_button;
+});
+define('check_internet_connectivity',[
+        'jquery',
+        'views/sync_button',
+        'collections/uploadqueue_status'
+], function($, sync_button, uploadqueue_status) {
+	var check_connectivity={
+			is_internet_connected : function(){
+				var dfd = new $.Deferred();
+				var that = this;
+				$.get("/coco/check_connectivity/")
+					.done(function() {
+						if (!uploadqueue_status.is_uploadqueue_empty())
+						{
+							sync_button.highlight_sync();
+						}
+						dfd.resolve();
+					})
+					.fail(function(error) {
+                        dfd.reject(error);
+                    });
+            return dfd.promise();
+	        },
+	        is_uploadqueue_empty: function() {
+	            console.log("FORMCONTROLLER: length of upload_collection - " + upload_collection.length);
+	            console.log(upload_collection);
+
+	            return upload_collection.length <= 0;
+	        },
+	}
+	return check_connectivity;
+});
 define('models/user_model',[
   'jquery',
   'backbone',
   'indexeddb_backbone_config',
   'indexeddb-backbone',
-  'collections/upload_collection'
+  'collections/upload_collection',
+  'check_internet_connectivity'
   // Using the Require.js text! plugin, we are loaded raw text
   // which will be used as our views primary template
   // 'text!templates/project/list.html'
-], function(jquery, backbone, indexeddb, idb_backbone_adapter, UploadCollection){
+], function(jquery, backbone, indexeddb, idb_backbone_adapter, UploadCollection, check_connectivity){
     
     var generic_model_offline = Backbone.Model.extend({
         database: indexeddb,
         storeName: "user",
-        isOnline: function(){
-            return navigator.onLine;
-        },
+        // This function is never used
+//        isOnline: function(){
+//        	return check_connectivity.is_internet_connected();
+//        },
         isLoggedIn: function(){
             //TODO: should fetch itself first to get latest state?
             // should this be handled by the auth module
             return this.get("loggedin");
         },
-        canSaveOnline: function(){
-            return this.isOnline() && UploadCollection.fetched && UploadCollection.length===0
-        }
+        // This function is never used
+//        canSaveOnline: function(){
+//            return this.isOnline() && UploadCollection.fetched && UploadCollection.length===0;
+//        }
     });
     var user_model = new generic_model_offline();
     user_model.set({key: "user_info"});
@@ -7197,38 +7259,40 @@ define('auth',[
     'auth_offline_backend',
     'configs',
     'offline_utils',
+    'check_internet_connectivity',
     'jquery_cookie'
-], function(User, OfflineAuthBackend, all_configs, Offline) {
-
-    var internet_connected = function() {
-        return navigator.onLine;
-    }
+], function(User, OfflineAuthBackend, all_configs, Offline, check_connectivity) {
 
     // checks whether the user is logged in or not in both backends- based on internet connectivity 
     var check_login = function() {
-        var dfd = new $.Deferred()
-        console.log("checking login");
-        if (check_online_login()) {
+        //ideally shd have been exacty same as the server uses. But approximating it to avoid network request.
+    	var dfd = new $.Deferred();
+    	check_connectivity.is_internet_connected()
+        .fail(function(){
             check_offline_login()
-                .done(function() {
+            .done(function(){
+                dfd.resolve();
+            })
+            .fail(function(error){
+                dfd.reject(error);
+            });
+        })
+        .done(function(){
+      	  if($.cookie('sessionid')){
+                check_offline_login()
+                .done(function(){
                     dfd.resolve();
                 })
-                .fail(function(error) {
+                .fail(function(error){
                     dfd.reject(error);
                 });
-        } else {
-            dfd.reject("Not logged in on server");
-        }
+      	  }
+      	  else{
+      		  dfd.reject("Not logged in on server");
+      	  }
+        });
         return dfd.promise();
-    }
-
-    
-    //ideally shd have been exacty same as the server uses. But approximating it to avoid network request.
-    var check_online_login = function() {
-        if (!internet_connected || $.cookie('sessionid'))
-            return true;
-        return false;
-    }
+    };
 
     //is exactly same as the offline backend uses. (Since offline backend auth is custom written by us)
     var check_offline_login = function() {
@@ -7247,39 +7311,40 @@ define('auth',[
         });
         return dfd;
     }
-
+;
     // logs out of the offline backend, if internet accessible- logs out of the server backend
     var logout = function() {
         var dfd = new $.Deferred();
-        var that = this;
         online_logout()
             .always(function() {
                 offline_logout()
                     .always(function() {
                         dfd.resolve();
-                    })
+                    });
             });
         return dfd;
-    }
+    };
     
     // logs out of the online backend if internet accessible
     var online_logout = function() {
         var dfd = new $.Deferred();
 
-        if (!internet_connected())
-            dfd.resolve();
-            
-        // the logout endpoint should be made configurable
-        $.post("/coco/logout/")
-            .done(function(resp) {
+        check_connectivity.is_internet_connected()
+        .fail(function(){
+      	  dfd.resolve();
+        })
+        .done(function(){
+            // the logout endpoint should be made configurable
+            $.post("/coco/logout/")
+            .done(function(resp){
                 return dfd.resolve();
             })
-            .fail(function(resp) {
+            .fail(function(resp){
                 return dfd.reject(resp);
             });
-
+        });
         return dfd.promise();
-    }
+    };
 
     // contact OfflineAuthBackend to log out of the offline backend 
     var offline_logout = function() {
@@ -7292,14 +7357,16 @@ define('auth',[
                 dfd.reject();
             });
         return dfd;
-    }
+    };
 
     // logs-in to the offline backend, if internet accessible - logs-in to the server backend
     var login = function(username, password) {
         var dfd = new $.Deferred();
         console.log("Attemting login");
         // internet accessible - login to server backend - when successfull - login to offline backend
-        if (internet_connected()) {
+        
+        check_connectivity.is_internet_connected()
+        .done(function(){
             // try server backend login
             online_login(username, password)
                 .fail(function(error) {
@@ -7335,8 +7402,9 @@ define('auth',[
                             dfd.resolve();
                         });
                 });
-        } else {
-            // internet nt accessible - only try loggin into offline backend
+        })
+        .fail(function(){
+        	// internet nt accessible - only try loggin into offline backend
             offline_login(username, password)
                 .fail(function(error) {
                     console.log("Offline login failed - " + error);
@@ -7353,31 +7421,35 @@ define('auth',[
                         all_configs.misc.onLogin(Offline, this);
                     dfd.resolve();
                 });
-        }
+        });
         return dfd;
-    }
+    };
 
     // resolves if server returns 1 or internet is not connected otherwise rejects
     var online_login = function(username, password) {
         var dfd = new $.Deferred();
-        if (!internet_connected())
-            return dfd.resolve();
-        //the endpoint should be made configurable     
-        $.post("/coco/login/", {
-            "username": username,
-            "password": password
+        check_connectivity.is_internet_connected()
+        .fail(function(){
+      	  return dfd.resolve();
         })
-            .done(function(resp) {
-                if (resp == "1")
-                    return dfd.resolve();
-                else
-                    return dfd.reject("Username or password is incorrect (Server)");
-            })
-            .fail(function(resp) {
-                return dfd.reject("Could not contact server. Try again in a minute.");
-            });
+        .done(function(){
+	        //the endpoint should be made configurable     
+	        $.post("/coco/login/", {
+	            "username": username,
+	            "password": password
+	        })
+	            .done(function(resp) {
+	                if (resp == "1")
+	                    return dfd.resolve();
+	                else
+	                    return dfd.reject("Username or password is incorrect (Server)");
+	            })
+	            .fail(function(resp) {
+	                return dfd.reject("Could not contact server. Try again in a minute.");
+	            });
+        });
         return dfd.promise();
-    }
+    };
     
 
     //contact OfflineAuthBackend to authenticate a user against offline backend  
@@ -7391,7 +7463,7 @@ define('auth',[
                 dfd.reject(error);
             });
         return dfd.promise();
-    }
+    };
 
     // contact OfflineAuthBackend to register a new user in offline backend
     var offline_register = function(username, password) {
@@ -7404,7 +7476,7 @@ define('auth',[
                 dfd.reject(error);
             });
         return dfd.promise();
-    }
+    };
 
     return {
         check_login: check_login,
@@ -7428,8 +7500,9 @@ define('views/full_download',[
     'indexeddb_backbone_config',
     'configs',
     'offline_utils',
-    'bootstrapjs'
-], function(jquery, underscore, layoutmanager, indexeddb, all_configs, Offline) {
+    'bootstrapjs',
+    'check_internet_connectivity'
+], function(jquery, underscore, layoutmanager, indexeddb, all_configs, Offline, pass, check_connectivity) {
 
 
     var FullDownloadView = Backbone.Layout.extend({
@@ -7439,10 +7512,6 @@ define('views/full_download',[
         },
 
         template: "#download_template",
-
-        internet_connected: function() {
-            return navigator.onLine;
-        },
 
         //send the list of entities to the template 
         serialize: function() {
@@ -7483,13 +7552,6 @@ define('views/full_download',[
             //Django complains when Z is present in timestamp bcoz timezone capab is off
             this.start_time = new Date().toJSON().replace("Z", "");
 
-            //check whether internet is accessible - if not, abort full download
-            if (!this.internet_connected()) {
-                // this function is expected to return a dfd, so create a new dfd, reject it and return it
-                var dfd = new $.Deferred();
-                dfd.reject("Can't download database. Internet is not connected");
-                return dfd;
-            }
             //intialize UI objects
             this.$('#full_download_modal').modal({
                 keyboard: false,
@@ -7560,46 +7622,53 @@ define('views/full_download',[
         start_full_download: function() {
             this.full_download_dfd = new $.Deferred();
             var that = this;
-            //run some intitialization logic - check internt, setup ui etc
-            this.initialize_download()
-                .done(function() {
-                    //iterate over entities and start their download
-                    that.iterate_object_stores()
-                        .done(function() {
-                            //run some finish logic - save the timsetamp 
-                            that.finish_download()
-                                .done(function() {
-                                    //run any after download logic defined by user
-                                    that.call_after_download()
-                                        .done(function() {
-                                            // full download finised successfully
-                                            that.remove_ui();
-                                            that.full_download_dfd.resolve();
-                                        })
-                                        .fail(function(error) {
-                                            //user defined after download failed
-                                            that.remove_ui();
-                                            that.full_download_dfd.reject(error);
-                                        });
-                                })
-                                .fail(function(error) {
-                                    //something in finish download failed
-                                    that.remove_ui();
-                                    that.full_download_dfd.reject(error);
-                                });
-                        })
-                        .fail(function(error) {
-                            //soemthing failed while iterating entities and their download
-                            that.remove_ui();
-                            that.full_download_dfd.reject(error);
-                        })
-                })
-                .fail(function(error) {
-                    //something failed in intialization
-                    that.remove_ui();
-                    that.full_download_dfd.reject(error);
-                });
-
+            //check whether internet is accessible - if not, abort full download
+            check_connectivity.is_internet_connected()
+            .fail(function(){
+            	that.remove_ui();
+                that.full_download_dfd.reject("Can't download database. Internet is not connected");
+            })
+            .done(function(){
+            	//run some intitialization logic - setup ui etc
+	            that.initialize_download()
+	                .done(function() {
+	                    //iterate over entities and start their download
+	                    that.iterate_object_stores()
+	                        .done(function() {
+	                            //run some finish logic - save the timsetamp 
+	                            that.finish_download()
+	                                .done(function() {
+	                                    //run any after download logic defined by user
+	                                    that.call_after_download()
+	                                        .done(function() {
+	                                            // full download finised successfully
+	                                            that.remove_ui();
+	                                            that.full_download_dfd.resolve();
+	                                        })
+	                                        .fail(function(error) {
+	                                            //user defined after download failed
+	                                            that.remove_ui();
+	                                            that.full_download_dfd.reject(error);
+	                                        });
+	                                })
+	                                .fail(function(error) {
+	                                    //something in finish download failed
+	                                    that.remove_ui();
+	                                    that.full_download_dfd.reject(error);
+	                                });
+	                        })
+	                        .fail(function(error) {
+	                            //soemthing failed while iterating entities and their download
+	                            that.remove_ui();
+	                            that.full_download_dfd.reject(error);
+	                        })
+	                })
+	                .fail(function(error) {
+	                    //something failed in intialization
+	                    that.remove_ui();
+	                    that.full_download_dfd.reject(error);
+	                });
+            });
             return this.full_download_dfd;
         },
 
@@ -7991,9 +8060,9 @@ define('views/full_download',[
 });
 
 //This view contains the links to add and list pages of entities, the sync button, logout link, online-offline indicator
-define('views/dashboard',['jquery', 'underscore', 'configs', 'indexeddb_backbone_config', 'collections/upload_collection', 'views/upload', 'views/incremental_download', 'views/notification', 'layoutmanager', 'models/user_model', 'auth', 'offline_utils', 'views/full_download' ],
+define('views/dashboard',['jquery', 'underscore', 'configs', 'indexeddb_backbone_config', 'collections/upload_collection', 'collections/uploadqueue_status', 'views/upload', 'views/incremental_download', 'views/notification', 'layoutmanager', 'models/user_model', 'auth', 'offline_utils', 'views/full_download', 'check_internet_connectivity', 'views/sync_button'],
 
-function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDownloadView, notifs_view, layoutmanager, User, Auth, Offline, FullDownloadView) {
+function(jquery, pass, configs, indexeddb, upload_collection, uploadqueue_status, UploadView, IncDownloadView, notifs_view, layoutmanager, User, Auth, Offline, FullDownloadView, check_connectivity, sync_button) {
 
     var DashboardView = Backbone.Layout.extend({
         template: "#dashboard",
@@ -8072,20 +8141,8 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
                     return upload_collection.length;
                 });
             });
-            
-            //keep the online-offline indicator up-to-date
-            window.addEventListener("offline", this.user_offline);
-            //keep the online-offline indicator up-to-date
-            window.addEventListener("online", this.user_online);
 
-            //set the online-offline indicator
-            if (User.isOnline()) {
-                this.user_online();
-            } else {
-                this.user_offline();
-            }
             var that = this;
-            
             //disable all links of db not yet downloaded
             Offline.fetch_object("meta_data", "key", "last_full_download")
                 .done(function(model) {
@@ -8094,26 +8151,6 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
                 .fail(function(model, error) {
                 that.db_not_downloaded();
             });
-        },
-        
-        //enable sync button, show online indicator
-        user_online: function() {
-            $('#sync')
-                .removeAttr("disabled");
-            $('#offline')
-                .hide();
-            $('#online')
-                .show();
-        },
-
-        //disable sync button, show offline indicator
-        user_offline: function() {
-            $('#sync')
-                .attr('disabled', true);
-            $('#online')
-                .hide();
-            $('#offline')
-                .show();
         },
 
         //enable add, list links
@@ -8145,64 +8182,67 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
                 alert("Please wait till background download is finished.");
                 return;
             }
-            Offline.fetch_object("meta_data", "key", "last_full_download")
-                .done(function(model) {
-                console.log("In Sync: db completely downloaded");
-                that.sync_in_progress = true;
-                //start upload
-                that.upload()
-                    .done(function() {
-                    console.log("UPLOAD FINISHED");
-                    notifs_view.add_alert({
-                        notif_type: "success",
-                        message: "Sync successfully finished"
-                    });
-                })
-                    .fail(function(error) {
-                    console.log("ERROR IN UPLOAD :" + error);
-                    notifs_view.add_alert({
-                        notif_type: "error",
-                        message: "Sync Incomplete. Failed to finish upload : " + error
-                    });
-                })
-                    .always(function() {
-                    //upload finished
-                    //start inc download - even if upload failed    
-                    that.inc_download({
-                        background: false
-                    })
-                        .done(function() {
-                        console.log("INC DOWNLOAD FINISHED");
-                        that.sync_in_progress = false;
-                        notifs_view.add_alert({
-                            notif_type: "success",
-                            message: "Incremental download successfully finished"
-                        });
-                    })
-                        .fail(function(error) {
-                        console.log("ERROR IN INC DOWNLOAD");
-                        console.log(error);
-                        that.sync_in_progress = false;
-                        notifs_view.add_alert({
-                            notif_type: "error",
-                            message: "Sync Incomplete. Failed to do Incremental Download: " + error
-                        });
-
-                    });
-                });
-
-            })
-                .fail(function(model, error) {
-                // if DB is not downloaded, start the full download    
-                if (error == "Not Found") {
-                    that.render()
-                        .done(function() {
-                        console.log("In Sync: db not completely downloaded");
-                        that.download();
-                    });
-                }
+            check_connectivity.is_internet_connected()
+            .fail(function(){
+	            	alert("Internet doesn't seem to be connected this computer. Please try sync after some time.");
+	        })
+            .done(function(){
+	            	Offline.fetch_object("meta_data", "key", "last_full_download")
+	                .done(function(model) {
+			                console.log("In Sync: db completely downloaded");
+			                that.sync_in_progress = true;
+			                //start upload
+			                that.upload()
+		                    .done(function() {
+			                    console.log("UPLOAD FINISHED");
+			                    notifs_view.add_alert({
+			                        notif_type: "success",
+			                        message: "Sync successfully finished"
+			                    });
+		                    })
+		                    .fail(function(error) {
+			                    console.log("ERROR IN UPLOAD :" + error);
+			                    notifs_view.add_alert({
+			                        notif_type: "error",
+			                        message: "Sync Incomplete. Failed to finish upload : " + error
+			                    });
+		                    })
+		                    .always(function() {
+				                    //upload finished
+				                    //start inc download - even if upload failed    
+				                    that.inc_download({
+				                        background: false
+				                    })
+			                        .done(function() {
+				                        console.log("INC DOWNLOAD FINISHED");
+				                        that.sync_in_progress = false;
+				                        notifs_view.add_alert({
+				                            notif_type: "success",
+				                            message: "Incremental download successfully finished"
+				                        });
+				                    })
+			                        .fail(function(error) {
+				                        console.log("ERROR IN INC DOWNLOAD");
+				                        console.log(error);
+				                        that.sync_in_progress = false;
+				                        notifs_view.add_alert({
+				                            notif_type: "error",
+				                            message: "Sync Incomplete. Failed to do Incremental Download: " + error
+			                        });
+		                    });
+	                });
+	              })
+	              .fail(function(model, error) {
+		                // if DB is not downloaded, start the full download    
+		                if (error == "Not Found") {
+		                    that.render()
+		                        .done(function() {
+		                        console.log("In Sync: db not completely downloaded");
+		                        that.download();
+		                    });
+		                }
+	              });
             });
-
         },
         
         //method to initiate full download
@@ -8291,26 +8331,27 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
             };
 
             //check if uploadqueue is empty and internet is connected - if both true do the background download
-            if (this.is_uploadqueue_empty() && this.is_internet_connected() && !this.sync_in_progress) this.inc_download({
-                background: true
-            })
-            //when the inc download is finished set the timer to start it again later
-                .always(call_again);
-            //if cant do inc download right now, just set the timer to start it again later    
-            else call_again();
+            var that = this;
+            if(uploadqueue_status.is_uploadqueue_empty() && !this.sync_in_progress){
+            	check_connectivity.is_internet_connected()
+            	.done(function(){
+            		that.inc_download({background:true})
+            		//when the inc download is finished set the timer to start it again later
+                    .always(call_again);
+            	})
+            	.fail(function(){
+            		console.log("Incremental download failed because there is no connectivity.")
+            		call_again();
+            	})
+            }
+            //if cant do inc download right now, just set the timer to start it again later
+            //Also check if user is online (for highlighting sync button)
+            else{
+        		check_connectivity.is_internet_connected();
+        		call_again();
+            }
         },
 
-        // check emptiness of uploadQ
-        is_uploadqueue_empty: function() {
-            //return false if the check is made before uploadQ collection could be fetched from DB
-            return upload_collection.fetched && upload_collection.length <= 0;
-        },
-
-        // check internet connection
-        is_internet_connected: function() {
-            return navigator.onLine;
-        },
-        
         // logout and navigate to login url
         logout: function() {
             Auth.logout()
@@ -8321,8 +8362,6 @@ function(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDow
             });
         }
     });
-
-
     // Our module now returns our view
     return DashboardView;
 });
@@ -8691,11 +8730,14 @@ define('views/form_controller',[
     'configs',
     'views/form',
     'collections/upload_collection',
+    'collections/uploadqueue_status',
     'convert_namespace',
     'offline_utils',
     'online_utils',
-    'indexeddb-backbone'
-], function(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, ConvertNamespace, Offline, Online) {
+    'indexeddb-backbone',
+    'check_internet_connectivity',
+    'views/sync_button',
+], function(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, uploadqueue_status, ConvertNamespace, Offline, Online, pass, check_connectivity, sync_button) {
 
     // FormController: Brings up the Add/Edit form
 
@@ -8907,38 +8949,66 @@ define('views/form_controller',[
         save_object: function(json, foreign_entities, entity_name) {
             var dfd = new $.Deferred();
             var that = this;
-            if (this.is_uploadqueue_empty() && this.is_internet_connected()) {
-                //Online mode
-                // convert namespace of object from offline to online
-                ConvertNamespace.convert(json, foreign_entities, "offlinetoonline")
-                    .done(function(on_off_jsons) {
-                        // save in online mode
-                        that.save_when_online(entity_name, on_off_jsons)
-                            .done(function(off_json) {
-                                // call any user defined after-save
-                                call_after_save(off_json)
-                                    .done(function() {
-                                        // successfully saved
-                                        show_suc_notif();
-                                        dfd.resolve(off_json);
-                                    })
-                                    .fail(function(error) {
-                                        // user defined after-save failed
-                                        alert("afterSave failed for entity - " + entity_name + " - " + error);
-                                    });
-                            })
-                            .fail(function(error) {
-                                // error saving the object
-                                // show error on form
-                                show_err_notif();
-                                dfd.reject(error);
-                            });
-                    })
-                    .fail(function(error) {
-                        // namespace conversion failed
-                        show_err_notif();
-                        return dfd.reject(error);
-                    });
+            if (uploadqueue_status.is_uploadqueue_empty()) {
+            	check_connectivity.is_internet_connected()
+            	.done(function(){
+                	//Online mode
+	                // convert namespace of object from offline to online
+	                ConvertNamespace.convert(json, foreign_entities, "offlinetoonline")
+	                    .done(function(on_off_jsons) {
+	                        // save in online mode
+	                        that.save_when_online(entity_name, on_off_jsons)
+	                            .done(function(off_json) {
+	                                // call any user defined after-save
+	                                call_after_save(off_json)
+	                                    .done(function() {
+	                                        // successfully saved
+	                                        show_suc_notif();
+	                                        dfd.resolve(off_json);
+	                                    })
+	                                    .fail(function(error) {
+	                                        // user defined after-save failed
+	                                        alert("afterSave failed for entity - " + entity_name + " - " + error);
+	                                    });
+	                            })
+	                            .fail(function(error) {
+	                                // error saving the object
+	                                // show error on form
+	                                show_err_notif();
+	                                dfd.reject(error);
+	                            });
+	                    })
+	                    .fail(function(error) {
+	                        // namespace conversion failed
+	                        show_err_notif();
+	                        return dfd.reject(error);
+	                    });
+            	})
+            	.fail(function(){
+                    //Offline mode
+                    // save in offline mode
+                    that.save_when_offline(entity_name, json)
+                        .done(function(off_json) {
+                            // call any user defined after-save
+                            call_after_save(off_json)
+                                .done(function() {
+                                    // successfully saved
+                                    show_suc_notif();
+                                    dfd.resolve(off_json);
+                                })
+                                .fail(function(error) {
+                                    // user defined after-save failed
+                                    alert("afterSave failed for entity - " + entity_name + " - " + error);
+                                });
+                        })
+                        .fail(function(error) {
+                            // error saving the object
+                            // show error on form
+                            show_err_notif();
+                            return dfd.reject(error);
+                        });
+            		
+            	});
             } else {
                 //Offline mode
                 // save in offline mode
@@ -8961,6 +9031,10 @@ define('views/form_controller',[
                         // show error on form
                         show_err_notif();
                         return dfd.reject(error);
+                    })
+                    .always(function() {
+                    	//Check for internet connectivity
+                    	check_connectivity.is_internet_connected();
                     });
             }
             
@@ -9073,19 +9147,6 @@ define('views/form_controller',[
                     return dfd.reject(xhr.responseText);
                 });
             return dfd.promise();
-        },
-        
-        // checks whether the uploadQ is empty or not
-        is_uploadqueue_empty: function() {
-            console.log("FORMCONTROLLER: length of upload_collection - " + upload_collection.length);
-            console.log(upload_collection);
-
-            return upload_collection.length <= 0;
-        },
-
-        // checks whther internet is available
-        is_internet_connected: function() {
-            return navigator.onLine;
         },
         
         // button2 is made null - so this is nevr used 
@@ -9525,7 +9586,7 @@ define('router',['jquery', 'underscore', 'backbone', 'views/app_layout', 'config
 });
 
 //The user of the COCO v2 framework shall write any app initialization logic here
-define('user_initialize',['auth', 'offline_utils', 'configs', 'jquery', 'form_field_validator', ], function(Auth, Offline, all_configs) {
+define('user_initialize',['auth', 'offline_utils', 'configs', 'check_internet_connectivity', 'jquery', 'form_field_validator' ], function(Auth, Offline, all_configs, check_connectivity) {
 
     var run = function() {
         // adding custom validation checks to jquery.Validation plugin
@@ -9550,8 +9611,13 @@ define('user_initialize',['auth', 'offline_utils', 'configs', 'jquery', 'form_fi
             //if the user is logged in call the callback here else call it after login    
             Auth.check_login()
                 .done(function() {
-                if (!navigator.onLine) return;
-                all_configs.misc.onLogin(Offline, Auth);
+                	check_connectivity.is_internet_connected()
+                    .done(function(){
+                    	all_configs.misc.onLogin(Offline, Auth);
+                    })
+                    .fail(function(){
+                    	console.log("Reset databast check failed because of no Connectivity");
+                    });
             });
         }
 

@@ -8,11 +8,13 @@ define([
     'configs',
     'views/form',
     'collections/upload_collection',
+    'collections/uploadqueue_status',
     'convert_namespace',
     'offline_utils',
     'online_utils',
-    'indexeddb-backbone'
-], function(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, ConvertNamespace, Offline, Online) {
+    'indexeddb-backbone',
+    'check_internet_connectivity',
+], function(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, uploadqueue_status, ConvertNamespace, Offline, Online, pass, check_connectivity) {
 
     // FormController: Brings up the Add/Edit form
 
@@ -224,38 +226,66 @@ define([
         save_object: function(json, foreign_entities, entity_name) {
             var dfd = new $.Deferred();
             var that = this;
-            if (this.is_uploadqueue_empty() && this.is_internet_connected()) {
-                //Online mode
-                // convert namespace of object from offline to online
-                ConvertNamespace.convert(json, foreign_entities, "offlinetoonline")
-                    .done(function(on_off_jsons) {
-                        // save in online mode
-                        that.save_when_online(entity_name, on_off_jsons)
-                            .done(function(off_json) {
-                                // call any user defined after-save
-                                call_after_save(off_json)
-                                    .done(function() {
-                                        // successfully saved
-                                        show_suc_notif();
-                                        dfd.resolve(off_json);
-                                    })
-                                    .fail(function(error) {
-                                        // user defined after-save failed
-                                        alert("afterSave failed for entity - " + entity_name + " - " + error);
-                                    });
-                            })
-                            .fail(function(error) {
-                                // error saving the object
-                                // show error on form
-                                show_err_notif();
-                                dfd.reject(error);
-                            });
-                    })
-                    .fail(function(error) {
-                        // namespace conversion failed
-                        show_err_notif();
-                        return dfd.reject(error);
-                    });
+            if (uploadqueue_status.is_uploadqueue_empty()) {
+            	check_connectivity.is_internet_connected()
+            	.done(function(){
+                	//Online mode
+	                // convert namespace of object from offline to online
+	                ConvertNamespace.convert(json, foreign_entities, "offlinetoonline")
+	                    .done(function(on_off_jsons) {
+	                        // save in online mode
+	                        that.save_when_online(entity_name, on_off_jsons)
+	                            .done(function(off_json) {
+	                                // call any user defined after-save
+	                                call_after_save(off_json)
+	                                    .done(function() {
+	                                        // successfully saved
+	                                        show_suc_notif();
+	                                        dfd.resolve(off_json);
+	                                    })
+	                                    .fail(function(error) {
+	                                        // user defined after-save failed
+	                                        alert("afterSave failed for entity - " + entity_name + " - " + error);
+	                                    });
+	                            })
+	                            .fail(function(error) {
+	                                // error saving the object
+	                                // show error on form
+	                                show_err_notif();
+	                                dfd.reject(error);
+	                            });
+	                    })
+	                    .fail(function(error) {
+	                        // namespace conversion failed
+	                        show_err_notif();
+	                        return dfd.reject(error);
+	                    });
+            	})
+            	.fail(function(){
+                    //Offline mode
+                    // save in offline mode
+                    that.save_when_offline(entity_name, json)
+                        .done(function(off_json) {
+                            // call any user defined after-save
+                            call_after_save(off_json)
+                                .done(function() {
+                                    // successfully saved
+                                    show_suc_notif();
+                                    dfd.resolve(off_json);
+                                })
+                                .fail(function(error) {
+                                    // user defined after-save failed
+                                    alert("afterSave failed for entity - " + entity_name + " - " + error);
+                                });
+                        })
+                        .fail(function(error) {
+                            // error saving the object
+                            // show error on form
+                            show_err_notif();
+                            return dfd.reject(error);
+                        });
+            		
+            	});
             } else {
                 //Offline mode
                 // save in offline mode
@@ -278,6 +308,10 @@ define([
                         // show error on form
                         show_err_notif();
                         return dfd.reject(error);
+                    })
+                    .always(function() {
+                    	//Check for internet connectivity
+                    	check_connectivity.is_internet_connected();
                     });
             }
             
@@ -390,19 +424,6 @@ define([
                     return dfd.reject(xhr.responseText);
                 });
             return dfd.promise();
-        },
-        
-        // checks whether the uploadQ is empty or not
-        is_uploadqueue_empty: function() {
-            console.log("FORMCONTROLLER: length of upload_collection - " + upload_collection.length);
-            console.log(upload_collection);
-
-            return upload_collection.length <= 0;
-        },
-
-        // checks whther internet is available
-        is_internet_connected: function() {
-            return navigator.onLine;
         },
         
         // button2 is made null - so this is nevr used 

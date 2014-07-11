@@ -24,7 +24,7 @@ COCO communicates with the server using the following urls:
 
 ##How to make an app on COCO (Example specific to Django)
 
-COCO architecture needs to you work on following things for creating your own app over it:
+###COCO architecture needs to you work on following things for creating your own app over it:
 
 1. Server Side:
   1. Models in Django 
@@ -33,7 +33,7 @@ COCO architecture needs to you work on following things for creating your own ap
   1. Configuration javascript file (config.js) 
   2. HTML Templates using underscore templating language. 
 
-Following are the detailed steps for creating applications:
+###Following are the detailed steps for creating applications:
 
 1. Create a Django project. Configure the database details in settings.py 
 2. Copy the COCO folder in project/project_name/media folder 
@@ -45,14 +45,14 @@ Following are the detailed steps for creating applications:
 5. Create models in that app as per the requirement in models.py 
   1.	Create a Usermodel class which will be used for storing the user identity if there are multiple users. Later inherit this Usermodel class in all other model classes. Class Usermodel can be created as below: 
 
-		class UserModel(models.Model):
-			user_created = models.ForeignKey(User, related_name ="%(class)s_created", editable = False, null=True, blank=True)
-			time_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-			user_modified = models.ForeignKey(User, related_name ="%(class)s_related_modified",editable = False, null=True, blank=True)
-			time_modified = models.DateTimeField(auto_now=True, null=True, blank=True)
+			class UserModel(models.Model):
+				user_created = models.ForeignKey(User, related_name ="%(class)s_created", editable = False, null=True, blank=True)
+				time_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+				user_modified = models.ForeignKey(User, related_name ="%(class)s_related_modified",editable = False, null=True, blank=True)
+				time_modified = models.DateTimeField(auto_now=True, null=True, blank=True)
 		
-		class Meta:
-			abstract = True
+			class Meta:
+				abstract = True
 		
 		The above class saves the timestamp for when the user was created and when its details were modified. In Tastypie it is not possible to determine both username and whether created or modified at the same place. Therefore, user_created and user_modified will be saved as null.
 
@@ -68,24 +68,25 @@ Following are the detailed steps for creating applications:
 6. After creating models, we need to create RestAPIs for performing operations on our database. For this, create a file api.py in django app and do the following: 
   1.	Create a class called baseresource which will be inherited by the resource classes which is to be shown to users i.e. the tables that could be modified by the user. We are creating this class called base resource so that we may store the id the user entering the data. The base resource class needs to have a full_hydrate function which will be used for denormalizing the JSON file that is sent to server. 
 
-		'''class BaseResource(ModelResource):
+		'''
+		class BaseResource(ModelResource):
 		
-		def full_hydrate(self, bundle):
-			bundle = super(BaseResource, self).full_hydrate(bundle)
-			bundle.obj.user_modified_id = bundle.request.user.id return bundle
+			def full_hydrate(self, bundle):
+				bundle = super(BaseResource, self).full_hydrate(bundle)
+				bundle.obj.user_modified_id = bundle.request.user.id return bundle
 		
-		def obj _create(self, bundle, **kwargs):
-			"""
-			A ORM-specific implementation of ``obj_create``.
-			"""
-			bundle.obj = self._meta.object_class()
+			def obj _create(self, bundle, **kwargs):
+				"""
+				A ORM-specific implementation of ``obj_create``.
+				"""
+				bundle.obj = self._meta.object_class()
 			
-			for	key, value in kwargs.items():
-				setattr(bundle.obj, key, value)
+				for	key, value in kwargs.items():
+					setattr(bundle.obj, key, value)
 				
-			self.authorized_create_detail(self.get_object_list(bundle.request), bundle)
-			bundle = self.full_hydrate(bundle)
-			bundle.obj.user_created_id = bundle.request.user.id return self.save(bundle)
+				self.authorized_create_detail(self.get_object_list(bundle.request), bundle)
+				bundle = self.full_hydrate(bundle)
+				bundle.obj.user_created_id = bundle.request.user.id return self.save(bundle)
 		'''
 			
   2.	Add a function dict_to_foreign_uri which generate a foreign uri for a given field in a dictionary. 
@@ -208,6 +209,7 @@ form_field_calidation      | dictionary      | Validation check on the form.
 			
 dashboard_display has following attributes:
 
+Attribute Name| Type            | Description
 --------------|-----------------|------------------------------------------------------------------				
 list          | boolean         | If the list page is to be enabled or not.		
 add           | boolean         | If add and edit is allowed or not	
@@ -226,11 +228,13 @@ foreign_entities : {
 
 Here foreign_entity_name is the entity_name of the foreign element and attribute_name_in_json is the attribute name of this foreign element in json. The attribut_name_in_json has the following attributes:
 
-placeholder | String     | The id of the element in form's html (in dashboard.html) where the dropdown of this foreign entity is inserted.
-name_field  | String     | the attribute name in f_entity's json which needs to be shown in its dropdown	
-dependency  | list       | List of various parameters if the element's dropdown depends upon the value of the other elements.
-filter      | dictionary | whether to filter the objects of foreign entity before rendering into dropdown
-id_field    | String     | The name of id field for this foreign entity in denormalised json
+Attribute Name| Type            | Description
+--------------|-----------------|-----------------------------------------------------------------------------------------------------------------
+placeholder   | String          | The id of the element in form's html (in dashboard.html) where the dropdown of this foreign entity is inserted.
+name_field    | String          | the attribute name in f_entity's json which needs to be shown in its dropdown	
+dependency    | list            | List of various parameters if the element's dropdown depends upon the value of the other elements.
+filter        | dictionary      | whether to filter the objects of foreign entity before rendering into dropdown
+id_field      | String          | The name of id field for this foreign entity in denormalised json
 		
 		
 dependency attribute of foreign field have following attributes. Syntax:
@@ -242,6 +246,8 @@ dependency attribute of foreign field have following attributes. Syntax:
 }],
 '''
 
+Attribute Name      | Type   | Description
+--------------------|--------|------------------------------------------------------------------------------------------------
 source_form_element | String | attribute name of source element in json
 dep_attr            | String | the attribute name in json of dependent foreign entity which refers to source foreign entity		
 src_attr            | String | to compare dep_attr of dependent element with a particular attribute in source foreign entity
@@ -256,8 +262,10 @@ filter attribute of foreign field have following attributes. Syntax:
 },		
 '''	
 	
-attr  | String | the attribute name in f_entity's json to filter on
-value | String | desired value of the attr
+Attribute Name| Type            | Description
+--------------|-----------------|-----------------------------------------------------
+attr          | String          | the attribute name in f_entity's json to filter on
+value         | String          | desired value of the attr
 		
 
 If separate foreign entities are needed for add and edit view, then those foreign entities can be put inside add : {} or edit : {}
@@ -335,13 +343,17 @@ Syntax:
 		}
 	}
 },
+'''
 
-entity	String	the name of the entity which needs to be inserted into current entity.
-default_num_rows	number	number of rows to be shown by default to the user.
-template	HTML	The  id  of  the  template  used  inside template	dashboard.html for this form.
-joining_attribute	dictionary	It denotes the attribute that joins the inline entity with the main entity.
-header	HTML Template
-borrow_attributes	dictionary	It denotes the attribute that the inline form's entity needs to borrow from the main entity.
+
+Attribute Name    | Type          | Description
+------------------|---------------|----------------------------------------------------------------------------------------------
+entity            | String        | the name of the entity which needs to be inserted into current entity.
+default_num_rows  | number        | number of rows to be shown by default to the user.
+template          | HTML          | The  id  of  the  template  used  inside template	dashboard.html for this form.
+joining_attribute | dictionary    | It denotes the attribute that joins the inline entity with the main entity.
+header            | HTML Template |  
+borrow_attributes | dictionary    | It denotes the attribute that the inline form's entity needs to borrow from the main entity.
 		
 
 The borrow_attributes and joining_attribute has two attributes:

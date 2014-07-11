@@ -25,6 +25,7 @@ COCO communicates with the server using the following urls:
 ##How to make an app on COCO (Example specific to Django)
 
 COCO architecture needs to you work on following things for creating your own app over it:
+
 1. Server Side:
   1. Models in Django 
   2. REST Api using TastyPie 
@@ -207,7 +208,8 @@ unique_together_field      | list of strings | The name of the attributes whose 
 form_field_calidation      | dictionary      | Validation check on the form.
 			
 dashboard_display has following attributes:
-				
+
+--------------|-----------------|------------------------------------------------------------------				
 list          | boolean         | If the list page is to be enabled or not.		
 add           | boolean         | If add and edit is allowed or not	
 enable_months | list of numbers | Index of months for which add should be enabled. (Starts from 1)	
@@ -225,6 +227,7 @@ foreign_entities : {
 
 Here foreign_entity_name is the entity_name of the foreign element and attribute_name_in_json is the attribute name of this foreign element in json. The attribut_name_in_json has the following attributes:
 
+------------|------------|-----------------------------------------------------------------------------------------------------------------
 placeholder | String     | The id of the element in form's html (in dashboard.html) where the dropdown of this foreign entity is inserted.
 name_field  | String     | the attribute name in f_entity's json which needs to be shown in its dropdown	
 dependency  | list       | List of various parameters if the element's dropdown depends upon the value of the other elements.
@@ -256,6 +259,7 @@ filter attribute of foreign field have following attributes. Syntax:
 },		
 '''	
 	
+------|--------|-------------------------------------------------------
 attr  | String | the attribute name in f_entity's json to filter on
 value | String | desired value of the attr
 		
@@ -306,71 +310,47 @@ If the fields in bulk form are dependent on values of fields in form, then we us
 
 If we want to include some other entity's form inline inside our current entity's form, then we use inline attribute of the entity.
 
-Synax:
+'''
+Syntax:
 
 'inline': {
-
-'entity': 'person', 'default_num_rows': 10, "template": "person_inline", "joining_attribute": {
-
-'host_attribute': ["id", "group_name"], 'inline_attribute': "group"
-
+	'entity': 'person',
+	'default_num_rows': 10,
+	"template": "person_inline",
+	"joining_attribute": {
+		'host_attribute': ["id", "group_name"],
+		'inline_attribute': "group"
+	},
+	"header": "person_inline_header",
+	'borrow_attributes': [{
+		'host_attribute': 'village',
+		'inline_attribute': 'village'
+	}],
+	foreign_entities: { //used at convert_namespace, denormalize
+		only village: {
+			village: {
+				placeholder: 'id_village', name_field: 'village_name'
+			},
+		},
+		group: {
+			group: {
+				placeholder: 'id_group', name_field: 'group_name'
+			}
+		}
+	}
 },
 
-"header": "person_inline_header", 'borrow_attributes': [{
-
-'host_attribute': 'village', 'inline_attribute': 'village'
-
-}],
-
-foreign_entities: { //used at convert_namespace, denormalize only village: {
-
-village: {
-
-9
-
- 
-
-placeholder: 'id_village', name_field: 'village_name'
-
-},
-
-}, group: {
-
-group: {
-
-placeholder: 'id_group', name_field: 'group_name'
-
-}
-
-}
-
-}
-
-},
-
-
-entity	String	the name of the entity which needs to be
-		inserted into current entity.
-		
-default_num_rows	number	number of rows to be shown by default to
-		the user.
-		
-template	HTML	The  id  of  the  template  used  inside
-	template	dashboard.html for this form.
-		
-joining_attribute	dictionary	It denotes the attribute that joins the inline
-		entity with the main entity.
-		
-header	HTML	
-	Template	
-		
-borrow_attributes	dictionary	It denotes the attribute that the inline form's
-		entity needs to borrow from the main entity.
+entity	String	the name of the entity which needs to be inserted into current entity.
+default_num_rows	number	number of rows to be shown by default to the user.
+template	HTML	The  id  of  the  template  used  inside template	dashboard.html for this form.
+joining_attribute	dictionary	It denotes the attribute that joins the inline entity with the main entity.
+header	HTML Template
+borrow_attributes	dictionary	It denotes the attribute that the inline form's entity needs to borrow from the main entity.
 		
 
 The borrow_attributes and joining_attribute has two attributes:
-1)	host_attribute - The list of single attribute from the host entity. 
-2)	inline_attribute - The attribute corresponding to host_attribute for inline entity. 
+1. host_attribute - The list of single attribute from the host entity. 
+2. inline_attribute - The attribute corresponding to host_attribute for inline entity. 
 
-Validations:
+##Validations:
 Validations can be done inside each entity using same syntax as that of jquery validation.

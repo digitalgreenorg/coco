@@ -26,11 +26,11 @@ COCO communicates with the server using the following urls:
 
 COCO architecture needs to you work on following things for creating your own app over it:
 1.  Server Side:
-	a.	Models in Django 
-	b.	REST Api using TastyPie 
+	1.	Models in Django 
+	2.	REST Api using TastyPie 
 2.	Client Side: 
-	a.	Configuration javascript file (config.js) 
-	b.	HTML Templates using underscore templating language. 
+	1.	Configuration javascript file (config.js) 
+	2.	HTML Templates using underscore templating language. 
 
 Following are the detailed steps for creating applications:
 1.	Create a Django project. Configure the database details in settings.py 
@@ -188,20 +188,20 @@ An entity is defined as follows:
 
 Following is the description of above attributes:
 
-Attribute Name | Type | Description
---------------------------------------------------------------------------------------------
-entity_name           | String | Name of the object in indexed DB. It is used for accessing this object.	
-rest_api_url          | String | The REST url for this entity
-dashboard_display     | dictionary | Determine if list view and add view of this entity is required or not. By default everything in dictionary is true.	
-page_header           | String | The name that needs to shown in headers (on dashboard as well as list view)
-list_table_header_template | HTML template | The id of template in dashboard.html used as column headers in list page.
-list_table_row_template | HTML template | The id of template in dashboard.html used to create rows of list table. This template is passed the model json.
-sort_field | String | The name of the field (should be same as in json received from REST) on which the data should be sorted by default in list view.
-add_template_name | HTML template | The id of template in dashboard.html used to add data.
-edit_template_name | HTML template | The id of template in dashboard.html used to edit data.
-foriegn_entities | dictionary | Configuration of the foreign elements used by this entity.				
-unique_together_field | list of strings | The name of the attributes whose combination should be unique. This thing is checked when user clicks on submit in a form.
-form_field_calidation | dictionary | Validation check on the form.
+Attribute Name             | Type            | Description
+---------------------------|-----------------|-----------------------------------------------------------------------------------------------------------------------------------
+entity_name                | String          | Name of the object in indexed DB. It is used for accessing this object.	
+rest_api_url               | String          | The REST url for this entity
+dashboard_display          | dictionary      | Determine if list view and add view of this entity is required or not. By default everything in dictionary is true.	
+page_header                | String          | The name that needs to shown in headers (on dashboard as well as list view)
+list_table_header_template | HTML template   | The id of template in dashboard.html used as column headers in list page.
+list_table_row_template    | HTML template   | The id of template in dashboard.html used to create rows of list table. This template is passed the model json.
+sort_field                 | String          | The name of the field (should be same as in json received from REST) on which the data should be sorted by default in list view.
+add_template_name          | HTML template   | The id of template in dashboard.html used to add data.
+edit_template_name         | HTML template   | The id of template in dashboard.html used to edit data.
+foriegn_entities           | dictionary      | Configuration of the foreign elements used by this entity.				
+unique_together_field      | list of strings | The name of the attributes whose combination should be unique. This thing is checked when user clicks on submit in a form.
+form_field_calidation      | dictionary      | Validation check on the form.
 			
 dashboard_display has following attributes:
 				

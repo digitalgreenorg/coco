@@ -1,11 +1,12 @@
-##Marketing to Devs
+##Use the COCO JavaScript library to make your own apps
 
 COCO is a library designed to let your CRUD application work online or offline agnostic to internet connectivity. It is particularly relevant for apps designed for mobility, and for rural scenarios.
 
 COCO v2 is purely a client side framework which provides a single page application (SPA). It assumes a REST API on the server to provide all of its functionalities. The REST API would be used to download database, add/edit objects etc. COCO v2 consist of collections of js and css files and a single html file.
 
-##How to use COCO:
-1.	Design your CRUD models and api 
+##How to make a COCO app:
+1.	Design your database models
+2.	Setup a REST api
 2.	Write the views required by COCO on the server-side. 
 3.	Design your forms in HTML, and put them in dashboard.html. Here, you can design complex forms using mustache/underscore/handlebars whichever we use... 
 4.	Write configs.js file and include it's path in dashboard.html. You can use this documentation to create this file. 

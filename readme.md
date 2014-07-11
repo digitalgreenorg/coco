@@ -7,17 +7,17 @@ COCO v2 is purely a client side framework which provides a single page applicati
 ##How to use COCO:
 1.	Design your CRUD models and api 
 2.	Write the views required by COCO on the server-side. 
-3.	Design your forms in HTML, and put them in dashboard.html. Here, you can design complex forms using mustache/underscore/handlebars whichever we useÖ 
-4.	Write configs.js file and include itís path in dashboard.html. You can use this documentation to create this file. 
+3.	Design your forms in HTML, and put them in dashboard.html. Here, you can design complex forms using mustache/underscore/handlebars whichever we use... 
+4.	Write configs.js file and include it's path in dashboard.html. You can use this documentation to create this file. 
 5.	Ensure that that dashboard.html file is rendered when the url is accessed. 
 6.	Ensure that the path of main.js file (in coco/dist directory) and path of configs.js are specified correctly in dashboard.html file. 
 
 ##How to setup COCO with a server:
 COCO communicates with the server using the following urls:
 
-1.	**/coco/login/ :** COCO sends ëusernameí and ëpasswordí parameters using POST to the URL /coco/login/ and it expects ì1î as a response in case the authentication is successful otherwise it expects ì0î. 
+1.	**/coco/login/ :** COCO sends 'username' and 'password' parameters using POST to the URL /coco/login/ and it expects ì1î as a response in case the authentication is successful otherwise it expects ì0î. 
 2.	**/coco/logout/ :** COCO sends a POST request to the URL /coco/logout/ and on success, it logs out the user. 
-3.	**/api/api_name/ :** In order to communicate with the database using RESTful service, the url for the REST API needs to be specified in the configs.js file in the parameter ërest_api_urlí. Its not compulsory to use /api/ URL, but it is recommended. 
+3.	**/api/api_name/ :** In order to communicate with the database using RESTful service, the url for the REST API needs to be specified in the configs.js file in the parameter 'rest_api_url'. Its not compulsory to use /api/ URL, but it is recommended. 
 4.	**/coco/reset_database_check/ :** This URL can be changed in configs file. COCO sends a get request to this url with a parameter 'lastdownloadtimestamp'. The server sends ì1î as a response if it wants the client to download the database again. 
 5.	**/coco/record_full_download_time/ :** The URL can be changed in configs file. COCO sends a post request to this URL with start_time and end_time as the parameters. These parameters are useful for recording total database download time. 
 6.	**/get_log/ :** User can change this URL in configs.misc.inc_download_url. COCO sends a get request to this URL along with last_download_timestamp as a parameter. The server should send the data having timestamp later than the timestamp received from the client. 
@@ -25,25 +25,26 @@ COCO communicates with the server using the following urls:
 ##How to make an app on COCO (Example specific to Django)
 
 COCO architecture needs to you work on following things for creating your own app over it:
-1)  Server Side:
+1.  Server Side:
   a.	Models in Django 
   b.	REST Api using TastyPie 
-2)	Client Side: 
+2.	Client Side: 
   a.	Configuration javascript file (config.js) 
   b.	HTML Templates using underscore templating language. 
 
 Following are the detailed steps for creating applications:
-1)	Create a Django project. Configure the database details in settings.py 
-2)	Copy the COCO folder in project/project_name/media folder 
-3)	In settings.py, make the following changes: 
+1.	Create a Django project. Configure the database details in settings.py 
+2.	Copy the COCO folder in project/project_name/media folder 
+3.	In settings.py, make the following changes: 
   a.	Set STATIC_URL = '/media/' 
   b.	Set STATICFILES_DIRS = ( os.path.join(PROJECT_PATH, 'media'), ) 
   c.	Set TEMPLATE_DIRS = ( os.path.join(PROJECT_PATH, 'media/coco/app') ) 
-4)	Create a new app and register the app in settings.py 
-5)	Create models in that app as per the requirement in models.py 
+4.	Create a new app and register the app in settings.py 
+5.	Create models in that app as per the requirement in models.py 
   a.	Create a Usermodel class which will be used for storing the user identity if there are multiple users. Later inherit this Usermodel class in all other model classes. Class Usermodel can be created as below: 
 
-		'''class UserModel(models.Model):
+		'''
+		class UserModel(models.Model):
 		user_created = models.ForeignKey(User, related_name ="%(class)s_created", editable = False, null=True, blank=True)
 		time_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 		user_modified = models.ForeignKey(User, related_name ="%(class)s_related_modified",editable = False, null=True, blank=True)
@@ -117,7 +118,7 @@ Following are the detailed steps for creating applications:
 				else:
 					raise NotFound( "Not allowed to download" )
 
-  d.	The authorization class created above should be used in Meta classís authorization field. 
+  d.	The authorization class created above should be used in Meta class's authorization field. 
 
 7)	Copy the media folder which contains the coco code into project/project_name folder. We now need to code two files, configs.js and dashboard.html file. 
 8)	Configs.js file is used for configuring the forms. Each variable defined in this file either represents a server side model or a form. The dummy_config variable in the file represents a dummy configuration and describe the use of each of the options. 
@@ -140,7 +141,7 @@ Following are the detailed steps for creating applications:
 	pre_delete.connect(delete_log, sender = Progress)
 	'''
 
-	The senderís value here should be equal to name of the class. save_log and delete_log can be imported from django.db.models.signals
+	The sender's value here should be equal to name of the class. save_log and delete_log can be imported from django.db.models.signals
 
 13) For storing the info regarding the database downloads made by the user, write the following code in models.py
 
@@ -220,14 +221,14 @@ foreign_entities dictionary is of form:
 
 Here foreign_entity_name is the entity_name of the foreign element and attribute_name_in_json is the attribute name of this foreign element in json. The attribut_name_in_json has the following attributes:
 
-placeholder	String	The id of the element in formís html (in
+placeholder	String	The id of the element in form's html (in
 		dashboard.html) where the dropdown of this
 		foreign entity is inserted.
 		
 name_field	String	the attribute name in f_entity's json which
 		needs to be shown in its dropdown
 		
-dependency	list	List of various parameters if the elementís
+dependency	list	List of various parameters if the element's
 		dropdown depends upon the value of the other
 		
 
@@ -251,7 +252,7 @@ dependency attribute of foreign field have following attributes. Syntax:
 
 'source_form_element': 'village', 'dep_attr': 'village'
 
-'src_attr' : ëvillageí
+'src_attr' : 'village'
 
 }],
 
@@ -288,14 +289,14 @@ There can be cases where we need an inline form or a bulk form.
 Bulk forms are used when multiple objects of the entity can be saved through its add form. Bulk form is usually written inside add: {}
 
 All the fields which are required inside the bulk form are added inside the braces of
-ëbulkí:{}
+'bulk':{}
 
 Syntax:
 
 8
 
  
-ëaddí : {
+'add' : {
 
 'bulk': {
 
@@ -339,7 +340,7 @@ If the fields in bulk form are dependent on values of fields in form, then we us
 
 2) Inline forms
 
-If we want to include some other entityís form inline inside our current entityís form, then we use inline attribute of the entity.
+If we want to include some other entity's form inline inside our current entity's form, then we use inline attribute of the entity.
 
 Synax:
 
@@ -399,7 +400,7 @@ joining_attribute	dictionary	It denotes the attribute that joins the inline
 header	HTML	
 	Template	
 		
-borrow_attributes	dictionary	It denotes the attribute that the inline formís
+borrow_attributes	dictionary	It denotes the attribute that the inline form's
 		entity needs to borrow from the main entity.
 		
 

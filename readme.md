@@ -34,6 +34,7 @@ COCO architecture needs to you work on following things for creating your own ap
   2. HTML Templates using underscore templating language. 
 
 Following are the detailed steps for creating applications:
+
 1. Create a Django project. Configure the database details in settings.py 
 2. Copy the COCO folder in project/project_name/media folder 
 3. In settings.py, make the following changes: 
@@ -44,17 +45,15 @@ Following are the detailed steps for creating applications:
 5. Create models in that app as per the requirement in models.py 
   1.	Create a Usermodel class which will be used for storing the user identity if there are multiple users. Later inherit this Usermodel class in all other model classes. Class Usermodel can be created as below: 
 
-		'''
 		class UserModel(models.Model):
-		user_created = models.ForeignKey(User, related_name ="%(class)s_created", editable = False, null=True, blank=True)
-		time_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-		user_modified = models.ForeignKey(User, related_name ="%(class)s_related_modified",editable = False, null=True, blank=True)
-		time_modified = models.DateTimeField(auto_now=True, null=True, blank=True)
+			user_created = models.ForeignKey(User, related_name ="%(class)s_created", editable = False, null=True, blank=True)
+			time_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+			user_modified = models.ForeignKey(User, related_name ="%(class)s_related_modified",editable = False, null=True, blank=True)
+			time_modified = models.DateTimeField(auto_now=True, null=True, blank=True)
 		
 		class Meta:
-		abstract = True
-		'''
-
+			abstract = True
+		
 		The above class saves the timestamp for when the user was created and when its details were modified. In Tastypie it is not possible to determine both username and whether created or modified at the same place. Therefore, user_created and user_modified will be saved as null.
 
   2.	If you need to assign some particular village/state/area to some user then create a class CocoUser which will store this mapping:
@@ -227,7 +226,6 @@ foreign_entities : {
 
 Here foreign_entity_name is the entity_name of the foreign element and attribute_name_in_json is the attribute name of this foreign element in json. The attribut_name_in_json has the following attributes:
 
-------------|------------|-----------------------------------------------------------------------------------------------------------------
 placeholder | String     | The id of the element in form's html (in dashboard.html) where the dropdown of this foreign entity is inserted.
 name_field  | String     | the attribute name in f_entity's json which needs to be shown in its dropdown	
 dependency  | list       | List of various parameters if the element's dropdown depends upon the value of the other elements.
@@ -245,7 +243,6 @@ dependency attribute of foreign field have following attributes. Syntax:
 '''
 
 source_form_element | String | attribute name of source element in json
---------------------|--------|-----------------------------------------------------------------------------------------------
 dep_attr            | String | the attribute name in json of dependent foreign entity which refers to source foreign entity		
 src_attr            | String | to compare dep_attr of dependent element with a particular attribute in source foreign entity
 		
@@ -259,7 +256,6 @@ filter attribute of foreign field have following attributes. Syntax:
 },		
 '''	
 	
-------|--------|-------------------------------------------------------
 attr  | String | the attribute name in f_entity's json to filter on
 value | String | desired value of the attr
 		

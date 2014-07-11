@@ -15,10 +15,10 @@ COCO v2 is purely a client side framework which provides a single page applicati
 ##How to setup COCO with a server:
 COCO communicates with the server using the following urls:
 
-1.	**/coco/login/ :** COCO sends 'username' and 'password' parameters using POST to the URL /coco/login/ and it expects ì1î as a response in case the authentication is successful otherwise it expects ì0î. 
+1.	**/coco/login/ :** COCO sends 'username' and 'password' parameters using POST to the URL /coco/login/ and it expects "1" as a response in case the authentication is successful otherwise it expects "0". 
 2.	**/coco/logout/ :** COCO sends a POST request to the URL /coco/logout/ and on success, it logs out the user. 
 3.	**/api/api_name/ :** In order to communicate with the database using RESTful service, the url for the REST API needs to be specified in the configs.js file in the parameter 'rest_api_url'. Its not compulsory to use /api/ URL, but it is recommended. 
-4.	**/coco/reset_database_check/ :** This URL can be changed in configs file. COCO sends a get request to this url with a parameter 'lastdownloadtimestamp'. The server sends ì1î as a response if it wants the client to download the database again. 
+4.	**/coco/reset_database_check/ :** This URL can be changed in configs file. COCO sends a get request to this url with a parameter 'lastdownloadtimestamp'. The server sends "1" as a response if it wants the client to download the database again. 
 5.	**/coco/record_full_download_time/ :** The URL can be changed in configs file. COCO sends a post request to this URL with start_time and end_time as the parameters. These parameters are useful for recording total database download time. 
 6.	**/get_log/ :** User can change this URL in configs.misc.inc_download_url. COCO sends a get request to this URL along with last_download_timestamp as a parameter. The server should send the data having timestamp later than the timestamp received from the client. 
 
@@ -26,11 +26,11 @@ COCO communicates with the server using the following urls:
 
 COCO architecture needs to you work on following things for creating your own app over it:
 1.  Server Side:
-  a.	Models in Django 
-  b.	REST Api using TastyPie 
+	a.	Models in Django 
+	b.	REST Api using TastyPie 
 2.	Client Side: 
-  a.	Configuration javascript file (config.js) 
-  b.	HTML Templates using underscore templating language. 
+	a.	Configuration javascript file (config.js) 
+	b.	HTML Templates using underscore templating language. 
 
 Following are the detailed steps for creating applications:
 1.	Create a Django project. Configure the database details in settings.py 
@@ -123,7 +123,7 @@ Following are the detailed steps for creating applications:
 7)	Copy the media folder which contains the coco code into project/project_name folder. We now need to code two files, configs.js and dashboard.html file. 
 8)	Configs.js file is used for configuring the forms. Each variable defined in this file either represents a server side model or a form. The dummy_config variable in the file represents a dummy configuration and describe the use of each of the options. 
 9)	Dashboard.html have a list view as well as the add/edit view. The templates for these views need to be defines. The ids of these views needs to be same as that defined in configs.js. 
-10)	Compile the js files using grunt. Go inside coco folder and type this command: ìgrunt roptimizeî into the command line. This action will result into generation of main.js inside /media/coco/dist/scripts folder. If there are other js libraries which needs to be included in main.js files then do the require changes in /media/coco/app/scripts/main.js as well as /media/coco/gruntfile.js 
+10)	Compile the js files using grunt. Go inside coco folder and type this command: "grunt roptimize" into the command line. This action will result into generation of main.js inside /media/coco/dist/scripts folder. If there are other js libraries which needs to be included in main.js files then do the require changes in /media/coco/app/scripts/main.js as well as /media/coco/gruntfile.js 
 11)	Incremental download feature checks the server every 5 mins if there are updates on server which are not present on the client. These updates might have been made by some other user who is assigned same state/village/department etc. Whenever a user enters a data, server stores the timestamp of the entry along with the user as well as state/village/Department in the table serverlog. Following is the serverlog code to be written in models.py: 
 
 	'''class ServerLog(models.Model):
@@ -188,12 +188,12 @@ An entity is defined as follows:
 
 Following is the description of above attributes:
 
-Attribute | Name | Type | Description
--------------------------------------
-entity_name | String | Name of the object in indexed DB. It is used for accessing this object.	
-rest_api_url | String | The REST url for this entity
-dashboard_display | dictionary | Determine if list view and add view of this entity is required or not. By default everything in dictionary is true.	
-page_header | String | The name that needs to shown in headers (on dashboard as well as list view)
+Attribute Name | Type | Description
+--------------------------------------------------------------------------------------------
+entity_name           | String | Name of the object in indexed DB. It is used for accessing this object.	
+rest_api_url          | String | The REST url for this entity
+dashboard_display     | dictionary | Determine if list view and add view of this entity is required or not. By default everything in dictionary is true.	
+page_header           | String | The name that needs to shown in headers (on dashboard as well as list view)
 list_table_header_template | HTML template | The id of template in dashboard.html used as column headers in list page.
 list_table_row_template | HTML template | The id of template in dashboard.html used to create rows of list table. This template is passed the model json.
 sort_field | String | The name of the field (should be same as in json received from REST) on which the data should be sorted by default in list view.

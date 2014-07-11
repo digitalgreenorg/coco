@@ -229,8 +229,9 @@ id_field      | String          | The name of id field for this foreign entity i
 dependency attribute of foreign field have following attributes. Syntax:
 
 	'dependency': [{
-	'source_form_element': 'village', 'dep_attr': 'village'
-	'src_attr' : 'village'
+		'source_form_element': 'village',
+		'dep_attr': 'village'
+		'src_attr' : 'village'
 	}],
 
 Attribute Name      | Type   | Description

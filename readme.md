@@ -24,7 +24,7 @@ COCO communicates with the server using the following urls:
 
 ##How to make an app on COCO (Example specific to Django)
 
-###COCO architecture needs to you work on following things for creating your own app over it:
+####COCO architecture needs to you work on following things for creating your own app over it:
 
 1. Server Side:
   1. Models in Django 
@@ -33,7 +33,7 @@ COCO communicates with the server using the following urls:
   1. Configuration javascript file (config.js) 
   2. HTML Templates using underscore templating language. 
 
-###Following are the detailed steps for creating applications:
+####Following are the detailed steps for creating applications:
 
 1. Create a Django project. Configure the database details in settings.py 
 2. Copy the COCO folder in project/project_name/media folder 
@@ -58,68 +58,63 @@ COCO communicates with the server using the following urls:
 
   2.	If you need to assign some particular village/state/area to some user then create a class CocoUser which will store this mapping:
 
-		'''class CocoUser(UserModel):
-		user = models.OneToOneField(User)
-		states = models.ManyToManyField(State)
-		'''
+			class CocoUser(UserModel):
+				user = models.OneToOneField(User)
+				states = models.ManyToManyField(State)
 		
 		All models which are to be selectively downloaded (example user specific) must contain the assigned field (state in above case). Create this class if there are multiple users of coco and each enters data according to different state/department etc.
  
 6. After creating models, we need to create RestAPIs for performing operations on our database. For this, create a file api.py in django app and do the following: 
   1.	Create a class called baseresource which will be inherited by the resource classes which is to be shown to users i.e. the tables that could be modified by the user. We are creating this class called base resource so that we may store the id the user entering the data. The base resource class needs to have a full_hydrate function which will be used for denormalizing the JSON file that is sent to server. 
 
-		'''
-		class BaseResource(ModelResource):
-		
-			def full_hydrate(self, bundle):
-				bundle = super(BaseResource, self).full_hydrate(bundle)
-				bundle.obj.user_modified_id = bundle.request.user.id return bundle
-		
-			def obj _create(self, bundle, **kwargs):
-				"""
-				A ORM-specific implementation of ``obj_create``.
-				"""
-				bundle.obj = self._meta.object_class()
-			
-				for	key, value in kwargs.items():
-					setattr(bundle.obj, key, value)
+			class BaseResource(ModelResource):
 				
-				self.authorized_create_detail(self.get_object_list(bundle.request), bundle)
-				bundle = self.full_hydrate(bundle)
-				bundle.obj.user_created_id = bundle.request.user.id return self.save(bundle)
-		'''
+				def full_hydrate(self, bundle):
+					bundle = super(BaseResource, self).full_hydrate(bundle)
+					bundle.obj.user_modified_id = bundle.request.user.id return bundle
+		
+				def obj _create(self, bundle, **kwargs):
+					"""
+					A ORM-specific implementation of ``obj_create``.
+					"""
+					bundle.obj = self._meta.object_class()
+			
+					for	key, value in kwargs.items():
+						setattr(bundle.obj, key, value)
+				
+					self.authorized_create_detail(self.get_object_list(bundle.request), bundle)
+					bundle = self.full_hydrate(bundle)
+					bundle.obj.user_created_id = bundle.request.user.id return self.save(bundle)
 			
   2.	Add a function dict_to_foreign_uri which generate a foreign uri for a given field in a dictionary. 
 		
-		'''def	dict_to_foreign_uri(bundle, field_name, resource_name=None):
-			field_dict = bundle.data.get(field_name)
-			if field_dict:
-				bundle.data[field_name] = "/api/v1/%s/%s/"%(resource_name if resource_ name else field_name, str(field_dict))
-			else:
-				bundle.data[field_name] = None return bundle
-		'''
+			def	dict_to_foreign_uri(bundle, field_name, resource_name=None):
+				field_dict = bundle.data.get(field_name)
+				if field_dict:
+					bundle.data[field_name] = "/api/v1/%s/%s/"%(resource_name if resource_ name else field_name, str(field_dict))
+				else:
+					bundle.data[field_name] = None return bundle
 
   3.	Add a class for Authorization. The authorization can be given to a user based on some specific fields like in the following example code, we give authorization to the user based on the state assigned to him. 
 
-		'''class StateLevelAuthorization(Authorization):
-			def __init__(self, field):
-				self.state_field = field
+			class StateLevelAuthorization(Authorization):
+				def __init__(self, field):
+					self.state_field = field
 			
-			def read_list(self, object_list, bundle):
-				states = CocoUser.objects.get(user_id= bundle.request.user.id).get_state()
-				kwargs = {} kwargs[self.state_field] = states
-				return object_list.filter(**kwargs).distinct()
+				def read_list(self, object_list, bundle):
+					states = CocoUser.objects.get(user_id= bundle.request.user.id).get_state()
+					kwargs = {} kwargs[self.state_field] = states
+					return object_list.filter(**kwargs).distinct()
 			
-			def read_detail(self, object_list, bundle):
-				# Is the requested object owned by the user?
-				kwargs = {}
-				kwargs[self.state_field] = CocoUser.objects.get(user_id= bundle.request.user.id).get_state()
-				obj = object_list.filter(**kwargs).distinct()
-				if obj:
-					return True
-				else:
-					raise NotFound( "Not allowed to download" )
-		'''
+				def read_detail(self, object_list, bundle):
+					# Is the requested object owned by the user?
+					kwargs = {}
+					kwargs[self.state_field] = CocoUser.objects.get(user_id= bundle.request.user.id).get_state()
+					obj = object_list.filter(**kwargs).distinct()
+					if obj:
+						return True
+					else:
+						raise NotFound( "Not allowed to download" )
 
   4.	The authorization class created above should be used in Meta class's authorization field. 
 
@@ -129,30 +124,28 @@ COCO communicates with the server using the following urls:
 10. Compile the js files using grunt. Go inside coco folder and type this command: "grunt roptimize" into the command line. This action will result into generation of main.js inside /media/coco/dist/scripts folder. If there are other js libraries which needs to be included in main.js files then do the require changes in /media/coco/app/scripts/main.js as well as /media/coco/gruntfile.js 
 11. Incremental download feature checks the server every 5 mins if there are updates on server which are not present on the client. These updates might have been made by some other user who is assigned same state/village/department etc. Whenever a user enters a data, server stores the timestamp of the entry along with the user as well as state/village/Department in the table serverlog. Following is the serverlog code to be written in models.py: 
 
-	'''class ServerLog(models.Model):
-		timestamp = models.DateTimeField(default=datetime.datetime.utcnow)
-		user = models.ForeignKey(User, null = True)
-		state = models.IntegerField(null = True)
-		action = models.IntegerField()
-		entry_table = models.CharField(max_length=100)
-		model_id = models.IntegerField(null = True)
-	'''
+		class ServerLog(models.Model):
+			timestamp = models.DateTimeField(default=datetime.datetime.utcnow)
+			user = models.ForeignKey(User, null = True)
+			state = models.IntegerField(null = True)
+			action = models.IntegerField()
+			entry_table = models.CharField(max_length=100)
+			model_id = models.IntegerField(null = True)
 
 12. For maintaining the logs related to when an entry was saved/deleted or if there are any updated logs, create a file data_log.py in the app. This file handles the request related to incremental download, add/delete logs. Now we need to trigger signals whenever a save/delete event occurs. For this, write these two lines after every class which saves the data that is entered by the user:
 
-	'''post_save.connect(save_log, sender = Progress)
-	pre_delete.connect(delete_log, sender = Progress)
-	'''
+		post_save.connect(save_log, sender = Progress)
+		pre_delete.connect(delete_log, sender = Progress)
 
 	The sender's value here should be equal to name of the class. save_log and delete_log can be imported from django.db.models.signals
 
 13. For storing the info regarding the database downloads made by the user, write the following code in models.py
 
-	'''class FullDownloadStats(models.Model):
-		user = models.ForeignKey(User)
-		start_time = models.DateTimeField()
-		end_time = models.DateTimeField()
-	'''
+		class FullDownloadStats(models.Model):
+			user = models.ForeignKey(User)
+			start_time = models.DateTimeField()
+			end_time = models.DateTimeField()
+		
 
 
 ##How to write configs.js file
@@ -166,29 +159,27 @@ The list view is used for displaying the data to the user. The data is indexed b
 
 An entity is defined as follows:
 
-'''
-var person_configs = {
-	'entity_name': 'person',
-	'rest_api_url': '/coco/api/v1/person/',
-	'page_header': 'Person',
-	'list_table_header_template': 'person_table_template',
-	'list_table_row_template': 'person_list_item_template',
-	'sort_field': 'person_name',
-	'add_template_name': 'person_add_edit_template',
-	'edit_template_name': 'person_add_edit_template',
-	'foreign_entities': {
-		'village': {
+	var person_configs = {
+		'entity_name': 'person',
+		'rest_api_url': '/coco/api/v1/person/',
+		'page_header': 'Person',
+		'list_table_header_template': 'person_table_template',
+		'list_table_row_template': 'person_list_item_template',
+		'sort_field': 'person_name',
+		'add_template_name': 'person_add_edit_template',
+		'edit_template_name': 'person_add_edit_template',
+		'foreign_entities': {
 			'village': {
-				'placeholder': 'id_village',
-				'name_field': 'village_name'
+				'village': {
+					'placeholder': 'id_village',
+					'name_field': 'village_name'
+				},
 			},
 		},
-	},
-	'unique_together_fields': ['person_name', 'father_name', 'village.id'],
-	'form_field_validation': {
-	},
-};
-'''
+		'unique_together_fields': ['person_name', 'father_name', 'village.id'],
+		'form_field_validation': {
+		},
+	};
 
 Following is the description of above attributes:
 
@@ -217,14 +208,12 @@ enable_months | list of numbers | Index of months for which add should be enable
 				
 foreign_entities dictionary is of form:
 
-'''
-foreign_entities : {
-	foreign_entity_name:{ 
-		attribute_name_in _json:{
+	foreign_entities : {
+		foreign_entity_name:{ 
+			attribute_name_in _json:{
+			}
 		}
 	}
-}
-'''
 
 Here foreign_entity_name is the entity_name of the foreign element and attribute_name_in_json is the attribute name of this foreign element in json. The attribut_name_in_json has the following attributes:
 
@@ -239,12 +228,10 @@ id_field      | String          | The name of id field for this foreign entity i
 		
 dependency attribute of foreign field have following attributes. Syntax:
 
-'''
-'dependency': [{
-'source_form_element': 'village', 'dep_attr': 'village'
-'src_attr' : 'village'
-}],
-'''
+	'dependency': [{
+	'source_form_element': 'village', 'dep_attr': 'village'
+	'src_attr' : 'village'
+	}],
 
 Attribute Name      | Type   | Description
 --------------------|--------|------------------------------------------------------------------------------------------------
@@ -257,10 +244,11 @@ filter attribute of foreign field have following attributes. Syntax:
 
 '''
 'filter': {
-		attr: 'group', //the attribute name in f_entity's json to filter on
-		value: null	//desired value of the attr
-},		
-'''	
+	
+		'filter': {
+			attr: 'group', //the attribute name in f_entity's json to filter on
+			value: null	//desired value of the attr
+		},		
 	
 Attribute Name| Type            | Description
 --------------|-----------------|-----------------------------------------------------
@@ -276,37 +264,35 @@ There can be cases where we need an inline form or a bulk form.
 Bulk forms are used when multiple objects of the entity can be saved through its add form. Bulk form is usually written inside add: {}
 All the fields which are required inside the bulk form are added inside the braces of 'bulk':{}
 
-'''
 Syntax:
  
-'add' : {
-	'bulk': {
-		foreign_fields: { //foreign fields in the individual objects 
-			"video": {
-				video: {
-					'name_field': 'title'
+	'add' : {
+		'bulk': {
+			foreign_fields: { //foreign fields in the individual objects 
+				"video": {
+					video: {
+						'name_field': 'title'
+					}
+				},
+				"person": {
+					person: {
+						'name_field': 'person_name'
+					}
+				},
+				village: {
+					village:{
+						'name_field': 'village_name'
+					}
+				},
+				group: {
+					group:{
+						'name_field': 'group_name'
+					}
 				}
 			},
-			"person": {
-				person: {
-					'name_field': 'person_name'
-				}
-			},
-			village: {
-				village:{
-					'name_field': 'village_name'
-				}
-			},
-			group: {
-				group:{
-					'name_field': 'group_name'
-				}
-			}
-		},
-		borrow_fields: ['village', 'group']
-	}
-},
-'''
+			borrow_fields: ['village', 'group']
+		}
+	},
 
 If the fields in bulk form are dependent on values of fields in form, then we use borrow_fields attribute.
 
@@ -314,36 +300,34 @@ If the fields in bulk form are dependent on values of fields in form, then we us
 
 If we want to include some other entity's form inline inside our current entity's form, then we use inline attribute of the entity.
 
-'''
 Syntax:
 
-'inline': {
-	'entity': 'person',
-	'default_num_rows': 10,
-	"template": "person_inline",
-	"joining_attribute": {
-		'host_attribute': ["id", "group_name"],
-		'inline_attribute': "group"
-	},
-	"header": "person_inline_header",
-	'borrow_attributes': [{
-		'host_attribute': 'village',
-		'inline_attribute': 'village'
-	}],
-	foreign_entities: { //used at convert_namespace, denormalize
-		only village: {
-			village: {
-				placeholder: 'id_village', name_field: 'village_name'
-			},
+	'inline': {
+		'entity': 'person',
+		'default_num_rows': 10,
+		"template": "person_inline",
+		"joining_attribute": {
+			'host_attribute': ["id", "group_name"],
+			'inline_attribute': "group"
 		},
-		group: {
+		"header": "person_inline_header",
+		'borrow_attributes': [{
+			'host_attribute': 'village',
+			'inline_attribute': 'village'
+		}],
+		foreign_entities: { //used at convert_namespace, denormalize
+			only village: {
+				village: {
+					placeholder: 'id_village', name_field: 'village_name'
+				},
+			},
 			group: {
-				placeholder: 'id_group', name_field: 'group_name'
+				group: {
+					placeholder: 'id_group', name_field: 'group_name'
+				}
 			}
 		}
-	}
-},
-'''
+	},
 
 
 Attribute Name    | Type          | Description

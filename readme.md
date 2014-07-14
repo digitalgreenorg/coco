@@ -207,27 +207,20 @@ COCO communicates with the server using the following urls:
 5.	**/coco/record_full_download_time/ :** The URL can be changed in configs file. COCO sends a post request to this URL with start_time and end_time as the parameters. These parameters are useful for recording total database download time. 
 6.	**/get_log/ :** User can change this URL in configs.misc.inc_download_url. COCO sends a get request to this URL along with last_download_timestamp as a parameter. The server should send the data having timestamp later than the timestamp received from the client. 
 
-##How to make an app on COCO (Example specific to Django)
-
-####COCO architecture needs to you work on following things for creating your own app over it:
-
-1. Server Side:
-  1. Models in Django 
-  2. REST Api using TastyPie 
-2. Client Side: 
-  1. Configuration javascript file (config.js) 
-  2. HTML Templates using underscore templating language. 
-
-####Following are the detailed steps for creating applications:
+##Create a Server API using Django
 1. Create a Django project. Configure the database details in settings.py 
-2. Copy the COCO folder in project/project_name/media folder 
+2. Copy the following files into project/project_name/media folder
+  1. dashboard.html
+  2. config.js
+  3. coco-offline.appcache
+  4. main.js
 3. In settings.py, make the following changes: 
   1. Set STATIC_URL = '/media/' 
   2. Set STATICFILES_DIRS = ( os.path.join(PROJECT_PATH, 'media'), ) 
   3. Set TEMPLATE_DIRS = ( os.path.join(PROJECT_PATH, 'media/coco/app') ) 
 4. Create a new app and register the app in settings.py 
 5. Create models in that app as per the requirement in models.py 
-  1.	Create a Usermodel class which will be used for storing the user identity if there are multiple users. Later inherit this Usermodel class in all other model classes. Class Usermodel can be created as below: 
+  1. Create a Usermodel class which will be used for storing the user identity if there are multiple users. Later inherit this Usermodel class in all other model classes. Class Usermodel can be created as below: 
 
 			class UserModel(models.Model):
 				user_created = models.ForeignKey(User, related_name ="%(class)s_created", editable = False, null=True, blank=True)

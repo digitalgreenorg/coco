@@ -1,19 +1,212 @@
-##Use the COCO JavaScript library to make your own apps
+#COCO.js for data collection
+COCO.js is a library designed to help you to quickly create a single-page application (SPA) to collect data online or offline despite flaky internet connectivity. It is specially recommended for use cases with high mobility or low connectivity.
+* Collect any data - specify your data through a JavaScript configuration file - config.js.
+* Use on any device - responsive UI courtesy Bootstrap 3
+* Capture data offline and sync when online
+* Sort and search and export data to Excel - through datatables.js
+* Connect with any database through a REST API
 
-COCO is a library designed to let your CRUD application work online or offline agnostic to internet connectivity. It is particularly relevant for apps designed for mobility, and for rural scenarios.
+##3 steps to COCO.js
+1. Design your forms and put them in dashboard.html. Freely use Bootstrap, mustache/handlebars, chosen, underscore and your own JavaScript to include complex functionality.
+2. Configure your application in configs.js using this documentation.
+3. Create a REST API, and some COCO specific APIs over your database on your server.
 
-COCO v2 is purely a client side framework which provides a single page application (SPA). It assumes a REST API on the server to provide all of its functionalities. The REST API would be used to download database, add/edit objects etc. COCO v2 consist of collections of js and css files and a single html file.
+## Write your configs.js file
 
-##How to make a COCO app:
-1.	Design your database models
-2.	Setup a REST api
-2.	Write the views required by COCO on the server-side. 
-3.	Design your forms in HTML, and put them in dashboard.html. Here, you can design complex forms using mustache/underscore/handlebars whichever we use... 
-4.	Write configs.js file and include it's path in dashboard.html. You can use this documentation to create this file. 
-5.	Ensure that that dashboard.html file is rendered when the url is accessed. 
-6.	Ensure that the path of main.js file (in coco/dist directory) and path of configs.js are specified correctly in dashboard.html file. 
+For each table that needs to be download onto client, we need to define that entity through the configs.js. An entity is defined as follows:
+
+	var person_configs = {
+		'entity_name': 'person',
+		'rest_api_url': '/coco/api/v1/person/',
+		'page_header': 'Person',
+		'sort_field': 'person_name',
+		'add_template_name': 'person_add_edit_template',
+		'edit_template_name': 'person_add_edit_template',
+		'foreign_entities': {
+			'village': {
+				'village': {
+					'placeholder': 'id_village',
+					'name_field': 'village_name'
+				},
+			},
+		},
+		'unique_together_fields': ['person_name', 'father_name', 'village.id'],
+		'form_field_validation': {
+		},
+	};
+
+Following is the description of above attributes:
+
+Attribute Name             | Type            | Description
+---------------------------|-----------------|------------------------------------------------------------------
+entity_name                | String          | Name of the object in indexed DB. It is used for accessing this object.	
+rest_api_url               | String          | The REST url for this entity
+dashboard_display          | dictionary      | Determine if list view and add view of this entity is required or not. By default everything in dictionary is true.	
+page_header                | String          | The name that needs to shown in headers (on dashboard as well as list view)
+sort_field                 | String          | The name of the field (should be same as in json received from REST) on which the data should be sorted by default when this is used as a foreign key.
+add_template_name          | HTML template   | The id of template in dashboard.html used to add data.
+edit_template_name         | HTML template   | The id of template in dashboard.html used to edit data.
+foreign_entities           | dictionary      | Configuration of the foreign elements used by this entity.	
+unique_together_field      | list of strings | This combination of values is checked for uniqueness within the table. It is similar to the unique_together attribute in Django models.
+form_field_validation      | dictionary      | Validation check on the form.
+			
+dashboard_display has following attributes:
+
+Attribute Name| Type            | Description
+--------------|-----------------|------------------------------------------------------------------			
+list          | boolean         | If the list page is to be enabled or not.		
+add           | boolean         | If add and edit is allowed or not	
+enable_months | list of numbers | Index of months for which add should be enabled. (Starts from 1)	
+				
+foreign_entities dictionary is of form:
+
+	foreign_entities : {
+		foreign_entity_name:{ 
+			attribute_name_in _json:{
+			}
+		}
+	}
+
+Here foreign_entity_name is the entity_name of the foreign element and attribute_name_in_json is the attribute name of this foreign element in json. The attribut_name_in_json has the following attributes:
+
+Attribute Name| Type            | Description
+--------------|-----------------|------------------------------------------------------------------------------------------
+placeholder   | String          | The id of the element in form's html (in dashboard.html) where the dropdown of this foreign entity is inserted.
+name_field    | String          | the attribute name in f_entity's json which needs to be shown in its dropdown	
+dependency    | list            | List of various parameters if the element's dropdown depends upon the value of the other elements.
+filter        | dictionary      | whether to filter the objects of foreign entity before rendering into dropdown
+id_field      | String          | The name of id field for this foreign entity in denormalised json
+		
+		
+dependency attribute of foreign field have following attributes. Syntax:
+	'dependency': [{
+		'source_form_element': 'village',
+		'dep_attr': 'village'
+		'src_attr' : 'village'
+	}],
+
+Attribute Name      | Type   | Description
+--------------------|--------|---------------------------------------------------------------------------------------------
+source_form_element | String | attribute name of source element in json
+dep_attr            | String | the attribute name in json of dependent foreign entity which refers to source foreign entity
+src_attr            | String | to compare dep_attr of dependent element with a particular attribute in source foreign entity
+		
+
+filter attribute of foreign field have following attributes. Syntax:
+
+'''
+'filter': {
+	
+		'filter': {
+			attr: 'group', //the attribute name in f_entity's json to filter on
+			value: null	//desired value of the attr
+		},		
+	
+Attribute Name| Type            | Description
+--------------|-----------------|-----------------------------------------------------
+attr          | String          | the attribute name in f_entity's json to filter on
+value         | String          | desired value of the attr
+		
+
+If separate foreign entities are needed for add and edit view, then those foreign entities can be put inside add : {} or edit : {}
+
+There can be cases where we need an inline form or a bulk form.
+
+### Special forms: Inline forms
+
+If we want to include some other entity's form inline inside our current entity's form, then we use inline attribute of the entity.
+
+Syntax:
+
+	'inline': {
+		'entity': 'person',
+		'default_num_rows': 10,
+		"template": "person_inline",
+		"joining_attribute": {
+			'host_attribute': ["id", "group_name"],
+			'inline_attribute': "group"
+		},
+		"header": "person_inline_header",
+		'borrow_attributes': [{
+			'host_attribute': 'village',
+			'inline_attribute': 'village'
+		}],
+		foreign_entities: { //used at convert_namespace, denormalize
+			only village: {
+				village: {
+					placeholder: 'id_village', name_field: 'village_name'
+				},
+			},
+			group: {
+				group: {
+					placeholder: 'id_group', name_field: 'group_name'
+				}
+			}
+		}
+	},
+
+
+Attribute Name    | Type          | Description
+------------------|---------------|----------------------------------------------------------------------------------------------
+entity            | String        | the name of the entity which needs to be inserted into current entity.
+default_num_rows  | number        | number of rows to be shown by default to the user.
+template          | HTML          | The  id  of  the  template  used  inside template	dashboard.html for this form.
+joining_attribute | dictionary    | It denotes the attribute that joins the inline entity with the main entity.
+header            | HTML Template |  
+borrow_attributes | dictionary    | It denotes the attribute that the inline form's entity needs to borrow from the main entity.
+		
+
+The borrow_attributes and joining_attribute has two attributes:
+1. host_attribute - The list of single attribute from the host entity. 
+2. inline_attribute - The attribute corresponding to host_attribute for inline entity. 
+
+
+### Special forms - bulk forms
+Bulk forms are used when multiple objects of the entity can be saved through its add form. Bulk form is usually written inside add: {}
+All the fields which are required inside the bulk form are added inside the braces of 'bulk':{}
+
+Syntax:
+ 
+	'add' : {
+		'bulk': {
+			foreign_fields: { //foreign fields in the individual objects 
+				"video": {
+					video: {
+						'name_field': 'title'
+					}
+				},
+				"person": {
+					person: {
+						'name_field': 'person_name'
+					}
+				},
+				village: {
+					village:{
+						'name_field': 'village_name'
+					}
+				},
+				group: {
+					group:{
+						'name_field': 'group_name'
+					}
+				}
+			},
+			borrow_fields: ['village', 'group']
+		}
+	},
+
+If the fields in bulk form are dependent on values of fields in form, then we use borrow_fields attribute.
+
+###Validations:
+Validations can be done inside each entity using same syntax as that of jquery validation.
 
 ##How to setup COCO with a server:
+1. Design your database models
+2. Setup a REST api
+3. Write the views required by COCO on the server-side.
+4. Ensure that the dashboard.html file is rendered when the url is accessed. 
+5. Ensure that the path of main.js file (in coco/dist directory) and path of configs.js are specified correctly in dashboard.html file. 
+
 COCO communicates with the server using the following urls:
 
 1.	**/coco/login/ :** COCO sends 'username' and 'password' parameters using POST to the URL /coco/login/ and it expects "1" as a response in case the authentication is successful otherwise it expects "0". 
@@ -35,7 +228,6 @@ COCO communicates with the server using the following urls:
   2. HTML Templates using underscore templating language. 
 
 ####Following are the detailed steps for creating applications:
-
 1. Create a Django project. Configure the database details in settings.py 
 2. Copy the COCO folder in project/project_name/media folder 
 3. In settings.py, make the following changes: 
@@ -147,204 +339,3 @@ COCO communicates with the server using the following urls:
 			start_time = models.DateTimeField()
 			end_time = models.DateTimeField()
 		
-
-
-##How to write configs.js file
-
-For each table that needs to be download onto client, we need to write separate entity for that in configs file. COCO consist of 3 views:
-1.	List Page View 
-2.	Add Page View 
-3.	Edit Page View 
-
-The list view is used for displaying the data to the user. The data is indexed by datatables.js. Add and Edit view are used for adding or editing the data.
-
-An entity is defined as follows:
-
-	var person_configs = {
-		'entity_name': 'person',
-		'rest_api_url': '/coco/api/v1/person/',
-		'page_header': 'Person',
-		'list_table_header_template': 'person_table_template',
-		'list_table_row_template': 'person_list_item_template',
-		'sort_field': 'person_name',
-		'add_template_name': 'person_add_edit_template',
-		'edit_template_name': 'person_add_edit_template',
-		'foreign_entities': {
-			'village': {
-				'village': {
-					'placeholder': 'id_village',
-					'name_field': 'village_name'
-				},
-			},
-		},
-		'unique_together_fields': ['person_name', 'father_name', 'village.id'],
-		'form_field_validation': {
-		},
-	};
-
-Following is the description of above attributes:
-
-Attribute Name             | Type            | Description
----------------------------|-----------------|-----------------------------------------------------------------------------------------------------------------------------------
-entity_name                | String          | Name of the object in indexed DB. It is used for accessing this object.	
-rest_api_url               | String          | The REST url for this entity
-dashboard_display          | dictionary      | Determine if list view and add view of this entity is required or not. By default everything in dictionary is true.	
-page_header                | String          | The name that needs to shown in headers (on dashboard as well as list view)
-list_table_header_template | HTML template   | The id of template in dashboard.html used as column headers in list page.
-list_table_row_template    | HTML template   | The id of template in dashboard.html used to create rows of list table. This template is passed the model json.
-sort_field                 | String          | The name of the field (should be same as in json received from REST) on which the data should be sorted by default in list view.
-add_template_name          | HTML template   | The id of template in dashboard.html used to add data.
-edit_template_name         | HTML template   | The id of template in dashboard.html used to edit data.
-foriegn_entities           | dictionary      | Configuration of the foreign elements used by this entity.				
-unique_together_field      | list of strings | The name of the attributes whose combination should be unique. This thing is checked when user clicks on submit in a form.
-form_field_calidation      | dictionary      | Validation check on the form.
-			
-dashboard_display has following attributes:
-
-Attribute Name| Type            | Description
---------------|-----------------|------------------------------------------------------------------				
-list          | boolean         | If the list page is to be enabled or not.		
-add           | boolean         | If add and edit is allowed or not	
-enable_months | list of numbers | Index of months for which add should be enabled. (Starts from 1)	
-				
-foreign_entities dictionary is of form:
-
-	foreign_entities : {
-		foreign_entity_name:{ 
-			attribute_name_in _json:{
-			}
-		}
-	}
-
-Here foreign_entity_name is the entity_name of the foreign element and attribute_name_in_json is the attribute name of this foreign element in json. The attribut_name_in_json has the following attributes:
-
-Attribute Name| Type            | Description
---------------|-----------------|-----------------------------------------------------------------------------------------------------------------
-placeholder   | String          | The id of the element in form's html (in dashboard.html) where the dropdown of this foreign entity is inserted.
-name_field    | String          | the attribute name in f_entity's json which needs to be shown in its dropdown	
-dependency    | list            | List of various parameters if the element's dropdown depends upon the value of the other elements.
-filter        | dictionary      | whether to filter the objects of foreign entity before rendering into dropdown
-id_field      | String          | The name of id field for this foreign entity in denormalised json
-		
-		
-dependency attribute of foreign field have following attributes. Syntax:
-
-	'dependency': [{
-		'source_form_element': 'village',
-		'dep_attr': 'village'
-		'src_attr' : 'village'
-	}],
-
-Attribute Name      | Type   | Description
---------------------|--------|------------------------------------------------------------------------------------------------
-source_form_element | String | attribute name of source element in json
-dep_attr            | String | the attribute name in json of dependent foreign entity which refers to source foreign entity		
-src_attr            | String | to compare dep_attr of dependent element with a particular attribute in source foreign entity
-		
-
-filter attribute of foreign field have following attributes. Syntax:
-
-'''
-'filter': {
-	
-		'filter': {
-			attr: 'group', //the attribute name in f_entity's json to filter on
-			value: null	//desired value of the attr
-		},		
-	
-Attribute Name| Type            | Description
---------------|-----------------|-----------------------------------------------------
-attr          | String          | the attribute name in f_entity's json to filter on
-value         | String          | desired value of the attr
-		
-
-If separate foreign entities are needed for add and edit view, then those foreign entities can be put inside add : {} or edit : {}
-
-There can be cases where we need an inline form or a bulk form.
-
-1. Bulk forms:
-Bulk forms are used when multiple objects of the entity can be saved through its add form. Bulk form is usually written inside add: {}
-All the fields which are required inside the bulk form are added inside the braces of 'bulk':{}
-
-Syntax:
- 
-	'add' : {
-		'bulk': {
-			foreign_fields: { //foreign fields in the individual objects 
-				"video": {
-					video: {
-						'name_field': 'title'
-					}
-				},
-				"person": {
-					person: {
-						'name_field': 'person_name'
-					}
-				},
-				village: {
-					village:{
-						'name_field': 'village_name'
-					}
-				},
-				group: {
-					group:{
-						'name_field': 'group_name'
-					}
-				}
-			},
-			borrow_fields: ['village', 'group']
-		}
-	},
-
-If the fields in bulk form are dependent on values of fields in form, then we use borrow_fields attribute.
-
-2. Inline forms
-
-If we want to include some other entity's form inline inside our current entity's form, then we use inline attribute of the entity.
-
-Syntax:
-
-	'inline': {
-		'entity': 'person',
-		'default_num_rows': 10,
-		"template": "person_inline",
-		"joining_attribute": {
-			'host_attribute': ["id", "group_name"],
-			'inline_attribute': "group"
-		},
-		"header": "person_inline_header",
-		'borrow_attributes': [{
-			'host_attribute': 'village',
-			'inline_attribute': 'village'
-		}],
-		foreign_entities: { //used at convert_namespace, denormalize
-			only village: {
-				village: {
-					placeholder: 'id_village', name_field: 'village_name'
-				},
-			},
-			group: {
-				group: {
-					placeholder: 'id_group', name_field: 'group_name'
-				}
-			}
-		}
-	},
-
-
-Attribute Name    | Type          | Description
-------------------|---------------|----------------------------------------------------------------------------------------------
-entity            | String        | the name of the entity which needs to be inserted into current entity.
-default_num_rows  | number        | number of rows to be shown by default to the user.
-template          | HTML          | The  id  of  the  template  used  inside template	dashboard.html for this form.
-joining_attribute | dictionary    | It denotes the attribute that joins the inline entity with the main entity.
-header            | HTML Template |  
-borrow_attributes | dictionary    | It denotes the attribute that the inline form's entity needs to borrow from the main entity.
-		
-
-The borrow_attributes and joining_attribute has two attributes:
-1. host_attribute - The list of single attribute from the host entity. 
-2. inline_attribute - The attribute corresponding to host_attribute for inline entity. 
-
-##Validations:
-Validations can be done inside each entity using same syntax as that of jquery validation.

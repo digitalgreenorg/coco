@@ -607,11 +607,17 @@ define([
                 $f_el = this.$('#' + f_entity_desc.placeholder);
                 if ($f_el.is('select[multiple]'))
                     $f_el.html('');
-                else
-                    $f_el.html(this.options_inner_template({
-                        id: "",
-                        name: "------------"
-                    }));
+                else {
+                	if (f_entity_desc.default_null === undefined || f_entity_desc.default_null === true){
+                		$f_el.html(this.options_inner_template({
+                            id: "",
+                            name: "------------"
+                        }));
+                	}
+                	else {
+                		$f_el.html('');
+                	}
+                }
                 $.each(model_array, function(index, f_model) {
                     var f_json = f_model;
                     if (f_model instanceof Backbone.Model)

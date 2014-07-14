@@ -7,65 +7,57 @@ COCO.js is a library designed to help you to quickly create a single-page applic
 * Connect with any database through a REST API
 
 ##3 steps to COCO.js
+0. Copy main.js, config.js and dashboard.html from the COCO repository into your code.
 1. Design your forms and put them in dashboard.html. Freely use Bootstrap, mustache/handlebars, chosen, underscore and your own JavaScript to include complex functionality.
 2. Configure your application in configs.js using this documentation.
 3. Create a REST API, and some COCO specific APIs over your database on your server.
 
 ## Write your configs.js file
 
-For each table that needs to be download onto client, we need to define that entity through the configs.js. An entity is defined as follows:
+Loosely, we configure an entity through the configs.js for each form we want to fill through COCO. To configure an entity:
 
 	var person_configs = {
 		'entity_name': 'person',
 		'rest_api_url': '/coco/api/v1/person/',
 		'page_header': 'Person',
-		'sort_field': 'person_name',
 		'add_template_name': 'person_add_edit_template',
 		'edit_template_name': 'person_add_edit_template',
-		'foreign_entities': {
-			'village': {
-				'village': {
-					'placeholder': 'id_village',
-					'name_field': 'village_name'
-				},
-			},
-		},
-		'unique_together_fields': ['person_name', 'father_name', 'village.id'],
 		'form_field_validation': {
-		},
+		// jQuery validation for form inputs
+			rules: {
+        			name: {
+                    		required: true,
+                    		}
+                	},
+		 },
 	};
 
 Following is the description of above attributes:
 
-Attribute Name             | Type            | Description
----------------------------|-----------------|------------------------------------------------------------------
-entity_name                | String          | Name of the object in indexed DB. It is used for accessing this object.	
-rest_api_url               | String          | The REST url for this entity
-dashboard_display          | dictionary      | Determine if list view and add view of this entity is required or not. By default everything in dictionary is true.	
-page_header                | String          | The name that needs to shown in headers (on dashboard as well as list view)
-sort_field                 | String          | The name of the field (should be same as in json received from REST) on which the data should be sorted by default when this is used as a foreign key.
-add_template_name          | HTML template   | The id of template in dashboard.html used to add data.
-edit_template_name         | HTML template   | The id of template in dashboard.html used to edit data.
-foreign_entities           | dictionary      | Configuration of the foreign elements used by this entity.	
-unique_together_field      | list of strings | This combination of values is checked for uniqueness within the table. It is similar to the unique_together attribute in Django models.
-form_field_validation      | dictionary      | Validation check on the form.
-			
-dashboard_display has following attributes:
+Attribute Name             | Type        | Description
+---------------------------|-------------|------------------------------------------------------------------
+entity_name                | String      | Name of the object in indexed DB. It is used for accessing this object.	
+rest_api_url               | String      | The REST URL for this entity
+page_header                | String      | The name that needs to shown in headers (on dashboard as well as list view)
+dashboard_display          | Object      | Configures how this shows up on the COCO dashboard
+dashboard_display.list	   | Boolean     | Determines whether the list page is to be enabled or not.
+dashboard_display.add	   | Boolean     | Determines whether add and edit is allowed or not.
+dashboard_display.enable_months | Array of numbers | Index of months for which add should be enabled. (Starts from 1)
+add_template_name          | String: Id of HTML template   | The id of template in dashboard.html used to add data.
+edit_template_name         | String: Id of HTML template   | The id of template in dashboard.html used to edit data.
+form_field_validation      | Object      | Validation check on the form.
+unique_together_field      | List of strings | This combination of values is checked for uniqueness within the table. It is similar to the unique_together attribute in Django models.
+foreign_entities           | Object      | Configuration of the foreign elements used by this entity.
+sort_field                 | String      | When this is a foreign entity, the name of the field in the json object stored in the database on which the data is sorted.
 
-Attribute Name| Type            | Description
---------------|-----------------|------------------------------------------------------------------			
-list          | boolean         | If the list page is to be enabled or not.		
-add           | boolean         | If add and edit is allowed or not	
-enable_months | list of numbers | Index of months for which add should be enabled. (Starts from 1)	
-				
-foreign_entities dictionary is of form:
+To define foreign entities to be references within this entity, add the following object:
 
-	foreign_entities : {
-		foreign_entity_name:{ 
-			attribute_name_in _json:{
-			}
-		}
-	}
+    foreign_entities : {
+        foreign_entity_name:{ 
+            attribute_name_in _json:{
+            }
+        }
+    }
 
 Here foreign_entity_name is the entity_name of the foreign element and attribute_name_in_json is the attribute name of this foreign element in json. The attribut_name_in_json has the following attributes:
 
@@ -73,7 +65,7 @@ Attribute Name| Type            | Description
 --------------|-----------------|------------------------------------------------------------------------------------------
 placeholder   | String          | The id of the element in form's html (in dashboard.html) where the dropdown of this foreign entity is inserted.
 name_field    | String          | the attribute name in f_entity's json which needs to be shown in its dropdown	
-dependency    | list            | List of various parameters if the element's dropdown depends upon the value of the other elements.
+dependency    | list            | The choices available in this foreign key are included if the value of an attribute is the same as the value selected earlier in the form.
 filter        | dictionary      | whether to filter the objects of foreign entity before rendering into dropdown
 id_field      | String          | The name of id field for this foreign entity in denormalised json
 		
@@ -94,7 +86,6 @@ src_attr            | String | to compare dep_attr of dependent element with a p
 
 filter attribute of foreign field have following attributes. Syntax:
 
-'''
 'filter': {
 	
 		'filter': {
@@ -147,7 +138,7 @@ Syntax:
 
 
 Attribute Name    | Type          | Description
-------------------|---------------|----------------------------------------------------------------------------------------------
+------------------|---------------|----------------------------------------------------------------------------------------
 entity            | String        | the name of the entity which needs to be inserted into current entity.
 default_num_rows  | number        | number of rows to be shown by default to the user.
 template          | HTML          | The  id  of  the  template  used  inside template	dashboard.html for this form.

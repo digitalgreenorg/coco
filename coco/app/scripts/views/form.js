@@ -16,7 +16,8 @@ define([
     'indexeddb-backbone',
     'chosen',
     'date_picker',
-    'time_picker'
+    'time_picker',
+    'select2',
 ], function(jquery, underscore, layoutmanager, pass, pass, notifs_view, indexeddb, all_configs, Offline, Denormalizer) {
 
 
@@ -419,9 +420,11 @@ define([
         
         // initiate the dropdown and date, time widgets
         initiate_form_widgets: function() {
-            $(".chzn-select").chosen({
+            /* $(".chzn-select").chosen({
                 'search_contains': true
-            });
+            }); */
+            
+            $(".select2").select2();
 
             var eDate = new Date();
             enddate = eDate.getFullYear() + "-" + (eDate.getMonth() + 1) + "-" + eDate.getDate();

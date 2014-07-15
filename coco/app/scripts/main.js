@@ -15,15 +15,14 @@ require.config({
         'date_picker': 'libs/bootstrap/js/bootstrap-datepicker',
         'time_picker': 'libs/bootstrap/js/bootstrap-timepicker.min',
         'jquery_cookie': 'libs/jquery.cookie',
-        'tabletools': 'libs/tabletools_media/js/Tabletools',
+        'tabletools': 'libs/tabletools_media/js/TableTools',
         'zeroclipboard': 'libs/tabletools_media/js/ZeroClipboard.min',
+        'configs': '../../../configs',
+        'select2': 'libs/select2/select2.min'
     },
 
     //specifying dependencies of non-amd libraries
     shim: {
-    	'jquery': {
-    		deps: ['configs']
-    	},
         'backbone': {
             //These script dependencies should be loaded before loading backbone.js
             deps: ['underscore', 'jquery'],
@@ -71,8 +70,9 @@ require.config({
         'time_picker': {
             deps: ["jquery"]
         },
-
-
+        'select2': {
+            deps: ["jquery"]
+        }
     }
 });
 

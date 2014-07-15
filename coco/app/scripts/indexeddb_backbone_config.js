@@ -2,10 +2,21 @@
 define(['jquery', 'configs'],
 
 function(pass, configs) {
+
+    if (window.location.href.indexOf("exampleapp")>-1)
+    {
+        idOfDatabase = "example-database-v1";
+        descriptionOfDatabase= "The offline database for Example app";
+    }
+    else
+    {
+         idOfDatabase = "offline-database-v2";
+        descriptionOfDatabase= "The offline database for COCO";
+    }
     var idb = {
         nolog: true,
-        id: "offline-database",
-        description: "The offline database for COCO",
+        id: idOfDatabase,
+        description: descriptionOfDatabase,
         migrations: [{
             version: 1,
             migrate: function(transaction, next) {

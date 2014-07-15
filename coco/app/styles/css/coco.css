@@ -1,3 +1,92 @@
+/* ---------- header -----------*/
+
+.global-header {
+    border-bottom: 4px solid #047d0a;
+    padding-top : 1%;
+}
+.big-logo{
+
+}
+.small-logo{
+    display : none;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.coco-brand {
+    color: #047d0a;
+    font-size: 28px;
+    margin-top: -8px;
+}
+
+.img-user {
+    display: inline;
+    width: 35px;
+    margin-top: -8px;
+    cursor: pointer;
+}
+
+/* ----------- Margins and Paddings-------- */
+
+.mrg-lt-5 {
+    margin-left: 5%;
+}
+
+.mrg-btm-sm {
+    margin-bottom: 20px;
+}
+
+.mrg-top-nav-50 {
+    margin-top: 50px;
+}
+
+.mrg-top-nav-30 {
+    margin-top: 30px;
+}
+
+.pdg-0 {
+    padding: 0px;
+}
+
+.mrg-lt-auto {
+    margin-left: auto !important;
+}
+
+.mrg-top-0 {
+    margin-top: 0;
+}
+
+/* ----------- Sidebar for Navigation -------*/
+
+.white-bgd {
+    background-color: white;
+    border-color: white;
+}
+
+.flt-lt {
+    float:left;
+}
+
+.flt-rt-nav {
+    
+}
+
+#coco_sync {
+	margin: -7px 0 0 15%;
+}
+
+/* ----------- Rest ------------*/
+
+.pointer-hand {
+    cursor: pointer
+}
+
 .coco_form .control-label {
     font-weight:bold;
 }
@@ -12,6 +101,10 @@
 
 .inline_table{
 	display:none;
+}
+
+.dis-block {
+    display: block;
 }
 
 .notbold{
@@ -42,14 +135,6 @@
 	display: none;
 }
 
-#coco_brand {
-    font-size:32px;
-    height: 50px;
-    width: 100px;
-    padding-top: 20px;
-	margin-left:22%;
-}
-
 #coco_userinfo {
 	width: 10em;
     font-size: 11px;
@@ -57,15 +142,8 @@
 	word-wrap: break-word;
 }
 
-#coco_sync {
-    margin-bottom:50px;
-	margin-left:22%;
-	width: 150px;
-}
-
 #coco_nav_add {
     width:10%;
-	padding-right:15%;
 }
 
 #helptext{
@@ -75,12 +153,7 @@
 	display:none;
 }
 
-#notifications{
-	width: 400px;
-	position:fixed;
-	right: 10px;
-	font-size:12px;
-}
+
 
 #loaderimg{
 	left: 50%;
@@ -89,10 +162,7 @@
 }
 
 #content{
-	padding-top:20px;
-	padding-bottom:20px;
-	padding-right:50px;
-	padding-left:230px;
+	padding: 20px 50px 20px 10px;
 }
 
 #change_user{
@@ -146,10 +216,6 @@ h1 small{
 	font-size: 18px;
 }
 
-.alert {
-  margin-bottom: 3px;
-}
-
 .chzn-container{
     float:left;
     margin-bottom:20px;
@@ -167,10 +233,154 @@ h1 small{
     color:red;
     width: 100%;
 }
+/*---------------- User Dropdown --------------- */
+
+.user-dropdown-div {
+    position: relative;
+    right: 0;
+}
+
+.user-dropdown {
+    position: absolute;
+    display: none;
+    right: 0;
+    top: 32px;
+    background-color: white;
+    z-index: 1000;
+    border: 1px solid #dbdad5;
+    border-top: 0;
+    -webkit-border-bottom-right-radius: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    -moz-border-radius-bottomright: 4px;
+    -moz-border-radius-bottomleft: 4px;
+}
+
+.user-dropdown:before {
+  position: absolute;
+  top: -7px;
+  right: 17px;
+  display: inline-block;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
+  border-left: 7px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  content: '';
+}
+
+.user-dropdown-option {
+    text-align: right;
+    padding: 15px 25px !important;
+    border-top: 1px solid #dbdad5;
+    font-size: 12px;
+    list-style-type: none;
+}
+
+/*----------- Media Queries -----------*/
 
 
-@media (min-width: 1200px) and (max-width: 1240px) {
-	  .span10 {
-	    width:900px;
-	  }
-}	
+
+
+@media(min-width:767px)
+{
+  #notifications{
+    width: 400px;
+    max-height: auto;
+    position:fixed;
+    right: 10px;
+    font-size:12px;
+    top: 50px;
+ }  
+}
+@media(max-width:767px){
+    #notifications{
+        font-size: 12px;
+        position: fixed;
+        top:50px;
+    }
+
+    .big-logo{
+        display: none;
+    }
+    .small-logo{
+        display: block;
+        height: 33px;
+        width: auto;
+    }
+    .flt-rt-nav {
+        float: right;
+    }
+    
+    .mrg-top-nav-30 {
+        margin-top: 0px;
+    }
+    
+    .mrg-top-nav-50 {
+        margin-top: 0px;
+    }
+     
+}
+
+@media(max-width:992px){
+
+    .hide-header {
+        display: none;
+    }
+
+    tr:nth-of-type(odd) { 
+        background: #eee; 
+    }
+    
+    #content{
+        padding: 20px 10px;
+    }
+
+    .stack-table table, 
+    .stack-table thead,
+    .stack-table tbody,
+    .stack-table th,
+    .stack-table td,
+    .stack-table tr { 
+		display: block; 
+	}
+	
+	.stack-table td {
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 40% !important; 
+	}
+	
+	.stack-table td:before {
+		position: absolute;
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+
+	.groupadd td:nth-of-type(1):before { content: "Person Name"; }
+	.groupadd td:nth-of-type(2):before { content: "Father Name"; }
+	.groupadd td:nth-of-type(3):before { content: "Age"; }
+	.groupadd td:nth-of-type(4):before { content: "Gender"; }
+	.groupadd td:nth-of-type(5):before { content: "Phone No."; }
+    
+	.screeningadd td:nth-of-type(1):before { content: "Delete?"; }
+	.screeningadd td:nth-of-type(2):before { content: "No"; }
+	.screeningadd td:nth-of-type(3):before { content: "Person"; }
+	.screeningadd td:nth-of-type(4):before { content: "Expressed Adopted Video"; }
+	.screeningadd td:nth-of-type(5):before { content: "Question Asked"; }
+    .screeningadd td:nth-of-type(6):before { content: "Interested?"; }
+    .screeningadd td:nth-child(2) {display: none;}
+    
+    .adoptionadd td:nth-of-type(1):before { content: "Delete?"; }
+	.adoptionadd td:nth-of-type(2):before { content: "No"; }
+	.adoptionadd td:nth-of-type(3):before { content: "Person"; }
+	.adoptionadd td:nth-of-type(4):before { content: "Video"; }
+	.adoptionadd td:nth-of-type(5):before { content: "Date of Adoption"; }
+    .adoptionadd td:nth-child(2) {display: none;}
+}
+
+@media(max-width:1200px){
+
+}

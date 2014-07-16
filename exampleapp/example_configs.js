@@ -117,13 +117,12 @@ function() {
     // //This template would be passed the json of inline model and shall produce the desired row
 //     TODO: maybe instead of relying on users to use templating lang we should fill the rows ourselves in js code, like we are doing in form!
 
-   var example_village_configs = {
+        var example_village_configs = {
         'page_header': 'Village',
-        'list_table_header_template': 'village_table_template', 
-        'list_table_row_template': 'village_list_item_template',
+        'list_elements':[{'element':'id'},{'element':'name','header':'Name'},{'element':'block_name','header':'Block Name'},{'element':'district_name','header':'District Name'},{'element':'state_name','header':'State Name'}], 
         'add_template_name': 'example_village_add_edit_template',
         'edit_template_name': 'example_village_add_edit_template',
-        'rest_api_url': '/exampleapp/api/v1/village/',
+        'rest_api_url': '/coco/exampleapp/api/v1/village/',
         'entity_name': 'examplevillage',
         'dashboard_display': {
             listing: true,
@@ -131,6 +130,58 @@ function() {
         },
         'sort_field': 'name'
     };
+
+    var example_group_configs = {
+        'page_header': 'Group',
+        'list_elements':[{'element':'id'},{'element':'name','header':'Name'},{'element':'village.name','header':'Village Name'}] ,
+        'add_template_name': 'example_group_add_edit_template',
+        'edit_template_name': 'example_group_add_edit_template',
+        'rest_api_url': '/coco/exampleapp/api/v1/group/',
+        'entity_name': 'examplegroup',
+        'foreign_entities':{
+            'examplevillage':{
+                "village":{
+                    'placeholder':'id_village',
+                    'name_field':'name'
+                },
+            },
+        },
+        'dashboard_display': {
+            listing: true,
+            add: true
+        },
+        'sort_field' : 'name'
+        
+    };
+
+    var example_person_configs = {
+        'page_header': 'Person',
+        'list_elements': [{'element':'id'},{'element':'name','header':'Name'},{'element':'group.name','header':'Group Name'},{'element':'village.name','header':'Village Name'}],
+        'add_template_name': 'example_person_add_edit_template',
+        'edit_template_name': 'example_person_add_edit_template',
+        'rest_api_url': '/coco/exampleapp/api/v1/person/',
+        'entity_name': 'exampleperson',
+        'foreign_entities':{
+            'examplegroup':{
+                "group":{
+                    'placeholder':'id_group',
+                    'name_field':'name'
+                },
+            },
+            'examplevillage':{
+                "village":{
+                    'placeholder':'id_village',
+                    'name_field':'name'
+                },
+            },
+        },
+        'dashboard_display': {
+            listing: true,
+            add: true
+        }
+    };
+
+
 
     var misc = {
         download_chunk_size: 2000,
@@ -181,6 +232,8 @@ function() {
 
     return {
         example_village: example_village_configs,
+        example_group:example_group_configs,
+        exampleperson:example_person_configs,
         misc : misc
     }
 });

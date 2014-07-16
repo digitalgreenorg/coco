@@ -57,7 +57,7 @@ COCO.js is a library designed to help you to quickly create a single-page applic
 	</script>
   1.1 COCO uses underscore templating language, hence the first script tag is compulsory. The 'id' is used in the configs file to reference this form template
   1.2 Inside the fieldset tag, you can structure your fonts the way you like
-  1.3 In the Input tags, name field is used to refer in the configs file. This should be similar to TODO//////
+  1.3 In the Input tags, name field is used to refer in the configs file.
 
 ### Writing configs for this form
 1. Configs is used to connect our HTML Form to the framework. This is done by writing entities in the configs file. Loosely, entities are defined for any form we want to fill in the framework.

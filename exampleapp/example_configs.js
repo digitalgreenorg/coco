@@ -117,20 +117,70 @@ function() {
     // //This template would be passed the json of inline model and shall produce the desired row
 //     TODO: maybe instead of relying on users to use templating lang we should fill the rows ourselves in js code, like we are doing in form!
 
-    var village_configs = {
+   var example_village_configs = {
         'page_header': 'Village',
         'list_table_header_template': 'village_table_template', 
         'list_table_row_template': 'village_list_item_template',
-        'rest_api_url': '/exapmpleapp/api/v1/village/',
-        'entity_name': 'village',
+        'add_template_name': 'example_village_add_edit_template',
+        'edit_template_name': 'example_village_add_edit_template',
+        'rest_api_url': '/exampleapp/api/v1/village/',
+        'entity_name': 'examplevillage',
         'dashboard_display': {
             listing: true,
-            add: false
+            add: true
         },
-        'sort_field': 'village_name'
+        'sort_field': 'name'
     };
 
+    var misc = {
+        download_chunk_size: 2000,
+        background_download_interval: 5 * 60 * 1000,
+        inc_download_url: "/get_log/",
+        afterFullDownload: function(start_time, download_status){
+            return saveTimeTaken();
+            function saveTimeTaken(){
+                var record_endpoint = "/coco/record_full_download_time/"; 
+                return $.post(record_endpoint, {
+                    start_time : start_time,
+                    end_time : new Date().toJSON().replace("Z", "")
+                })    
+            }
+        },
+        onLogin: function(Offline, Auth){
+            getLastDownloadTimestamp()
+                .done(function(timestamp){
+                    askServer(timestamp);
+                });
+            var that = this;    
+            function askServer(timestamp){
+                $.get(that.reset_database_check_url,{
+                    lastdownloadtimestamp: timestamp
+                })
+                    .done(function(resp){
+                        if(resp=="1")
+                            Offline.reset_database();
+                    });
+            }   
+            function getLastDownloadTimestamp()
+            {
+                var dfd = new $.Deferred();
+                Offline.fetch_object("meta_data", "key", "last_full_download_start")
+                    .done(function(model){
+                        dfd.resolve(model.get("timestamp"));
+                    })
+                    .fail(function(model, error){
+                    
+                    });
+                return dfd;    
+            } 
+        },
+        reset_database_check_url: '/coco/reset_database_check/',
+    };
+
+
+
     return {
-        village: village_configs
+        example_village: example_village_configs,
+        misc : misc
     }
 });

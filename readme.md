@@ -85,4 +85,96 @@ Just keep adding forms in dashboard.html and entities in configs, and build your
 
 This ofcourse depends upon the REST API used to store information. For a python specific example please checkout the example app and the tutorial.
 
+###Code Snippets 
+1. models.py
+
+	'''
+	class UserModel(models.Model):
+		user_created = models.ForeignKey(User, related_name="%(class)s_created", editable = False, null=True, blank=True) 
+		time_created = models.DateTimeField(auto_now_add=True, null=True,blank=True)
+		user_modified = models.ForeignKey(User, related_name="%(class)s_related_modified",editable = False, null=True, blank=True) 
+		time_modified = models.DateTimeField(auto_now=True, null=True,blank=True) 
+		class Meta:
+			abstract = True
+
+
+	class ExampleVillage(UserModel):
+		id=models.AutoField(primary_key=True, db_column='id')
+		name = models.CharField(max_length=20)
+		block_name = models.CharField(max_length=20)
+		district_name = models.CharField(max_length=20)
+		state_name = models.CharField(max_length=20)
+	'''
+2. views.py
+
+	'''
+	def exampleapp(request):
+		return render(request,'example_dashboard.html')
+    
+	def login(request):
+		if request.method == 'POST':
+        		username = request.POST['username']
+        		password = request.POST['password']
+        		user = auth.authenticate(username=username, password=password)
+        		if user is not None and user.is_active:
+        			auth.login(request, user)
+        		else:
+            			return HttpResponse("0")
+    		else:
+        		return HttpResponse("0")
+    		return HttpResponse("1")
+    
+	def logout(request):
+		auth.logout(request)    
+		return HttpResponse("1")
+	'''
+3. api.py
+
+	'''
+	class BaseResource(ModelResource): 
+
+		def full_hydrate(self, bundle): 
+			bundle = super(BaseResource, self).full_hydrate(bundle) 
+			bundle.obj.user_modified_id = bundle.request.user.id 
+			return bundle 
+
+		def obj_create(self, bundle, **kwargs): 
+			""" 
+			A ORM-specific implementation of ``obj_create``. 
+			""" 
+			bundle.obj = self._meta.object_class() 
+
+			for key, value in kwargs.items(): 
+				setattr(bundle.obj, key, value)
+
+			self.authorized_create_detail(self.get_object_list(bundle.request), bundle) 
+			bundle = self.full_hydrate(bundle)
+			bundle.obj.user_created_id = bundle.request.user.id
+			return self.save(bundle)
+
+		def dict_to_foreign_uri(bundle, field_name, resource_name=None): 
+			field_dict = bundle.data.get(field_name) 
+			if field_dict: 
+				bundle.data[field_name] = "/api/v1/%s/%s/"%(resource_name if resource_name else field_name, str(field_dict)) 
+			else: 
+				bundle.data[field_name] = None
+			return bundle
+	'''
+4. urls.py
+
+	'''
+	v1_api = Api(api_name='v1')
+	v1_api.register(VillageResource())
+	v1_api.register(GroupResource())
+	v1_api.register(PersonResource())
+	v1_api.register(UserResource())
+	urlpatterns = patterns('',
+	    (r'^api/', include(v1_api.urls)),
+	    (r'^login/', login),
+	    (r'^logout/', logout),
+	    (r'^debug/', debug),
+	    (r'^$', exampleapp),
+	)
+	'''
+
 #### Help us in our endevour to continuosly update the COCO library. Feel Free to fork our code or SEND PULL REQUESTS.

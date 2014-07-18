@@ -1,13 +1,3 @@
-# whats missing
-* quick and dirty coco app
-* how to write configs
-* how to write dashboard.html 
-* how to create REST API
-* urls
-* views
-* models
-
-
 #COCO.js for data collection
 COCO.js is a library designed to help you to quickly create a single-page application (SPA) to collect data online or offline despite flaky internet connectivity. It is specially recommended for use cases with high mobility or low connectivity.
 * Collect any data - specify your data through a JavaScript configuration file - config.js.

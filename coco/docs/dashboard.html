@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -177,23 +167,23 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>define([<span class="string">'jquery'</span>, <span class="string">'underscore'</span>, <span class="string">'configs'</span>, <span class="string">'indexeddb_backbone_config'</span>, <span class="string">'collections/upload_collection'</span>, <span class="string">'views/upload'</span>, <span class="string">'views/incremental_download'</span>, <span class="string">'views/notification'</span>, <span class="string">'layoutmanager'</span>, <span class="string">'models/user_model'</span>, <span class="string">'auth'</span>, <span class="string">'offline_utils'</span>, <span class="string">'views/full_download'</span> ],
+            <div class="content"><div class='highlight'><pre>define([<span class="hljs-string">'jquery'</span>, <span class="hljs-string">'underscore'</span>, <span class="hljs-string">'configs'</span>, <span class="hljs-string">'indexeddb_backbone_config'</span>, <span class="hljs-string">'collections/upload_collection'</span>, <span class="hljs-string">'views/upload'</span>, <span class="hljs-string">'views/incremental_download'</span>, <span class="hljs-string">'views/notification'</span>, <span class="hljs-string">'layoutmanager'</span>, <span class="hljs-string">'models/user_model'</span>, <span class="hljs-string">'auth'</span>, <span class="hljs-string">'offline_utils'</span>, <span class="hljs-string">'views/full_download'</span> ],
 
-<span class="keyword">function</span>(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDownloadView, notifs_view, layoutmanager, User, Auth, Offline, FullDownloadView) {
+<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(jquery, pass, configs, indexeddb, upload_collection, UploadView, IncDownloadView, notifs_view, layoutmanager, User, Auth, Offline, FullDownloadView)</span> {</span>
 
-    <span class="keyword">var</span> DashboardView = Backbone.Layout.extend({
-        template: <span class="string">"#dashboard"</span>,
+    <span class="hljs-keyword">var</span> DashboardView = Backbone.Layout.extend({
+        template: <span class="hljs-string">"#dashboard"</span>,
         events: {
-            <span class="string">"click #sync"</span>: <span class="string">"sync"</span>,
-            <span class="string">"click #inc_download"</span>: <span class="string">"inc_download"</span>,
-            <span class="string">"click #logout"</span>: <span class="string">"logout"</span>
+            <span class="hljs-string">"click #sync"</span>: <span class="hljs-string">"sync"</span>,
+            <span class="hljs-string">"click #inc_download"</span>: <span class="hljs-string">"inc_download"</span>,
+            <span class="hljs-string">"click #logout"</span>: <span class="hljs-string">"logout"</span>
         },
-        item_template: _.template($(<span class="string">"#dashboard_item_template"</span>)
+        item_template: _.template($(<span class="hljs-string">"#dashboard_item_template"</span>)
             .html()),
 
-        initialize: <span class="keyword">function</span>() {
-            <span class="keyword">this</span>.upload_v = <span class="literal">null</span>;
-            <span class="keyword">this</span>.inc_download_v = <span class="literal">null</span>;</pre></div></div>
+        initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">this</span>.upload_v = <span class="hljs-literal">null</span>;
+            <span class="hljs-keyword">this</span>.inc_download_v = <span class="hljs-literal">null</span>;</pre></div></div>
             
         </li>
         
@@ -208,9 +198,9 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.background_download();
-            _(<span class="keyword">this</span>)
-                .bindAll(<span class="string">'render'</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.background_download();
+            _(<span class="hljs-keyword">this</span>)
+                .bindAll(<span class="hljs-string">'render'</span>);</pre></div></div>
             
         </li>
         
@@ -225,11 +215,11 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            User.on(<span class="string">'change'</span>, <span class="keyword">this</span>.render);
-            <span class="keyword">this</span>.upload_entries = upload_collection.length;
+            <div class="content"><div class='highlight'><pre>            User.on(<span class="hljs-string">'change'</span>, <span class="hljs-keyword">this</span>.render);
+            <span class="hljs-keyword">this</span>.upload_entries = upload_collection.length;
         },
 
-        serialize: <span class="keyword">function</span>() {</pre></div></div>
+        serialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -244,15 +234,15 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> username = User.get(<span class="string">"username"</span>);
-            <span class="keyword">return</span> {
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> username = User.get(<span class="hljs-string">"username"</span>);
+            <span class="hljs-keyword">return</span> {
                 username: username,
-                upload_entries: <span class="keyword">this</span>.upload_entries
+                upload_entries: <span class="hljs-keyword">this</span>.upload_entries
             }
         },
 
-        afterRender: <span class="keyword">function</span>() { 
-            console.log(<span class="string">"rendering dashboard"</span>);</pre></div></div>
+        afterRender: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span> 
+            console.log(<span class="hljs-string">"rendering dashboard"</span>);</pre></div></div>
             
         </li>
         
@@ -263,14 +253,15 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>iterate over entities defined in config and create their &quot;list&quot; and &quot;add&quot; rows </p>
+              <p>iterate over entities defined in config and create their “list” and “add” rows </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">for</span> (<span class="keyword">var</span> member <span class="keyword">in</span> configs) {
-                <span class="keyword">if</span> (member == <span class="string">"misc"</span>) <span class="keyword">continue</span>;
-                <span class="keyword">var</span> listing = <span class="literal">true</span>;
-                <span class="keyword">var</span> add = <span class="literal">true</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> member <span class="hljs-keyword">in</span> configs) {
+                <span class="hljs-keyword">if</span> (member == <span class="hljs-string">"misc"</span>) <span class="hljs-keyword">continue</span>;
+                <span class="hljs-keyword">var</span> listing = <span class="hljs-literal">true</span>;
+                <span class="hljs-keyword">var</span> add = <span class="hljs-literal">true</span>;
+                <span class="hljs-keyword">var</span> enable_months;</pre></div></div>
             
         </li>
         
@@ -281,28 +272,37 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>check entity&#39;s config for whether to show list/add links for this entity</p>
+              <p>check entity’s config for whether to show list/add links for this entity</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">if</span> (configs[member].dashboard_display) {
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">if</span> (configs[member].dashboard_display) {
                     listing = configs[member].dashboard_display.listing;
                     add = configs[member].dashboard_display.add;
+                    enable_months = configs[member].dashboard_display.enable_months;
                 }
-                <span class="keyword">if</span> (listing || add) {
-                    <span class="keyword">if</span> (listing) $(<span class="string">'#dashboard_items'</span>)
-                        .append(<span class="keyword">this</span>.item_template({
-                        name: member + <span class="string">"/list"</span>,
-                        title: configs[member][<span class="string">"page_header"</span>] + <span class="string">'s'</span>
+                <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> enable_months != <span class="hljs-string">'undefined'</span>){
+                	<span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+                    n = d.getMonth() + <span class="hljs-number">1</span>;
+                    res = $.inArray(n, enable_months);
+                    <span class="hljs-keyword">if</span>(res === -<span class="hljs-number">1</span>){
+                    	add = <span class="hljs-literal">false</span>;
+                    }
+                }
+                <span class="hljs-keyword">if</span> (listing || add) {
+                    <span class="hljs-keyword">if</span> (listing) $(<span class="hljs-string">'#dashboard_items'</span>)
+                        .append(<span class="hljs-keyword">this</span>.item_template({
+                        name: member + <span class="hljs-string">"/list"</span>,
+                        title: configs[member][<span class="hljs-string">"page_header"</span>] + <span class="hljs-string">'s'</span>
                     }));
 
-                    <span class="keyword">if</span> (add) $(<span class="string">'#dashboard_items_add'</span>)
-                        .append(<span class="keyword">this</span>.item_template({
-                        name: member + <span class="string">"/add"</span>,
-                        title: <span class="string">'&lt;i class="icon-plus-sign"&gt;&lt;/i&gt;'</span>
+                    <span class="hljs-keyword">if</span> (add) $(<span class="hljs-string">'#dashboard_items_add'</span>)
+                        .append(<span class="hljs-keyword">this</span>.item_template({
+                        name: member + <span class="hljs-string">"/add"</span>,
+                        title: <span class="hljs-string">'&lt;i class="icon-plus-sign"&gt;&lt;/i&gt;'</span>
                     }));
-                    <span class="keyword">else</span> $(<span class="string">'#dashboard_items_add'</span>)
-                        .append(<span class="string">"&lt;li&gt;&lt;i class='icon-white icon-plus-sign'&gt;&lt;/li&gt;"</span>);
+                    <span class="hljs-keyword">else</span> $(<span class="hljs-string">'#dashboard_items_add'</span>)
+                        .append(<span class="hljs-string">"&lt;li&gt;&lt;i class='icon-white icon-plus-sign'&gt;&lt;/li&gt;"</span>);
                 }
             }</pre></div></div>
             
@@ -319,10 +319,10 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            upload_collection.on(<span class="string">'all'</span>, <span class="keyword">function</span>() {
-                $(<span class="string">"#upload_num"</span>)
-                    .html(<span class="keyword">function</span>() {
-                    <span class="keyword">return</span> upload_collection.length;
+            <div class="content"><div class='highlight'><pre>            upload_collection.on(<span class="hljs-string">'all'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                $(<span class="hljs-string">"#upload_num"</span>)
+                    .html(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    <span class="hljs-keyword">return</span> upload_collection.length;
                 });
             });</pre></div></div>
             
@@ -339,7 +339,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            window.addEventListener(<span class="string">"offline"</span>, <span class="keyword">this</span>.user_offline);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            window.addEventListener(<span class="hljs-string">"offline"</span>, <span class="hljs-keyword">this</span>.user_offline);</pre></div></div>
             
         </li>
         
@@ -354,7 +354,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            window.addEventListener(<span class="string">"online"</span>, <span class="keyword">this</span>.user_online);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            window.addEventListener(<span class="hljs-string">"online"</span>, <span class="hljs-keyword">this</span>.user_online);</pre></div></div>
             
         </li>
         
@@ -369,12 +369,12 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (User.isOnline()) {
-                <span class="keyword">this</span>.user_online();
-            } <span class="keyword">else</span> {
-                <span class="keyword">this</span>.user_offline();
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (User.isOnline()) {
+                <span class="hljs-keyword">this</span>.user_online();
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.user_offline();
             }
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -389,11 +389,11 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            Offline.fetch_object(<span class="string">"meta_data"</span>, <span class="string">"key"</span>, <span class="string">"last_full_download"</span>)
-                .done(<span class="keyword">function</span>(model) {
+            <div class="content"><div class='highlight'><pre>            Offline.fetch_object(<span class="hljs-string">"meta_data"</span>, <span class="hljs-string">"key"</span>, <span class="hljs-string">"last_full_download"</span>)
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span> {</span>
                 that.db_downloaded();
             })
-                .fail(<span class="keyword">function</span>(model, error) {
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span>
                 that.db_not_downloaded();
             });
         },</pre></div></div>
@@ -411,12 +411,12 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        user_online: <span class="keyword">function</span>() {
-            $(<span class="string">'#sync'</span>)
-                .removeAttr(<span class="string">"disabled"</span>);
-            $(<span class="string">'#offline'</span>)
+            <div class="content"><div class='highlight'><pre>        user_online: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            $(<span class="hljs-string">'#sync'</span>)
+                .removeAttr(<span class="hljs-string">"disabled"</span>);
+            $(<span class="hljs-string">'#offline'</span>)
                 .hide();
-            $(<span class="string">'#online'</span>)
+            $(<span class="hljs-string">'#online'</span>)
                 .show();
         },</pre></div></div>
             
@@ -433,12 +433,12 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        user_offline: <span class="keyword">function</span>() {
-            $(<span class="string">'#sync'</span>)
-                .attr(<span class="string">'disabled'</span>, <span class="literal">true</span>);
-            $(<span class="string">'#online'</span>)
+            <div class="content"><div class='highlight'><pre>        user_offline: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            $(<span class="hljs-string">'#sync'</span>)
+                .attr(<span class="hljs-string">'disabled'</span>, <span class="hljs-literal">true</span>);
+            $(<span class="hljs-string">'#online'</span>)
                 .hide();
-            $(<span class="string">'#offline'</span>)
+            $(<span class="hljs-string">'#offline'</span>)
                 .show();
         },</pre></div></div>
             
@@ -455,13 +455,13 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        db_downloaded: <span class="keyword">function</span>() {
-            $(<span class="string">'.list_items'</span>)
-                .unbind(<span class="string">'click'</span>, <span class="literal">false</span>);
-            $(<span class="string">'.list_items'</span>)
-                .removeClass(<span class="string">"disabled"</span>);
-            console.log(<span class="string">"Dashboard links enabled"</span>);
-            $(<span class="string">"#helptext"</span>)
+            <div class="content"><div class='highlight'><pre>        db_downloaded: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            $(<span class="hljs-string">'.list_items'</span>)
+                .unbind(<span class="hljs-string">'click'</span>, <span class="hljs-literal">false</span>);
+            $(<span class="hljs-string">'.list_items'</span>)
+                .removeClass(<span class="hljs-string">"disabled"</span>);
+            console.log(<span class="hljs-string">"Dashboard links enabled"</span>);
+            $(<span class="hljs-string">"#helptext"</span>)
                 .hide();
         },</pre></div></div>
             
@@ -478,13 +478,13 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        db_not_downloaded: <span class="keyword">function</span>() {
-            $(<span class="string">'.list_items'</span>)
-                .bind(<span class="string">'click'</span>, <span class="literal">false</span>);
-            $(<span class="string">'.list_items'</span>)
-                .addClass(<span class="string">"disabled"</span>);
-            console.log(<span class="string">"Dashboard links disabled"</span>);
-            $(<span class="string">"#helptext"</span>)
+            <div class="content"><div class='highlight'><pre>        db_not_downloaded: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            $(<span class="hljs-string">'.list_items'</span>)
+                .bind(<span class="hljs-string">'click'</span>, <span class="hljs-literal">false</span>);
+            $(<span class="hljs-string">'.list_items'</span>)
+                .addClass(<span class="hljs-string">"disabled"</span>);
+            console.log(<span class="hljs-string">"Dashboard links disabled"</span>);
+            $(<span class="hljs-string">"#helptext"</span>)
                 .show();
         },</pre></div></div>
             
@@ -501,16 +501,16 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        sync: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;
-            <span class="keyword">if</span> (<span class="keyword">this</span>.inc_download_v &amp;&amp; <span class="keyword">this</span>.inc_download_v.in_progress) {
-                alert(<span class="string">"Please wait till background download is finished."</span>);
-                <span class="keyword">return</span>;
+            <div class="content"><div class='highlight'><pre>        sync: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.inc_download_v &amp;&amp; <span class="hljs-keyword">this</span>.inc_download_v.in_progress) {
+                alert(<span class="hljs-string">"Please wait till background download is finished."</span>);
+                <span class="hljs-keyword">return</span>;
             }
-            Offline.fetch_object(<span class="string">"meta_data"</span>, <span class="string">"key"</span>, <span class="string">"last_full_download"</span>)
-                .done(<span class="keyword">function</span>(model) {
-                console.log(<span class="string">"In Sync: db completely downloaded"</span>);
-                that.sync_in_progress = <span class="literal">true</span>;</pre></div></div>
+            Offline.fetch_object(<span class="hljs-string">"meta_data"</span>, <span class="hljs-string">"key"</span>, <span class="hljs-string">"last_full_download"</span>)
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span> {</span>
+                console.log(<span class="hljs-string">"In Sync: db completely downloaded"</span>);
+                that.sync_in_progress = <span class="hljs-literal">true</span>;</pre></div></div>
             
         </li>
         
@@ -526,21 +526,21 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>                that.upload()
-                    .done(<span class="keyword">function</span>() {
-                    console.log(<span class="string">"UPLOAD FINISHED"</span>);
+                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    console.log(<span class="hljs-string">"UPLOAD FINISHED"</span>);
                     notifs_view.add_alert({
-                        notif_type: <span class="string">"success"</span>,
-                        message: <span class="string">"Sync successfully finished"</span>
+                        notif_type: <span class="hljs-string">"success"</span>,
+                        message: <span class="hljs-string">"Sync successfully finished"</span>
                     });
                 })
-                    .fail(<span class="keyword">function</span>(error) {
-                    console.log(<span class="string">"ERROR IN UPLOAD :"</span> + error);
+                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
+                    console.log(<span class="hljs-string">"ERROR IN UPLOAD :"</span> + error);
                     notifs_view.add_alert({
-                        notif_type: <span class="string">"error"</span>,
-                        message: <span class="string">"Sync Incomplete. Failed to finish upload : "</span> + error
+                        notif_type: <span class="hljs-string">"error"</span>,
+                        message: <span class="hljs-string">"Sync Incomplete. Failed to finish upload : "</span> + error
                     });
                 })
-                    .always(<span class="keyword">function</span>() {</pre></div></div>
+                    .always(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -557,30 +557,30 @@ start inc download - even if upload failed    </p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                    that.inc_download({
-                        background: <span class="literal">false</span>
+                        background: <span class="hljs-literal">false</span>
                     })
-                        .done(<span class="keyword">function</span>() {
-                        console.log(<span class="string">"INC DOWNLOAD FINISHED"</span>);
-                        that.sync_in_progress = <span class="literal">false</span>;
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                        console.log(<span class="hljs-string">"INC DOWNLOAD FINISHED"</span>);
+                        that.sync_in_progress = <span class="hljs-literal">false</span>;
                         notifs_view.add_alert({
-                            notif_type: <span class="string">"success"</span>,
-                            message: <span class="string">"Incremental download successfully finished"</span>
+                            notif_type: <span class="hljs-string">"success"</span>,
+                            message: <span class="hljs-string">"Incremental download successfully finished"</span>
                         });
                     })
-                        .fail(<span class="keyword">function</span>(error) {
-                        console.log(<span class="string">"ERROR IN INC DOWNLOAD"</span>);
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
+                        console.log(<span class="hljs-string">"ERROR IN INC DOWNLOAD"</span>);
                         console.log(error);
-                        that.sync_in_progress = <span class="literal">false</span>;
+                        that.sync_in_progress = <span class="hljs-literal">false</span>;
                         notifs_view.add_alert({
-                            notif_type: <span class="string">"error"</span>,
-                            message: <span class="string">"Sync Incomplete. Failed to do Incremental Download: "</span> + error
+                            notif_type: <span class="hljs-string">"error"</span>,
+                            message: <span class="hljs-string">"Sync Incomplete. Failed to do Incremental Download: "</span> + error
                         });
 
                     });
                 });
 
             })
-                .fail(<span class="keyword">function</span>(model, error) {</pre></div></div>
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -595,10 +595,10 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">if</span> (error == <span class="string">"Not Found"</span>) {
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">if</span> (error == <span class="hljs-string">"Not Found"</span>) {
                     that.render()
-                        .done(<span class="keyword">function</span>() {
-                        console.log(<span class="string">"In Sync: db not completely downloaded"</span>);
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                        console.log(<span class="hljs-string">"In Sync: db not completely downloaded"</span>);
                         that.download();
                     });
                 }
@@ -619,8 +619,8 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        download: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        download: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();</pre></div></div>
             
         </li>
         
@@ -635,8 +635,8 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (!<span class="keyword">this</span>.full_download_v) {
-                <span class="keyword">this</span>.full_download_v = <span class="keyword">new</span> FullDownloadView();
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.full_download_v) {
+                <span class="hljs-keyword">this</span>.full_download_v = <span class="hljs-keyword">new</span> FullDownloadView();
             }</pre></div></div>
             
         </li>
@@ -652,10 +652,10 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            $(<span class="keyword">this</span>.full_download_v.el)
-                .appendTo(<span class="string">'body'</span>);
-            <span class="keyword">this</span>.full_download_v.render();
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            $(<span class="hljs-keyword">this</span>.full_download_v.el)
+                .appendTo(<span class="hljs-string">'body'</span>);
+            <span class="hljs-keyword">this</span>.full_download_v.render();
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -670,22 +670,22 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.full_download_v.start_full_download()
-                .done(<span class="keyword">function</span>() {
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.full_download_v.start_full_download()
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                 notifs_view.add_alert({
-                    notif_type: <span class="string">"success"</span>,
-                    message: <span class="string">"Successfully downloaded the database"</span>
+                    notif_type: <span class="hljs-string">"success"</span>,
+                    message: <span class="hljs-string">"Successfully downloaded the database"</span>
                 });
                 dfd.resolve();
             })
-                .fail(<span class="keyword">function</span>(error) {
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                 notifs_view.add_alert({
-                    notif_type: <span class="string">"error"</span>,
-                    message: <span class="string">"Failed to download the database : "</span> + error
+                    notif_type: <span class="hljs-string">"error"</span>,
+                    message: <span class="hljs-string">"Failed to download the database : "</span> + error
                 });
                 dfd.reject();
             });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -701,22 +701,22 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        upload: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> dfd = $.Deferred();
-            <span class="keyword">if</span> (!<span class="keyword">this</span>.upload_v) {
-                <span class="keyword">this</span>.upload_v = <span class="keyword">new</span> UploadView();
+            <div class="content"><div class='highlight'><pre>        upload: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = $.Deferred();
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.upload_v) {
+                <span class="hljs-keyword">this</span>.upload_v = <span class="hljs-keyword">new</span> UploadView();
             }
-            $(<span class="keyword">this</span>.upload_v.el)
-                .appendTo(<span class="string">'body'</span>);
-            <span class="keyword">this</span>.upload_v.render();
-            <span class="keyword">this</span>.upload_v.start_upload()
-                .done(<span class="keyword">function</span>() {
-                <span class="keyword">return</span> dfd.resolve();
+            $(<span class="hljs-keyword">this</span>.upload_v.el)
+                .appendTo(<span class="hljs-string">'body'</span>);
+            <span class="hljs-keyword">this</span>.upload_v.render();
+            <span class="hljs-keyword">this</span>.upload_v.start_upload()
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">return</span> dfd.resolve();
             })
-                .fail(<span class="keyword">function</span>(error) {
-                <span class="keyword">return</span> dfd.reject(error);
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
+                <span class="hljs-keyword">return</span> dfd.reject(error);
             });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -732,17 +732,17 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        inc_download: <span class="keyword">function</span>(options) {
-            <span class="keyword">var</span> dfd = $.Deferred();
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;
-            <span class="keyword">if</span> (!<span class="keyword">this</span>.inc_download_v) {
-                <span class="keyword">this</span>.inc_download_v = <span class="keyword">new</span> IncDownloadView();
+            <div class="content"><div class='highlight'><pre>        inc_download: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(options)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = $.Deferred();
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.inc_download_v) {
+                <span class="hljs-keyword">this</span>.inc_download_v = <span class="hljs-keyword">new</span> IncDownloadView();
             }
-            <span class="keyword">if</span> (<span class="keyword">this</span>.inc_download_v.in_progress) {
-                <span class="keyword">return</span> dfd.resolve();
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.inc_download_v.in_progress) {
+                <span class="hljs-keyword">return</span> dfd.resolve();
             }
-            $(<span class="keyword">this</span>.inc_download_v.el)
-                .appendTo(<span class="string">'body'</span>);</pre></div></div>
+            $(<span class="hljs-keyword">this</span>.inc_download_v.el)
+                .appendTo(<span class="hljs-string">'body'</span>);</pre></div></div>
             
         </li>
         
@@ -757,14 +757,14 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.inc_download_v.start_incremental_download(options)
-                .done(<span class="keyword">function</span>() {
-                <span class="keyword">return</span> dfd.resolve();
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.inc_download_v.start_incremental_download(options)
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">return</span> dfd.resolve();
             })
-                .fail(<span class="keyword">function</span>(error) {
-                <span class="keyword">return</span> dfd.reject();
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
+                <span class="hljs-keyword">return</span> dfd.reject();
             });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -780,9 +780,9 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        background_download: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;
-            console.log(<span class="string">"Going for background inc download"</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        background_download: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+            console.log(<span class="hljs-string">"Going for background inc download"</span>);</pre></div></div>
             
         </li>
         
@@ -797,8 +797,8 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> call_again = <span class="keyword">function</span>() {
-                setTimeout(<span class="keyword">function</span>() {
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> call_again = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                     that.background_download();
                 }, configs.misc.background_download_interval);
             };</pre></div></div>
@@ -816,8 +816,8 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (<span class="keyword">this</span>.is_uploadqueue_empty() &amp;&amp; <span class="keyword">this</span>.is_internet_connected() &amp;&amp; !<span class="keyword">this</span>.sync_in_progress) <span class="keyword">this</span>.inc_download({
-                background: <span class="literal">true</span>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.is_uploadqueue_empty() &amp;&amp; <span class="hljs-keyword">this</span>.is_internet_connected() &amp;&amp; !<span class="hljs-keyword">this</span>.sync_in_progress) <span class="hljs-keyword">this</span>.inc_download({
+                background: <span class="hljs-literal">true</span>
             })</pre></div></div>
             
         </li>
@@ -848,7 +848,7 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">else</span> call_again();
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">else</span> call_again();
         },</pre></div></div>
             
         </li>
@@ -864,7 +864,7 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        is_uploadqueue_empty: <span class="keyword">function</span>() {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        is_uploadqueue_empty: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -879,7 +879,7 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">return</span> upload_collection.fetched &amp;&amp; upload_collection.length &lt;= <span class="number">0</span>;
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">return</span> upload_collection.fetched &amp;&amp; upload_collection.length &lt;= <span class="hljs-number">0</span>;
         },</pre></div></div>
             
         </li>
@@ -895,8 +895,8 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        is_internet_connected: <span class="keyword">function</span>() {
-            <span class="keyword">return</span> navigator.onLine;
+            <div class="content"><div class='highlight'><pre>        is_internet_connected: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">return</span> navigator.onLine;
         },</pre></div></div>
             
         </li>
@@ -912,11 +912,11 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        logout: <span class="keyword">function</span>() {
+            <div class="content"><div class='highlight'><pre>        logout: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
             Auth.logout()
-                .always(<span class="keyword">function</span>() {
-                window.Router.navigate(<span class="string">'login'</span>, {
-                    trigger: <span class="literal">true</span>
+                .always(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                window.Router.navigate(<span class="hljs-string">'login'</span>, {
+                    trigger: <span class="hljs-literal">true</span>
                 });
             });
         }
@@ -935,7 +935,7 @@ start inc download - even if upload failed    </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">return</span> DashboardView;
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">return</span> DashboardView;
 });</pre></div></div>
             
         </li>

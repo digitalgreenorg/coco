@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -177,12 +167,12 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>define([<span class="string">'views/dashboard'</span>, <span class="string">'views/list'</span>, <span class="string">'views/form_controller'</span>, <span class="string">'views/status'</span>, <span class="string">'layoutmanager'</span>, <span class="string">'views/login'</span>], <span class="keyword">function</span>(DashboardView, ListView, FormControllerView, StatusView, layoutmanager, LoginView) {
+            <div class="content"><div class='highlight'><pre>define([<span class="hljs-string">'views/dashboard'</span>, <span class="hljs-string">'views/list'</span>, <span class="hljs-string">'views/form_controller'</span>, <span class="hljs-string">'views/status'</span>, <span class="hljs-string">'layoutmanager'</span>, <span class="hljs-string">'views/login'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(DashboardView, ListView, FormControllerView, StatusView, layoutmanager, LoginView)</span> {</span>
 
-    <span class="keyword">var</span> AppLayout = Backbone.Layout.extend({
-        template: <span class="string">"#page_layout"</span>,
-        initialize: <span class="keyword">function</span>() {
-            console.log(<span class="string">"initilizing app layout"</span>);
+    <span class="hljs-keyword">var</span> AppLayout = Backbone.Layout.extend({
+        template: <span class="hljs-string">"#page_layout"</span>,
+        initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            console.log(<span class="hljs-string">"initilizing app layout"</span>);
         },</pre></div></div>
             
         </li>
@@ -198,10 +188,10 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        afterRender: <span class="keyword">function</span>() {
-            console.log(<span class="string">"app layout rendered"</span>);
-            <span class="keyword">var</span> dashboard_view = <span class="keyword">new</span> DashboardView();
-            <span class="keyword">this</span>.setView(<span class="string">"#side_panel"</span>, dashboard_view);
+            <div class="content"><div class='highlight'><pre>        afterRender: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            console.log(<span class="hljs-string">"app layout rendered"</span>);
+            <span class="hljs-keyword">var</span> dashboard_view = <span class="hljs-keyword">new</span> DashboardView();
+            <span class="hljs-keyword">this</span>.setView(<span class="hljs-string">"#side_panel"</span>, dashboard_view);
             dashboard_view.render();
         },</pre></div></div>
             
@@ -218,34 +208,34 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        render_login: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> login_view = <span class="keyword">new</span> LoginView();
-            <span class="keyword">this</span>.setView(<span class="string">"#content"</span>, login_view);
+            <div class="content"><div class='highlight'><pre>        render_login: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> login_view = <span class="hljs-keyword">new</span> LoginView();
+            <span class="hljs-keyword">this</span>.setView(<span class="hljs-string">"#content"</span>, login_view);
         },
 
-        render_home_view: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> s_view = <span class="keyword">new</span> StatusView();
-            <span class="keyword">this</span>.setView(<span class="string">"#content"</span>, s_view);
+        render_home_view: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> s_view = <span class="hljs-keyword">new</span> StatusView();
+            <span class="hljs-keyword">this</span>.setView(<span class="hljs-string">"#content"</span>, s_view);
         },
 
-        render_list_view: <span class="keyword">function</span>(entity_name) {
-            <span class="keyword">var</span> l_view = <span class="keyword">new</span> ListView({
+        render_list_view: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name)</span> {</span>
+            <span class="hljs-keyword">var</span> l_view = <span class="hljs-keyword">new</span> ListView({
                 entity_name: entity_name
             });
-            <span class="keyword">this</span>.setView(<span class="string">"#content"</span>, l_view);
+            <span class="hljs-keyword">this</span>.setView(<span class="hljs-string">"#content"</span>, l_view);
         },
 
-        render_add_edit_view: <span class="keyword">function</span>(entity_name, id) {
-            <span class="keyword">var</span> formcontroller_view = <span class="keyword">new</span> FormControllerView({
+        render_add_edit_view: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, id)</span> {</span>
+            <span class="hljs-keyword">var</span> formcontroller_view = <span class="hljs-keyword">new</span> FormControllerView({
                 entity_name: entity_name,
                 model_id: id,
             });
-            <span class="keyword">this</span>.setView(<span class="string">"#content"</span>, formcontroller_view);
-            formcontroller_view.render(); <span class="comment">//bcoz Its afterRender assumes its elements are in DOM</span>
+            <span class="hljs-keyword">this</span>.setView(<span class="hljs-string">"#content"</span>, formcontroller_view);
+            formcontroller_view.render(); <span class="hljs-comment">//bcoz Its afterRender assumes its elements are in DOM</span>
         }
 
     });
-    <span class="keyword">return</span> <span class="keyword">new</span> AppLayout;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AppLayout;
 });</pre></div></div>
             
         </li>

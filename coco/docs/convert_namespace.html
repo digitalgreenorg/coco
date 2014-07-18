@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -180,10 +170,10 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>define([<span class="string">'jquery'</span>, <span class="string">'configs'</span>, <span class="string">'backbone'</span>, <span class="string">'indexeddb_backbone_config'</span>
+            <div class="content"><div class='highlight'><pre>define([<span class="hljs-string">'jquery'</span>, <span class="hljs-string">'configs'</span>, <span class="hljs-string">'backbone'</span>, <span class="hljs-string">'indexeddb_backbone_config'</span>
 
-], <span class="keyword">function</span>($, configs, pa, indexeddb) {
-    <span class="keyword">var</span> convert_namespace = {</pre></div></div>
+], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($, configs, pa, indexeddb)</span> {</span>
+    <span class="hljs-keyword">var</span> convert_namespace = {</pre></div></div>
             
         </li>
         
@@ -198,7 +188,7 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        which_to_which: <span class="string">"offlinetoonline"</span>,</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        which_to_which: <span class="hljs-string">"offlinetoonline"</span>,</pre></div></div>
             
         </li>
         
@@ -214,13 +204,13 @@ To use - call the convert method</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>        conv_dict: {
-            <span class="string">"onlinetooffline"</span>: {
-                replace_this: <span class="string">"online_id"</span>,
-                replace_with: <span class="string">"id"</span>
+            <span class="hljs-string">"onlinetooffline"</span>: {
+                replace_this: <span class="hljs-string">"online_id"</span>,
+                replace_with: <span class="hljs-string">"id"</span>
             },
-            <span class="string">"offlinetoonline"</span>: {
-                replace_this: <span class="string">"id"</span>,
-                replace_with: <span class="string">"online_id"</span>
+            <span class="hljs-string">"offlinetoonline"</span>: {
+                replace_this: <span class="hljs-string">"id"</span>,
+                replace_with: <span class="hljs-string">"online_id"</span>
             }
         },</pre></div></div>
             
@@ -233,12 +223,12 @@ To use - call the convert method</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>returns the id_field declared in the foreign entity definition of this &#39;element&#39; in configs of &#39;entity&#39;</p>
+              <p>returns the id_field declared in the foreign entity definition of this ‘element’ in configs of ‘entity’</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_id_field: <span class="keyword">function</span>(entity, element, f_entities) {
-            <span class="keyword">return</span> f_entities[entity][element].id_field || <span class="string">"id"</span>;
+            <div class="content"><div class='highlight'><pre>        get_id_field: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity, element, f_entities)</span> {</span>
+            <span class="hljs-keyword">return</span> f_entities[entity][element].id_field || <span class="hljs-string">"id"</span>;
         },</pre></div></div>
             
         </li>
@@ -254,11 +244,11 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        convert: <span class="keyword">function</span>(json, f_entities, which_to_which) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">if</span> (which_to_which)
-                <span class="keyword">this</span>.which_to_which = which_to_which;
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        convert: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(json, f_entities, which_to_which)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">if</span> (which_to_which)
+                <span class="hljs-keyword">this</span>.which_to_which = which_to_which;
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -269,12 +259,12 @@ To use - call the convert method</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>making a deep copy of received object...this copy would be altered</p>
+              <p>making a deep copy of received object…this copy would be altered</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> conv_json = $.extend(<span class="literal">true</span>, <span class="literal">null</span>, json);
-            console.log(<span class="string">"FORMCONTROLLER:convert_namespace: json before converting"</span> + JSON.stringify(json));</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> conv_json = $.extend(<span class="hljs-literal">true</span>, <span class="hljs-literal">null</span>, json);
+            console.log(<span class="hljs-string">"FORMCONTROLLER:convert_namespace: json before converting"</span> + <span class="hljs-built_in">JSON</span>.stringify(json));</pre></div></div>
             
         </li>
         
@@ -289,7 +279,7 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.field_dfds = [];</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.field_dfds = [];</pre></div></div>
             
         </li>
         
@@ -304,9 +294,9 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.iterate_foreign_fields(conv_json, f_entities);
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.iterate_foreign_fields(conv_json, f_entities);
 
-            <span class="keyword">var</span> object_jsons = <span class="literal">null</span>;</pre></div></div>
+            <span class="hljs-keyword">var</span> object_jsons = <span class="hljs-literal">null</span>;</pre></div></div>
             
         </li>
         
@@ -321,20 +311,20 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">switch</span> (<span class="keyword">this</span>.which_to_which) {
-                <span class="keyword">case</span> <span class="string">"onlinetooffline"</span>:
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">switch</span> (<span class="hljs-keyword">this</span>.which_to_which) {
+                <span class="hljs-keyword">case</span> <span class="hljs-string">"onlinetooffline"</span>:
                     object_jsons = {
                         off_json: conv_json,
                         on_json: json
                     }
-                    <span class="keyword">break</span>;
-                <span class="keyword">default</span>:
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">default</span>:
                     object_jsons = {
                         off_json: json,
                         on_json: conv_json
                     }
             }
-            <span class="keyword">if</span> (<span class="keyword">this</span>.field_dfds.length) {</pre></div></div>
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.field_dfds.length) {</pre></div></div>
             
         </li>
         
@@ -349,8 +339,8 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                $.when.apply($, <span class="keyword">this</span>.field_dfds)
-                    .done(<span class="keyword">function</span>() {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                $.when.apply($, <span class="hljs-keyword">this</span>.field_dfds)
+                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -365,9 +355,9 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                        <span class="keyword">return</span> dfd.resolve(object_jsons);
+            <div class="content"><div class='highlight'><pre>                        <span class="hljs-keyword">return</span> dfd.resolve(object_jsons);
                     })
-                    .fail(<span class="keyword">function</span>() {</pre></div></div>
+                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -382,9 +372,9 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                        <span class="keyword">return</span> dfd.reject();
+            <div class="content"><div class='highlight'><pre>                        <span class="hljs-keyword">return</span> dfd.reject();
                     });
-            } <span class="keyword">else</span> {</pre></div></div>
+            } <span class="hljs-keyword">else</span> {</pre></div></div>
             
         </li>
         
@@ -399,11 +389,11 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                console.log(<span class="string">"FORMCONTROLLER:convert_namespace: Nothing to convert."</span>);
-                <span class="keyword">return</span> dfd.resolve(object_jsons);
+            <div class="content"><div class='highlight'><pre>                console.log(<span class="hljs-string">"FORMCONTROLLER:convert_namespace: Nothing to convert."</span>);
+                <span class="hljs-keyword">return</span> dfd.resolve(object_jsons);
             }
 
-            <span class="keyword">return</span> dfd.promise();
+            <span class="hljs-keyword">return</span> dfd.promise();
         },</pre></div></div>
             
         </li>
@@ -419,7 +409,7 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        iterate_foreign_fields: <span class="keyword">function</span>(json, f_entities) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        iterate_foreign_fields: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(json, f_entities)</span> {</span></pre></div></div>
             
         </li>
         
@@ -430,12 +420,12 @@ To use - call the convert method</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
-              <p>use the foreign entities definition of this object&#39;s entity to iterate over the foreign elements in the object</p>
+              <p>use the foreign entities definition of this object’s entity to iterate over the foreign elements in the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">for</span> (<span class="keyword">var</span> entity <span class="keyword">in</span> f_entities) {
-                <span class="keyword">for</span> (<span class="keyword">var</span> element <span class="keyword">in</span> f_entities[entity]) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> entity <span class="hljs-keyword">in</span> f_entities) {
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> element <span class="hljs-keyword">in</span> f_entities[entity]) {</pre></div></div>
             
         </li>
         
@@ -446,12 +436,12 @@ To use - call the convert method</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
-              <p>the foreign element doesn&#39;t exists in the object </p>
+              <p>the foreign element doesn’t exists in the object </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">if</span> (!(json[element]))
-                        <span class="keyword">continue</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">if</span> (!(json[element]))
+                        <span class="hljs-keyword">continue</span>;</pre></div></div>
             
         </li>
         
@@ -466,8 +456,8 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">var</span> id_field = <span class="keyword">this</span>.get_id_field(entity, element, f_entities);
-                    <span class="keyword">var</span> field_desc = {
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">var</span> id_field = <span class="hljs-keyword">this</span>.get_id_field(entity, element, f_entities);
+                    <span class="hljs-keyword">var</span> field_desc = {
                         entity_name: entity,
                         id_attribute: id_field
                     };</pre></div></div>
@@ -485,8 +475,8 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">if</span> (json[element] <span class="keyword">instanceof</span> Array)
-                        _.each(json[element], <span class="keyword">function</span>(object, index) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">if</span> (json[element] <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>)
+                        _.each(json[element], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(object, index)</span> {</span></pre></div></div>
             
         </li>
         
@@ -501,10 +491,10 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            <span class="keyword">this</span>.field_dfds.push(<span class="keyword">this</span>.convert_object(object, field_desc));
-                        }, <span class="keyword">this</span>);
-                    <span class="keyword">else</span> <span class="comment">//foreign elements is a single-select (dropdown)</span>
-                        <span class="keyword">this</span>.field_dfds.push(<span class="keyword">this</span>.convert_object(json[element], field_desc));</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                            <span class="hljs-keyword">this</span>.field_dfds.push(<span class="hljs-keyword">this</span>.convert_object(object, field_desc));
+                        }, <span class="hljs-keyword">this</span>);
+                    <span class="hljs-keyword">else</span> <span class="hljs-comment">//foreign elements is a single-select (dropdown)</span>
+                        <span class="hljs-keyword">this</span>.field_dfds.push(<span class="hljs-keyword">this</span>.convert_object(json[element], field_desc));</pre></div></div>
             
         </li>
         
@@ -519,12 +509,12 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">if</span> (f_entities[entity][element].expanded)
-                        <span class="keyword">if</span> (f_entities[entity][element].expanded.foreign_entities)
-                            _.each(json[element], <span class="keyword">function</span>(object, index) {
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">if</span> (f_entities[entity][element].expanded)
+                        <span class="hljs-keyword">if</span> (f_entities[entity][element].expanded.foreign_entities)
+                            _.each(json[element], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(object, index)</span> {</span>
 
-                                <span class="keyword">this</span>.iterate_foreign_fields(object, f_entities[entity][element].expanded.foreign_entities);
-                            }, <span class="keyword">this</span>);
+                                <span class="hljs-keyword">this</span>.iterate_foreign_fields(object, f_entities[entity][element].expanded.foreign_entities);
+                            }, <span class="hljs-keyword">this</span>);
                 }
             }
         },</pre></div></div>
@@ -542,9 +532,9 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        convert_object: <span class="keyword">function</span>(obj, field_desc) {
-            console.log(<span class="string">"ConvertNamespace: converting object"</span>, JSON.stringify(obj), JSON.stringify(field_desc));
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        convert_object: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(obj, field_desc)</span> {</span>
+            console.log(<span class="hljs-string">"ConvertNamespace: converting object"</span>, <span class="hljs-built_in">JSON</span>.stringify(obj), <span class="hljs-built_in">JSON</span>.stringify(field_desc));
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();</pre></div></div>
             
         </li>
         
@@ -559,8 +549,8 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (!obj[field_desc.id_attribute])
-                <span class="keyword">return</span> dfd.resolve();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (!obj[field_desc.id_attribute])
+                <span class="hljs-keyword">return</span> dfd.resolve();</pre></div></div>
             
         </li>
         
@@ -575,11 +565,11 @@ To use - call the convert method</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> generic_model_offline = Backbone.Model.extend({
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> generic_model_offline = Backbone.Model.extend({
                 database: indexeddb,
                 storeName: field_desc.entity_name,
             });
-            <span class="keyword">var</span> f_model = <span class="keyword">new</span> generic_model_offline();</pre></div></div>
+            <span class="hljs-keyword">var</span> f_model = <span class="hljs-keyword">new</span> generic_model_offline();</pre></div></div>
             
         </li>
         
@@ -590,14 +580,14 @@ To use - call the convert method</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
-              <p>the object is to be fetched based on &quot;id&quot; or &quot;online_id&quot; depending upon the conversion-way(on-to-off or off-to-on)</p>
+              <p>the object is to be fetched based on “id” or “online_id” depending upon the conversion-way(on-to-off or off-to-on)</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            f_model.set(<span class="keyword">this</span>.conv_dict[<span class="keyword">this</span>.which_to_which].replace_this, parseInt(obj[field_desc.id_attribute]));
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;
+            <div class="content"><div class='highlight'><pre>            f_model.set(<span class="hljs-keyword">this</span>.conv_dict[<span class="hljs-keyword">this</span>.which_to_which].replace_this, <span class="hljs-built_in">parseInt</span>(obj[field_desc.id_attribute]));
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
             f_model.fetch({
-                success: <span class="keyword">function</span>(model) {</pre></div></div>
+                success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span> {</span></pre></div></div>
             
         </li>
         
@@ -613,9 +603,9 @@ To use - call the convert method</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                    obj[field_desc.id_attribute] = model.get(that.conv_dict[that.which_to_which].replace_with);
-                    <span class="keyword">return</span> dfd.resolve();
+                    <span class="hljs-keyword">return</span> dfd.resolve();
                 },
-                error: <span class="keyword">function</span>(model, error) {</pre></div></div>
+                error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -626,20 +616,36 @@ To use - call the convert method</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
-              <p>the foreign element object doesn&#39;t exists</p>
+              <p>TODO: OOPS! What should be done now????
+alert(“unexpected error. check console log “+error);</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">return</span> dfd.reject(error);
+            <div class="content"><div class='highlight'><pre>                    console.log(<span class="hljs-string">"CONVERTNAMESPACE: unexpected error."</span>,error);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>the foreign element object doesn’t exists</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">return</span> dfd.reject(error);
                 }
             });
-            <span class="keyword">return</span> dfd.promise();
+            <span class="hljs-keyword">return</span> dfd.promise();
         }
 
     }
 
 
-    <span class="keyword">return</span> convert_namespace;
+    <span class="hljs-keyword">return</span> convert_namespace;
 
 });</pre></div></div>
             

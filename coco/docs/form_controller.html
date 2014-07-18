@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -178,19 +168,19 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>define([
-    <span class="string">'jquery'</span>,
-    <span class="string">'underscore'</span>,
-    <span class="string">'layoutmanager'</span>,
-    <span class="string">'views/notification'</span>,
-    <span class="string">'indexeddb_backbone_config'</span>,
-    <span class="string">'configs'</span>,
-    <span class="string">'views/form'</span>,
-    <span class="string">'collections/upload_collection'</span>,
-    <span class="string">'convert_namespace'</span>,
-    <span class="string">'offline_utils'</span>,
-    <span class="string">'online_utils'</span>,
-    <span class="string">'indexeddb-backbone'</span>
-], <span class="keyword">function</span>(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, ConvertNamespace, Offline, Online) {</pre></div></div>
+    <span class="hljs-string">'jquery'</span>,
+    <span class="hljs-string">'underscore'</span>,
+    <span class="hljs-string">'layoutmanager'</span>,
+    <span class="hljs-string">'views/notification'</span>,
+    <span class="hljs-string">'indexeddb_backbone_config'</span>,
+    <span class="hljs-string">'configs'</span>,
+    <span class="hljs-string">'views/form'</span>,
+    <span class="hljs-string">'collections/upload_collection'</span>,
+    <span class="hljs-string">'convert_namespace'</span>,
+    <span class="hljs-string">'offline_utils'</span>,
+    <span class="hljs-string">'online_utils'</span>,
+    <span class="hljs-string">'indexeddb-backbone'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(jquery, underscore, layoutmanager, notifs_view, indexeddb, configs, Form, upload_collection, ConvertNamespace, Offline, Online)</span> {</span></pre></div></div>
             
         </li>
         
@@ -206,21 +196,21 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>
-    <span class="comment">/*
+    <span class="hljs-comment">/*
     If we are saving offline - we set the json from the form, (we denormalize it), save it in the model and save the model in the upload queue.
     If we are saving online - we set the json from the form, (we denormalize it), we convert foreign keys ids to the online namespace, save the offline model, and then save it on server.
     If server save succeeds, then we set the online_id in the offline model.
     */</span>
 
 
-    <span class="keyword">var</span> FormControllerView = Backbone.Layout.extend({
+    <span class="hljs-keyword">var</span> FormControllerView = Backbone.Layout.extend({
 
-        initialize: <span class="keyword">function</span>(params) {
-            console.log(<span class="string">"FORMCONTROLLER: initializing a new FormControllerView"</span>);
-            <span class="keyword">this</span>.params = params;
-            _.bindAll(<span class="keyword">this</span>);
+        initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(params)</span> {</span>
+            console.log(<span class="hljs-string">"FORMCONTROLLER: initializing a new FormControllerView"</span>);
+            <span class="hljs-keyword">this</span>.params = params;
+            _.bindAll(<span class="hljs-keyword">this</span>);
         },
-        template: <span class="string">"&lt;div&gt;&lt;div id = 'form'&gt;&lt;/div&gt;&lt;/div&gt;"</span>,</pre></div></div>
+        template: <span class="hljs-string">"&lt;div&gt;&lt;div id = 'form'&gt;&lt;/div&gt;&lt;/div&gt;"</span>,</pre></div></div>
             
         </li>
         
@@ -235,8 +225,8 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        beforeRender: <span class="keyword">function</span>() {
-            console.log(<span class="keyword">this</span>.params);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        beforeRender: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            console.log(<span class="hljs-keyword">this</span>.params);</pre></div></div>
             
         </li>
         
@@ -251,10 +241,10 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.params = $.extend(<span class="keyword">this</span>.params, {
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.params = $.extend(<span class="hljs-keyword">this</span>.params, {
                 serialize: {
-                    button1: <span class="string">"Save and Add Another"</span>,
-                    button2: <span class="literal">null</span>
+                    button1: <span class="hljs-string">"Save and Add Another"</span>,
+                    button2: <span class="hljs-literal">null</span>
                 }
             });</pre></div></div>
             
@@ -271,7 +261,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> form_v = <span class="keyword">new</span> Form(<span class="keyword">this</span>.params);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> form_v = <span class="hljs-keyword">new</span> Form(<span class="hljs-keyword">this</span>.params);</pre></div></div>
             
         </li>
         
@@ -279,14 +269,14 @@
         <li id="section-6">
             <div class="annotation">
               
-              <div class="pilwrap for-h1">
+              <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <h1>form is the id of the element inside template where the form view will be inserted.</h1>
+              <h1 id="form-is-the-id-of-the-element-inside-template-where-the-form-view-will-be-inserted-">form is the id of the element inside template where the form view will be inserted.</h1>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.setView(<span class="string">"#form"</span>, form_v);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.setView(<span class="hljs-string">"#form"</span>, form_v);</pre></div></div>
             
         </li>
         
@@ -302,8 +292,8 @@ this view now does nothing till these events are triggered by the form view</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.listenTo(form_v, <span class="string">'save_clicked'</span>, <span class="keyword">this</span>.on_save);
-            <span class="keyword">this</span>.listenTo(form_v, <span class="string">'button2_clicked'</span>, <span class="keyword">this</span>.on_button2);
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.listenTo(form_v, <span class="hljs-string">'save_clicked'</span>, <span class="hljs-keyword">this</span>.on_save);
+            <span class="hljs-keyword">this</span>.listenTo(form_v, <span class="hljs-string">'button2_clicked'</span>, <span class="hljs-keyword">this</span>.on_button2);
         },</pre></div></div>
             
         </li>
@@ -321,7 +311,7 @@ After Save is finished calls an after_form_save function</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        on_save: <span class="keyword">function</span>(e) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        on_save: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span></pre></div></div>
             
         </li>
         
@@ -336,9 +326,9 @@ After Save is finished calls an after_form_save function</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.form = e.context; 
-            console.log(<span class="string">"FORMCONTROLLER: cleaned, denormalised json from form.js-"</span> + JSON.stringify(<span class="keyword">this</span>.form.final_json));
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.form = e.context; 
+            console.log(<span class="hljs-string">"FORMCONTROLLER: cleaned, denormalised json from form.js-"</span> + <span class="hljs-built_in">JSON</span>.stringify(<span class="hljs-keyword">this</span>.form.final_json));
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -353,9 +343,9 @@ After Save is finished calls an after_form_save function</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> save_complete_dfds = []; 
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> save_complete_dfds = []; 
 
-            <span class="keyword">if</span> (<span class="keyword">this</span>.form.bulk) {</pre></div></div>
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.form.bulk) {</pre></div></div>
             
         </li>
         
@@ -370,7 +360,7 @@ After Save is finished calls an after_form_save function</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                $.each(<span class="keyword">this</span>.form.final_json.bulk, <span class="keyword">function</span>(ind, obj) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                $.each(<span class="hljs-keyword">this</span>.form.final_json.bulk, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(ind, obj)</span> {</span></pre></div></div>
             
         </li>
         
@@ -385,8 +375,8 @@ After Save is finished calls an after_form_save function</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">var</span> bulk_index = obj.index;
-                    <span class="keyword">delete</span> obj.index;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">var</span> bulk_index = obj.index;
+                    <span class="hljs-keyword">delete</span> obj.index;</pre></div></div>
             
         </li>
         
@@ -401,9 +391,9 @@ After Save is finished calls an after_form_save function</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">var</span> save_object_dfd = that.save_object(obj, that.form.bulk.foreign_fields, that.form.entity_name);
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">var</span> save_object_dfd = that.save_object(obj, that.form.bulk.foreign_fields, that.form.entity_name);
                     save_object_dfd
-                        .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -438,7 +428,7 @@ show the error on the form right above the object</p>
             <div class="content"><div class='highlight'><pre>                    save_complete_dfds.push(save_object_dfd);
                 });
             } 
-            <span class="keyword">else</span> 
+            <span class="hljs-keyword">else</span> 
             {</pre></div></div>
             
         </li>
@@ -455,7 +445,7 @@ show the error on the form right above the object</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                
-                <span class="keyword">if</span> (<span class="keyword">this</span>.form.inline) {</pre></div></div>
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.form.inline) {</pre></div></div>
             
         </li>
         
@@ -470,7 +460,7 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    console.log(<span class="string">"FORMCONTROLLER: separating inlines from final json"</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                    console.log(<span class="hljs-string">"FORMCONTROLLER: separating inlines from final json"</span>);</pre></div></div>
             
         </li>
         
@@ -485,7 +475,7 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">this</span>.inline_models = <span class="keyword">this</span>.form.final_json.inlines;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">this</span>.inline_models = <span class="hljs-keyword">this</span>.form.final_json.inlines;</pre></div></div>
             
         </li>
         
@@ -500,7 +490,7 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">delete</span> <span class="keyword">this</span>.form.final_json.inlines;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">delete</span> <span class="hljs-keyword">this</span>.form.final_json.inlines;</pre></div></div>
             
         </li>
         
@@ -515,7 +505,7 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">var</span> inlines_dfd = <span class="keyword">new</span> $.Deferred();
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">var</span> inlines_dfd = <span class="hljs-keyword">new</span> $.Deferred();
                     save_complete_dfds.push(inlines_dfd);
                 }</pre></div></div>
             
@@ -532,9 +522,9 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">var</span> save_object_dfd = <span class="keyword">this</span>.save_object(<span class="keyword">this</span>.form.final_json, <span class="keyword">this</span>.form.foreign_entities, <span class="keyword">this</span>.form.entity_name);
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">var</span> save_object_dfd = <span class="hljs-keyword">this</span>.save_object(<span class="hljs-keyword">this</span>.form.final_json, <span class="hljs-keyword">this</span>.form.foreign_entities, <span class="hljs-keyword">this</span>.form.entity_name);
                 save_object_dfd
-                    .done(<span class="keyword">function</span>(off_json) {</pre></div></div>
+                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_json)</span> {</span></pre></div></div>
             
         </li>
         
@@ -549,7 +539,7 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                        <span class="keyword">if</span> (that.form.inline)</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                        <span class="hljs-keyword">if</span> (that.form.inline)</pre></div></div>
             
         </li>
         
@@ -565,17 +555,17 @@ show the error on the form right above the object</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                            that.save_inlines(that.inline_models, off_json, that.form.inline)
-                                .done(<span class="keyword">function</span>(all_inlines) {
-                                    console.log(<span class="string">"ALL INLINES SAVED"</span>);
+                                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(all_inlines)</span> {</span>
+                                    console.log(<span class="hljs-string">"ALL INLINES SAVED"</span>);
                                     inlines_dfd.resolve(all_inlines);
                                 })
-                                .fail(<span class="keyword">function</span>() {
-                                    console.log(<span class="string">"FAILED AT INLINES SAVE"</span>);
+                                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                                    console.log(<span class="hljs-string">"FAILED AT INLINES SAVE"</span>);
                                     show_inline_error();
                                     inlines_dfd.reject();
                                 });
                     })
-                    .fail(<span class="keyword">function</span>(error) {
+                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                         that.form.show_errors(error);
                     });
                 save_complete_dfds.push(save_object_dfd);
@@ -590,17 +580,17 @@ show the error on the form right above the object</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
-              <p>When all objects in form are saved...</p>
+              <p>When all objects in form are saved…</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            $.when.apply(<span class="literal">null</span>, save_complete_dfds)
-                .done(<span class="keyword">function</span>() {
-                    console.log(<span class="string">"Everything saved"</span>);
+            <div class="content"><div class='highlight'><pre>            $.when.apply(<span class="hljs-literal">null</span>, save_complete_dfds)
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    console.log(<span class="hljs-string">"Everything saved"</span>);
                     that.after_form_save(that.form.entity_name);
                 })
-                .fail(<span class="keyword">function</span>() {
-                    <span class="keyword">if</span> (that.form.bulk)
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    <span class="hljs-keyword">if</span> (that.form.bulk)
                         show_bulk_error();
                 });</pre></div></div>
             
@@ -617,12 +607,12 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="function"><span class="keyword">function</span> <span class="title">show_inline_error</span><span class="params">()</span> {</span>
-                <span class="keyword">var</span> err = {};
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show_inline_error</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">var</span> err = {};
                 err[that.form.entity_name] = {
-                    __all__: [<span class="string">"Some "</span> + that.form.inline.entity + <span class="string">" (in red below) could not be saved. To correct errors and try saving them again - go to list page and edit this "</span> + that.form.entity_name]
+                    __all__: [<span class="hljs-string">"Some "</span> + that.form.inline.entity + <span class="hljs-string">" (in red below) could not be saved. To correct errors and try saving them again - go to list page and edit this "</span> + that.form.entity_name]
                 };
-                that.form.show_errors(err, <span class="literal">true</span>);
+                that.form.show_errors(err, <span class="hljs-literal">true</span>);
             };</pre></div></div>
             
         </li>
@@ -638,12 +628,12 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="function"><span class="keyword">function</span> <span class="title">show_bulk_error</span><span class="params">()</span> {</span>
-                <span class="keyword">var</span> err = {};
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show_bulk_error</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">var</span> err = {};
                 err[that.form.entity_name] = {
-                    __all__: [<span class="string">"Some "</span> + that.form.entity_name + <span class="string">" (in red below) could not be saved. To correct errors and try saving them again - open a new add form"</span>]
+                    __all__: [<span class="hljs-string">"Some "</span> + that.form.entity_name + <span class="hljs-string">" (in red below) could not be saved. To correct errors and try saving them again - open a new add form"</span>]
                 };
-                that.form.show_errors(err, <span class="literal">true</span>);
+                that.form.show_errors(err, <span class="hljs-literal">true</span>);
             };
         },</pre></div></div>
             
@@ -660,11 +650,11 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        convert_to_row_error: <span class="keyword">function</span>(error, row_entity_name, row_index) {
+            <div class="content"><div class='highlight'><pre>        convert_to_row_error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error, row_entity_name, row_index)</span> {</span>
             error = $.parseJSON(error);
-            error[<span class="string">"row"</span> + row_index] = error[row_entity_name];
-            <span class="keyword">delete</span> error[row_entity_name];
-            <span class="keyword">return</span> error;
+            error[<span class="hljs-string">"row"</span> + row_index] = error[row_entity_name];
+            <span class="hljs-keyword">delete</span> error[row_entity_name];
+            <span class="hljs-keyword">return</span> error;
         },</pre></div></div>
             
         </li>
@@ -680,12 +670,12 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        save_inlines: <span class="keyword">function</span>(inlines, parent_off_json, inline_config) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;
-            <span class="keyword">this</span>.complete_inlines(inlines, parent_off_json, inline_config);
+            <div class="content"><div class='highlight'><pre>        save_inlines: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(inlines, parent_off_json, inline_config)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+            <span class="hljs-keyword">this</span>.complete_inlines(inlines, parent_off_json, inline_config);
             iterate_inlines();
-            <span class="keyword">return</span> dfd;</pre></div></div>
+            <span class="hljs-keyword">return</span> dfd;</pre></div></div>
             
         </li>
         
@@ -700,14 +690,14 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="function"><span class="keyword">function</span> <span class="title">iterate_inlines</span><span class="params">()</span> {</span>
-                <span class="keyword">if</span> (!inlines.length)
-                    <span class="keyword">return</span> dfd.resolve();
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">iterate_inlines</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">if</span> (!inlines.length)
+                    <span class="hljs-keyword">return</span> dfd.resolve();
                 save_inline(inlines.shift())
-                    .done(<span class="keyword">function</span>() {
+                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                         iterate_inlines();
                     })
-                    .fail(<span class="keyword">function</span>() {
+                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                         dfd.reject();
                     });
             };</pre></div></div>
@@ -725,8 +715,8 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="function"><span class="keyword">function</span> <span class="title">save_inline</span><span class="params">(inl)</span> {</span>
-                <span class="keyword">var</span> inl_dfd = $.Deferred();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">save_inline</span><span class="hljs-params">(inl)</span> {</span>
+                <span class="hljs-keyword">var</span> inl_dfd = $.Deferred();</pre></div></div>
             
         </li>
         
@@ -741,17 +731,17 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">var</span> inl_index = inl.index;
-                <span class="keyword">delete</span> inl.index;
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">var</span> inl_index = inl.index;
+                <span class="hljs-keyword">delete</span> inl.index;
                 that.save_object(inl, inline_config.foreign_entities, inline_config.entity)
-                    .fail(<span class="keyword">function</span>(error) {
+                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                         that.form.show_errors(that.convert_to_row_error(error, inline_config.entity, inl_index));
-                        <span class="keyword">return</span> inl_dfd.reject();
+                        <span class="hljs-keyword">return</span> inl_dfd.reject();
                     })
-                    .done(<span class="keyword">function</span>() {
-                        <span class="keyword">return</span> inl_dfd.resolve();
+                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                        <span class="hljs-keyword">return</span> inl_dfd.resolve();
                     });
-                <span class="keyword">return</span> inl_dfd.promise();
+                <span class="hljs-keyword">return</span> inl_dfd.promise();
             };
         },</pre></div></div>
             
@@ -768,8 +758,8 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        complete_inlines: <span class="keyword">function</span>(inlines, parent_off_json, inline_config) {
-            <span class="keyword">var</span> host_attr_json = {};</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        complete_inlines: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(inlines, parent_off_json, inline_config)</span> {</span>
+            <span class="hljs-keyword">var</span> host_attr_json = {};</pre></div></div>
             
         </li>
         
@@ -785,9 +775,9 @@ show the error on the form right above the object</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>            host_attr_json[inline_config.joining_attribute.inline_attribute] = {}
-            _.each(inline_config.joining_attribute.host_attribute, <span class="keyword">function</span>(attr, index) {
+            _.each(inline_config.joining_attribute.host_attribute, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(attr, index)</span> {</span>
                 host_attr_json[inline_config.joining_attribute.inline_attribute][attr] = parent_off_json[attr];
-            }, <span class="keyword">this</span>);</pre></div></div>
+            }, <span class="hljs-keyword">this</span>);</pre></div></div>
             
         </li>
         
@@ -802,8 +792,8 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> borr_json = {}
-            $.each(inline_config.borrow_attributes, <span class="keyword">function</span>(index, b_attr) {
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> borr_json = {}
+            $.each(inline_config.borrow_attributes, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(index, b_attr)</span> {</span>
                 borr_json[b_attr.inline_attribute] = parent_off_json[b_attr.host_attribute];
             });</pre></div></div>
             
@@ -820,11 +810,11 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            _.each(inlines, <span class="keyword">function</span>(inl, index) {
-                console.log(<span class="string">"inl before extension - "</span> + JSON.stringify(inl));
-                $.extend(<span class="literal">true</span>, inl, host_attr_json);
-                $.extend(<span class="literal">true</span>, inl, borr_json);
-                console.log(<span class="string">"inl after extension - "</span> + JSON.stringify(inl));
+            <div class="content"><div class='highlight'><pre>            _.each(inlines, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(inl, index)</span> {</span>
+                console.log(<span class="hljs-string">"inl before extension - "</span> + <span class="hljs-built_in">JSON</span>.stringify(inl));
+                $.extend(<span class="hljs-literal">true</span>, inl, host_attr_json);
+                $.extend(<span class="hljs-literal">true</span>, inl, borr_json);
+                console.log(<span class="hljs-string">"inl after extension - "</span> + <span class="hljs-built_in">JSON</span>.stringify(inl));
             });
         },</pre></div></div>
             
@@ -841,10 +831,10 @@ show the error on the form right above the object</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        save_object: <span class="keyword">function</span>(json, foreign_entities, entity_name) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;
-            <span class="keyword">if</span> (<span class="keyword">this</span>.is_uploadqueue_empty() &amp;&amp; <span class="keyword">this</span>.is_internet_connected()) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        save_object: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(json, foreign_entities, entity_name)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.is_uploadqueue_empty() &amp;&amp; <span class="hljs-keyword">this</span>.is_internet_connected()) {</pre></div></div>
             
         </li>
         
@@ -860,8 +850,8 @@ convert namespace of object from offline to online</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                ConvertNamespace.convert(json, foreign_entities, <span class="string">"offlinetoonline"</span>)
-                    .done(<span class="keyword">function</span>(on_off_jsons) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                ConvertNamespace.convert(json, foreign_entities, <span class="hljs-string">"offlinetoonline"</span>)
+                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(on_off_jsons)</span> {</span></pre></div></div>
             
         </li>
         
@@ -877,7 +867,7 @@ convert namespace of object from offline to online</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                        that.save_when_online(entity_name, on_off_jsons)
-                            .done(<span class="keyword">function</span>(off_json) {</pre></div></div>
+                            .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_json)</span> {</span></pre></div></div>
             
         </li>
         
@@ -893,7 +883,7 @@ convert namespace of object from offline to online</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                                call_after_save(off_json)
-                                    .done(<span class="keyword">function</span>() {</pre></div></div>
+                                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -911,7 +901,7 @@ convert namespace of object from offline to online</p>
             <div class="content"><div class='highlight'><pre>                                        show_suc_notif();
                                         dfd.resolve(off_json);
                                     })
-                                    .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -926,10 +916,10 @@ convert namespace of object from offline to online</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                                        alert(<span class="string">"afterSave failed for entity - "</span> + entity_name + <span class="string">" - "</span> + error);
+            <div class="content"><div class='highlight'><pre>                                        alert(<span class="hljs-string">"afterSave failed for entity - "</span> + entity_name + <span class="hljs-string">" - "</span> + error);
                                     });
                             })
-                            .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                            .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -949,7 +939,7 @@ show error on form</p>
                                 dfd.reject(error);
                             });
                     })
-                    .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -965,9 +955,9 @@ show error on form</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                        show_err_notif();
-                        <span class="keyword">return</span> dfd.reject(error);
+                        <span class="hljs-keyword">return</span> dfd.reject(error);
                     });
-            } <span class="keyword">else</span> {</pre></div></div>
+            } <span class="hljs-keyword">else</span> {</pre></div></div>
             
         </li>
         
@@ -983,8 +973,8 @@ save in offline mode</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">this</span>.save_when_offline(entity_name, json)
-                    .done(<span class="keyword">function</span>(off_json) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">this</span>.save_when_offline(entity_name, json)
+                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_json)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1000,7 +990,7 @@ save in offline mode</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                        call_after_save(off_json)
-                            .done(<span class="keyword">function</span>() {</pre></div></div>
+                            .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -1018,7 +1008,7 @@ save in offline mode</p>
             <div class="content"><div class='highlight'><pre>                                show_suc_notif();
                                 dfd.resolve(off_json);
                             })
-                            .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                            .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1033,10 +1023,10 @@ save in offline mode</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                                alert(<span class="string">"afterSave failed for entity - "</span> + entity_name + <span class="string">" - "</span> + error);
+            <div class="content"><div class='highlight'><pre>                                alert(<span class="hljs-string">"afterSave failed for entity - "</span> + entity_name + <span class="hljs-string">" - "</span> + error);
                             });
                     })
-                    .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1053,12 +1043,12 @@ show error on form</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                        show_err_notif();
-                        <span class="keyword">return</span> dfd.reject(error);
+                        <span class="hljs-keyword">return</span> dfd.reject(error);
                     });
             }
             
-            <span class="function"><span class="keyword">function</span> <span class="title">call_after_save</span><span class="params">(saved_off_json)</span> {</span>
-                <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();</pre></div></div>
+            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">call_after_save</span><span class="hljs-params">(saved_off_json)</span> {</span>
+                <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();</pre></div></div>
             
         </li>
         
@@ -1073,34 +1063,34 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">var</span> afterSave = configs[entity_name].afterSave;
-                <span class="keyword">if</span> (afterSave)
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">var</span> afterSave = configs[entity_name].afterSave;
+                <span class="hljs-keyword">if</span> (afterSave)
                     afterSave(saved_off_json, Offline)
-                        .done(<span class="keyword">function</span>() {
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                             dfd.resolve();
                         })
-                        .fail(<span class="keyword">function</span>(error) {
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                             dfd.reject(error);
                         });
-                <span class="keyword">else</span> dfd.resolve();
-                <span class="keyword">return</span> dfd.promise();
+                <span class="hljs-keyword">else</span> dfd.resolve();
+                <span class="hljs-keyword">return</span> dfd.promise();
             };
 
-            <span class="function"><span class="keyword">function</span> <span class="title">show_suc_notif</span><span class="params">()</span> {</span>
+            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show_suc_notif</span><span class="hljs-params">()</span> {</span>
                 notifs_view.add_alert({
-                    notif_type: <span class="string">"success"</span>,
-                    message: <span class="string">"Saved "</span> + entity_name
+                    notif_type: <span class="hljs-string">"success"</span>,
+                    message: <span class="hljs-string">"Saved "</span> + entity_name
                 });
             };
 
-            <span class="function"><span class="keyword">function</span> <span class="title">show_err_notif</span><span class="params">()</span> {</span>
+            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">show_err_notif</span><span class="hljs-params">()</span> {</span>
                 notifs_view.add_alert({
-                    notif_type: <span class="string">"error"</span>,
-                    message: <span class="string">"Error saving "</span> + entity_name
+                    notif_type: <span class="hljs-string">"error"</span>,
+                    message: <span class="hljs-string">"Error saving "</span> + entity_name
                 });
             };
 
-            <span class="keyword">return</span> dfd.promise();
+            <span class="hljs-keyword">return</span> dfd.promise();
         },</pre></div></div>
             
         </li>
@@ -1116,13 +1106,13 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        save_when_offline: <span class="keyword">function</span>(entity_name, off_json) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> action, that = <span class="keyword">this</span>;
-            <span class="keyword">if</span> (off_json.id)
-                action = <span class="string">"E"</span>
-            <span class="keyword">else</span>
-                action = <span class="string">"A"</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>        save_when_offline: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, off_json)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> action, that = <span class="hljs-keyword">this</span>;
+            <span class="hljs-keyword">if</span> (off_json.id)
+                action = <span class="hljs-string">"E"</span>
+            <span class="hljs-keyword">else</span>
+                action = <span class="hljs-string">"A"</span></pre></div></div>
             
         </li>
         
@@ -1137,8 +1127,8 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            Offline.save(<span class="literal">null</span>, entity_name, off_json)
-                .done(<span class="keyword">function</span>(off_m) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            Offline.save(<span class="hljs-literal">null</span>, entity_name, off_json)
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_m)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1153,13 +1143,13 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    console.log(<span class="string">"SAVED IN OFFLINE - "</span> + JSON.stringify(off_m.toJSON()));
+            <div class="content"><div class='highlight'><pre>                    console.log(<span class="hljs-string">"SAVED IN OFFLINE - "</span> + <span class="hljs-built_in">JSON</span>.stringify(off_m.toJSON()));
                     upload_collection.create({
                         data: off_m.toJSON(),
                         action: action,
                         entity_name: entity_name
                     }, {
-                        success: <span class="keyword">function</span>(u_model) {</pre></div></div>
+                        success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(u_model)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1174,10 +1164,10 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            console.log(<span class="string">"FORMCNTROLLER: model added to uploadqueue - "</span> + JSON.stringify(u_model.toJSON()));
-                            <span class="keyword">return</span> dfd.resolve(off_m.toJSON());
+            <div class="content"><div class='highlight'><pre>                            console.log(<span class="hljs-string">"FORMCNTROLLER: model added to uploadqueue - "</span> + <span class="hljs-built_in">JSON</span>.stringify(u_model.toJSON()));
+                            <span class="hljs-keyword">return</span> dfd.resolve(off_m.toJSON());
                         },
-                        error: <span class="keyword">function</span>(error) {</pre></div></div>
+                        error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1192,7 +1182,7 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            alert(<span class="string">"Unexepected Error- error adding model to uploadqueue"</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                            alert(<span class="hljs-string">"Unexepected Error- error adding model to uploadqueue"</span>);</pre></div></div>
             
         </li>
         
@@ -1207,11 +1197,11 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            <span class="keyword">return</span> dfd.reject(error);
+            <div class="content"><div class='highlight'><pre>                            <span class="hljs-keyword">return</span> dfd.reject(error);
                         }
                     });
                 })
-                .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1226,10 +1216,10 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">return</span> dfd.reject(error);
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">return</span> dfd.reject(error);
                 });
 
-            <span class="keyword">return</span> dfd.promise();
+            <span class="hljs-keyword">return</span> dfd.promise();
         },</pre></div></div>
             
         </li>
@@ -1245,12 +1235,12 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        save_when_online: <span class="keyword">function</span>(entity_name, on_off_jsons) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> on_json = on_off_jsons.on_json;
-            <span class="keyword">var</span> off_json = on_off_jsons.off_json
-            console.log(<span class="string">"FORMCONTROLLER: Got this json to save online - "</span> + JSON.stringify(on_json));
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        save_when_online: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, on_off_jsons)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> on_json = on_off_jsons.on_json;
+            <span class="hljs-keyword">var</span> off_json = on_off_jsons.off_json
+            console.log(<span class="hljs-string">"FORMCONTROLLER: Got this json to save online - "</span> + <span class="hljs-built_in">JSON</span>.stringify(on_json));
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -1265,9 +1255,9 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (off_json.id) {
-                on_json.id = parseInt(off_json.online_id);
-                <span class="keyword">delete</span> on_json.online_id;
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (off_json.id) {
+                on_json.id = <span class="hljs-built_in">parseInt</span>(off_json.online_id);
+                <span class="hljs-keyword">delete</span> on_json.online_id;
             }</pre></div></div>
             
         </li>
@@ -1283,8 +1273,8 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            Online.save(<span class="literal">null</span>, entity_name, on_json)
-                .done(<span class="keyword">function</span>(on_m) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            Online.save(<span class="hljs-literal">null</span>, entity_name, on_json)
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(on_m)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1299,7 +1289,7 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    console.log(<span class="string">"SAVED IN ONLINE - "</span> + JSON.stringify(on_m.toJSON()));</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                    console.log(<span class="hljs-string">"SAVED IN ONLINE - "</span> + <span class="hljs-built_in">JSON</span>.stringify(on_m.toJSON()));</pre></div></div>
             
         </li>
         
@@ -1314,7 +1304,7 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    off_json.online_id = parseInt(on_m.get(<span class="string">"id"</span>));</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                    off_json.online_id = <span class="hljs-built_in">parseInt</span>(on_m.get(<span class="hljs-string">"id"</span>));</pre></div></div>
             
         </li>
         
@@ -1329,8 +1319,8 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    Offline.save(<span class="literal">null</span>, entity_name, off_json)
-                        .done(<span class="keyword">function</span>(off_m) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                    Offline.save(<span class="hljs-literal">null</span>, entity_name, off_json)
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_m)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1345,10 +1335,10 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            console.log(<span class="string">"SAVED IN OFFLINE - "</span> + JSON.stringify(off_m.toJSON()));
-                            <span class="keyword">return</span> dfd.resolve(off_m.toJSON());
+            <div class="content"><div class='highlight'><pre>                            console.log(<span class="hljs-string">"SAVED IN OFFLINE - "</span> + <span class="hljs-built_in">JSON</span>.stringify(off_m.toJSON()));
+                            <span class="hljs-keyword">return</span> dfd.resolve(off_m.toJSON());
                         })
-                        .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1363,10 +1353,10 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            <span class="keyword">return</span> dfd.reject(error);
+            <div class="content"><div class='highlight'><pre>                            <span class="hljs-keyword">return</span> dfd.reject(error);
                         });
                 })
-                .fail(<span class="keyword">function</span>(xhr) {</pre></div></div>
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(xhr)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1381,9 +1371,9 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">return</span> dfd.reject(xhr.responseText);
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">return</span> dfd.reject(xhr.responseText);
                 });
-            <span class="keyword">return</span> dfd.promise();
+            <span class="hljs-keyword">return</span> dfd.promise();
         },</pre></div></div>
             
         </li>
@@ -1399,11 +1389,11 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        is_uploadqueue_empty: <span class="keyword">function</span>() {
-            console.log(<span class="string">"FORMCONTROLLER: length of upload_collection - "</span> + upload_collection.length);
+            <div class="content"><div class='highlight'><pre>        is_uploadqueue_empty: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            console.log(<span class="hljs-string">"FORMCONTROLLER: length of upload_collection - "</span> + upload_collection.length);
             console.log(upload_collection);
 
-            <span class="keyword">return</span> upload_collection.length &lt;= <span class="number">0</span>;
+            <span class="hljs-keyword">return</span> upload_collection.length &lt;= <span class="hljs-number">0</span>;
         },</pre></div></div>
             
         </li>
@@ -1419,8 +1409,8 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        is_internet_connected: <span class="keyword">function</span>() {
-            <span class="keyword">return</span> navigator.onLine;
+            <div class="content"><div class='highlight'><pre>        is_internet_connected: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">return</span> navigator.onLine;
         },</pre></div></div>
             
         </li>
@@ -1436,8 +1426,8 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        on_button2: <span class="keyword">function</span>(e) {
-            console.log(<span class="string">"FORMCONTROLLER: Button 2 clicked on form"</span>);
+            <div class="content"><div class='highlight'><pre>        on_button2: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
+            console.log(<span class="hljs-string">"FORMCONTROLLER: Button 2 clicked on form"</span>);
         },</pre></div></div>
             
         </li>
@@ -1453,8 +1443,8 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        after_form_save: <span class="keyword">function</span>(entity_name) {
-            window.Router.navigate(entity_name + <span class="string">'/add'</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        after_form_save: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name)</span> {</span>
+            window.Router.navigate(entity_name + <span class="hljs-string">'/add'</span>);</pre></div></div>
             
         </li>
         
@@ -1490,7 +1480,7 @@ show error on form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">return</span> FormControllerView;
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">return</span> FormControllerView;
 });</pre></div></div>
             
         </li>

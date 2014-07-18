@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -180,15 +170,15 @@ Based on internet-connectivity, it runs the authentication requests against the 
             </div>
             
             <div class="content"><div class='highlight'><pre>define([
-    <span class="string">'models/user_model'</span>,
-    <span class="string">'auth_offline_backend'</span>,
-    <span class="string">'configs'</span>,
-    <span class="string">'offline_utils'</span>,
-    <span class="string">'jquery_cookie'</span>
-], <span class="keyword">function</span>(User, OfflineAuthBackend, all_configs, Offline) {
+    <span class="hljs-string">'models/user_model'</span>,
+    <span class="hljs-string">'auth_offline_backend'</span>,
+    <span class="hljs-string">'configs'</span>,
+    <span class="hljs-string">'offline_utils'</span>,
+    <span class="hljs-string">'jquery_cookie'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(User, OfflineAuthBackend, all_configs, Offline)</span> {</span>
 
-    <span class="keyword">var</span> internet_connected = <span class="keyword">function</span>() {
-        <span class="keyword">return</span> navigator.onLine;
+    <span class="hljs-keyword">var</span> internet_connected = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">return</span> navigator.onLine;
     }</pre></div></div>
             
         </li>
@@ -204,21 +194,21 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> check_login = <span class="keyword">function</span>() {
-        <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred()
-        console.log(<span class="string">"checking login"</span>);
-        <span class="keyword">if</span> (check_online_login()) {
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> check_login = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred()
+        console.log(<span class="hljs-string">"checking login"</span>);
+        <span class="hljs-keyword">if</span> (check_online_login()) {
             check_offline_login()
-                .done(<span class="keyword">function</span>() {
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                     dfd.resolve();
                 })
-                .fail(<span class="keyword">function</span>(error) {
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                     dfd.reject(error);
                 });
-        } <span class="keyword">else</span> {
-            dfd.reject(<span class="string">"Not logged in on server"</span>);
+        } <span class="hljs-keyword">else</span> {
+            dfd.reject(<span class="hljs-string">"Not logged in on server"</span>);
         }
-        <span class="keyword">return</span> dfd.promise();
+        <span class="hljs-keyword">return</span> dfd.promise();
     }</pre></div></div>
             
         </li>
@@ -234,10 +224,10 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> check_online_login = <span class="keyword">function</span>() {
-        <span class="keyword">if</span> (!internet_connected || $.cookie(<span class="string">'sessionid'</span>))
-            <span class="keyword">return</span> <span class="literal">true</span>;
-        <span class="keyword">return</span> <span class="literal">false</span>;
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> check_online_login = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">if</span> (!internet_connected || $.cookie(<span class="hljs-string">'sessionid'</span>))
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
     }</pre></div></div>
             
         </li>
@@ -253,8 +243,8 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> check_offline_login = <span class="keyword">function</span>() {
-        <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> check_offline_login = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();</pre></div></div>
             
         </li>
         
@@ -270,17 +260,17 @@ Based on internet-connectivity, it runs the authentication requests against the 
             </div>
             
             <div class="content"><div class='highlight'><pre>        User.fetch({
-            success: <span class="keyword">function</span>() {
-                <span class="keyword">if</span> (User.get(<span class="string">"loggedin"</span>))
-                    <span class="keyword">return</span> dfd.resolve();
-                <span class="keyword">else</span>
-                    <span class="keyword">return</span> dfd.reject(<span class="string">"User is currently logged out. (Offline Backend)"</span>);
+            success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">if</span> (User.get(<span class="hljs-string">"loggedin"</span>))
+                    <span class="hljs-keyword">return</span> dfd.resolve();
+                <span class="hljs-keyword">else</span>
+                    <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-string">"User is currently logged out. (Offline Backend)"</span>);
             },
-            error: <span class="keyword">function</span>() {
-                <span class="keyword">return</span> dfd.reject(<span class="string">"User couldn't be fetched from offline db"</span>);
+            error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-string">"User couldn't be fetched from offline db"</span>);
             }
         });
-        <span class="keyword">return</span> dfd;
+        <span class="hljs-keyword">return</span> dfd;
     }</pre></div></div>
             
         </li>
@@ -296,17 +286,17 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> logout = <span class="keyword">function</span>() {
-        <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-        <span class="keyword">var</span> that = <span class="keyword">this</span>;
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> logout = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+        <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
         online_logout()
-            .always(<span class="keyword">function</span>() {
+            .always(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                 offline_logout()
-                    .always(<span class="keyword">function</span>() {
+                    .always(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                         dfd.resolve();
                     })
             });
-        <span class="keyword">return</span> dfd;
+        <span class="hljs-keyword">return</span> dfd;
     }</pre></div></div>
             
         </li>
@@ -322,10 +312,10 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> online_logout = <span class="keyword">function</span>() {
-        <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> online_logout = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
 
-        <span class="keyword">if</span> (!internet_connected())
+        <span class="hljs-keyword">if</span> (!internet_connected())
             dfd.resolve();</pre></div></div>
             
         </li>
@@ -341,15 +331,15 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        $.post(<span class="string">"/coco/logout/"</span>)
-            .done(<span class="keyword">function</span>(resp) {
-                <span class="keyword">return</span> dfd.resolve();
+            <div class="content"><div class='highlight'><pre>        $.post(<span class="hljs-string">"/coco/logout/"</span>)
+            .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(resp)</span> {</span>
+                <span class="hljs-keyword">return</span> dfd.resolve();
             })
-            .fail(<span class="keyword">function</span>(resp) {
-                <span class="keyword">return</span> dfd.reject(resp);
+            .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(resp)</span> {</span>
+                <span class="hljs-keyword">return</span> dfd.reject(resp);
             });
 
-        <span class="keyword">return</span> dfd.promise();
+        <span class="hljs-keyword">return</span> dfd.promise();
     }</pre></div></div>
             
         </li>
@@ -365,16 +355,16 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> offline_logout = <span class="keyword">function</span>() {
-        <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> offline_logout = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
         OfflineAuthBackend.logout()
-            .done(<span class="keyword">function</span>() {
+            .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                 dfd.resolve();
             })
-            .fail(<span class="keyword">function</span>() {
+            .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                 dfd.reject();
             });
-        <span class="keyword">return</span> dfd;
+        <span class="hljs-keyword">return</span> dfd;
     }</pre></div></div>
             
         </li>
@@ -390,9 +380,9 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> login = <span class="keyword">function</span>(username, password) {
-        <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-        console.log(<span class="string">"Attemting login"</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> login = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(username, password)</span> {</span>
+        <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+        console.log(<span class="hljs-string">"Attemting login"</span>);</pre></div></div>
             
         </li>
         
@@ -407,7 +397,7 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="keyword">if</span> (internet_connected()) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (internet_connected()) {</pre></div></div>
             
         </li>
         
@@ -423,11 +413,11 @@ Based on internet-connectivity, it runs the authentication requests against the 
             </div>
             
             <div class="content"><div class='highlight'><pre>            online_login(username, password)
-                .fail(<span class="keyword">function</span>(error) {
-                    console.log(<span class="string">"Online login failed - "</span> + error);
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
+                    console.log(<span class="hljs-string">"Online login failed - "</span> + error);
                     dfd.reject(error);
                 })
-                .done(<span class="keyword">function</span>() {</pre></div></div>
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -443,8 +433,8 @@ Based on internet-connectivity, it runs the authentication requests against the 
             </div>
             
             <div class="content"><div class='highlight'><pre>                    offline_login(username, password)
-                        .fail(<span class="keyword">function</span>(error) {
-                            console.log(<span class="string">"Offline login failed - "</span> + error);</pre></div></div>
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
+                            console.log(<span class="hljs-string">"Offline login failed - "</span> + error);</pre></div></div>
             
         </li>
         
@@ -459,21 +449,21 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            <span class="keyword">if</span> (error == <span class="string">"No user found"</span>) {
+            <div class="content"><div class='highlight'><pre>                            <span class="hljs-keyword">if</span> (error == <span class="hljs-string">"No user found"</span>) {
                                 offline_register(username, password)
-                                    .fail(<span class="keyword">function</span>(error) {
-                                        console.log(<span class="string">"Offline register failed - "</span> + error);
+                                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
+                                        console.log(<span class="hljs-string">"Offline register failed - "</span> + error);
                                         dfd.reject(error);
                                     })
-                                    .done(<span class="keyword">function</span>() {
-                                        console.log(<span class="string">"Registered in Offline backend"</span>);
-                                        console.log(<span class="string">"Login Successfull"</span>);
+                                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                                        console.log(<span class="hljs-string">"Registered in Offline backend"</span>);
+                                        console.log(<span class="hljs-string">"Login Successfull"</span>);
                                         dfd.resolve();
                                     });
-                            } <span class="keyword">else</span>
+                            } <span class="hljs-keyword">else</span>
                                 dfd.reject(error);
                         })
-                        .done(<span class="keyword">function</span>() {</pre></div></div>
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -488,7 +478,7 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            console.log(<span class="string">"Login Successfull"</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                            console.log(<span class="hljs-string">"Login Successfull"</span>);</pre></div></div>
             
         </li>
         
@@ -503,12 +493,12 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            <span class="keyword">if</span> (all_configs.misc.onLogin)
-                                all_configs.misc.onLogin(Offline, <span class="keyword">this</span>);
+            <div class="content"><div class='highlight'><pre>                            <span class="hljs-keyword">if</span> (all_configs.misc.onLogin)
+                                all_configs.misc.onLogin(Offline, <span class="hljs-keyword">this</span>);
                             dfd.resolve();
                         });
                 });
-        } <span class="keyword">else</span> {</pre></div></div>
+        } <span class="hljs-keyword">else</span> {</pre></div></div>
             
         </li>
         
@@ -524,8 +514,8 @@ Based on internet-connectivity, it runs the authentication requests against the 
             </div>
             
             <div class="content"><div class='highlight'><pre>            offline_login(username, password)
-                .fail(<span class="keyword">function</span>(error) {
-                    console.log(<span class="string">"Offline login failed - "</span> + error);</pre></div></div>
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
+                    console.log(<span class="hljs-string">"Offline login failed - "</span> + error);</pre></div></div>
             
         </li>
         
@@ -536,17 +526,17 @@ Based on internet-connectivity, it runs the authentication requests against the 
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
-              <p>no db exists - can&#39;t register user till server authenticates</p>
+              <p>no db exists - can’t register user till server authenticates</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">if</span> (error == <span class="string">"No user found"</span>)
-                        dfd.reject(<span class="string">"You need to be online till database has been downloaded."</span>);
-                    <span class="keyword">else</span>
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">if</span> (error == <span class="hljs-string">"No user found"</span>)
+                        dfd.reject(<span class="hljs-string">"You need to be online till database has been downloaded."</span>);
+                    <span class="hljs-keyword">else</span>
                         dfd.reject(error);
                 })
-                .done(<span class="keyword">function</span>() {
-                    console.log(<span class="string">"Login Successfull"</span>);</pre></div></div>
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    console.log(<span class="hljs-string">"Login Successfull"</span>);</pre></div></div>
             
         </li>
         
@@ -561,12 +551,12 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">if</span> (all_configs.misc.onLogin)
-                        all_configs.misc.onLogin(Offline, <span class="keyword">this</span>);
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">if</span> (all_configs.misc.onLogin)
+                        all_configs.misc.onLogin(Offline, <span class="hljs-keyword">this</span>);
                     dfd.resolve();
                 });
         }
-        <span class="keyword">return</span> dfd;
+        <span class="hljs-keyword">return</span> dfd;
     }</pre></div></div>
             
         </li>
@@ -582,10 +572,10 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> online_login = <span class="keyword">function</span>(username, password) {
-        <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-        <span class="keyword">if</span> (!internet_connected())
-            <span class="keyword">return</span> dfd.resolve();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> online_login = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(username, password)</span> {</span>
+        <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+        <span class="hljs-keyword">if</span> (!internet_connected())
+            <span class="hljs-keyword">return</span> dfd.resolve();</pre></div></div>
             
         </li>
         
@@ -600,20 +590,20 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        $.post(<span class="string">"/coco/login/"</span>, {
-            <span class="string">"username"</span>: username,
-            <span class="string">"password"</span>: password
+            <div class="content"><div class='highlight'><pre>        $.post(<span class="hljs-string">"/coco/login/"</span>, {
+            <span class="hljs-string">"username"</span>: username,
+            <span class="hljs-string">"password"</span>: password
         })
-            .done(<span class="keyword">function</span>(resp) {
-                <span class="keyword">if</span> (resp == <span class="string">"1"</span>)
-                    <span class="keyword">return</span> dfd.resolve();
-                <span class="keyword">else</span>
-                    <span class="keyword">return</span> dfd.reject(<span class="string">"Username or password is incorrect (Server)"</span>);
+            .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(resp)</span> {</span>
+                <span class="hljs-keyword">if</span> (resp == <span class="hljs-string">"1"</span>)
+                    <span class="hljs-keyword">return</span> dfd.resolve();
+                <span class="hljs-keyword">else</span>
+                    <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-string">"Username or password is incorrect (Server)"</span>);
             })
-            .fail(<span class="keyword">function</span>(resp) {
-                <span class="keyword">return</span> dfd.reject(<span class="string">"Could not contact server. Try again in a minute."</span>);
+            .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(resp)</span> {</span>
+                <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-string">"Could not contact server. Try again in a minute."</span>);
             });
-        <span class="keyword">return</span> dfd.promise();
+        <span class="hljs-keyword">return</span> dfd.promise();
     }</pre></div></div>
             
         </li>
@@ -629,16 +619,16 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> offline_login = <span class="keyword">function</span>(username, password) {
-        <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> offline_login = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(username, password)</span> {</span>
+        <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
         OfflineAuthBackend.login(username, password)
-            .done(<span class="keyword">function</span>() {
+            .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                 dfd.resolve();
             })
-            .fail(<span class="keyword">function</span>(error) {
+            .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                 dfd.reject(error);
             });
-        <span class="keyword">return</span> dfd.promise();
+        <span class="hljs-keyword">return</span> dfd.promise();
     }</pre></div></div>
             
         </li>
@@ -654,19 +644,19 @@ Based on internet-connectivity, it runs the authentication requests against the 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> offline_register = <span class="keyword">function</span>(username, password) {
-        <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> offline_register = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(username, password)</span> {</span>
+        <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
         OfflineAuthBackend.register(username, password)
-            .done(<span class="keyword">function</span>() {
+            .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                 dfd.resolve();
             })
-            .fail(<span class="keyword">function</span>(error) {
+            .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                 dfd.reject(error);
             });
-        <span class="keyword">return</span> dfd.promise();
+        <span class="hljs-keyword">return</span> dfd.promise();
     }
 
-    <span class="keyword">return</span> {
+    <span class="hljs-keyword">return</span> {
         check_login: check_login,
         logout: logout,
         login: login

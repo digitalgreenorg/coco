@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -173,21 +163,25 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p> Initializes application. 
-- updates appcache
-- runs framework intitialize:
-    <em> configures all ajax POST /PUT requests to set csrf token
-    </em> configures ajax requests to navigate to login url in case 401 error is recvd
-    * puts in the parent view of application - app_layout
-- runs initialization specified by user in user_initialize.js
-- starts router - Router takes over from here.</p>
+              <p> Initializes application. </p>
+<ul>
+<li>updates appcache</li>
+<li>runs framework intitialize:<ul>
+<li>configures all ajax POST /PUT requests to set csrf token</li>
+<li>configures ajax requests to navigate to login url in case 401 error is recvd</li>
+<li>puts in the parent view of application - app_layout</li>
+</ul>
+</li>
+<li>runs initialization specified by user in user_initialize.js</li>
+<li>starts router - Router takes over from here.</li>
+</ul>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>
-define([<span class="string">'router'</span>, <span class="string">'user_initialize'</span>, <span class="string">'views/app_layout'</span>, ], <span class="keyword">function</span>(Router, UserInitialize, AppLayout) {
+define([<span class="hljs-string">'router'</span>, <span class="hljs-string">'user_initialize'</span>, <span class="hljs-string">'views/app_layout'</span>, ], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(Router, UserInitialize, AppLayout)</span> {</span>
 
-    <span class="keyword">var</span> initialize = <span class="keyword">function</span>() {</pre></div></div>
+    <span class="hljs-keyword">var</span> initialize = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -217,7 +211,7 @@ define([<span class="string">'router'</span>, <span class="string">'user_initial
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        $(<span class="keyword">function</span>() {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        $(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -267,7 +261,7 @@ define([<span class="string">'router'</span>, <span class="string">'user_initial
     };
 
 
-    <span class="keyword">var</span> framework_initialize = <span class="keyword">function</span>() {</pre></div></div>
+    <span class="hljs-keyword">var</span> framework_initialize = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -297,10 +291,10 @@ define([<span class="string">'router'</span>, <span class="string">'user_initial
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            crossDomain: <span class="literal">false</span>, 
-            beforeSend: <span class="keyword">function</span>(xhr, settings) {
-                <span class="keyword">if</span> (!csrfSafeMethod(settings.type)) {
-                    xhr.setRequestHeader(<span class="string">"X-CSRFToken"</span>, get_csrf());
+            <div class="content"><div class='highlight'><pre>            crossDomain: <span class="hljs-literal">false</span>, 
+            beforeSend: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(xhr, settings)</span> {</span>
+                <span class="hljs-keyword">if</span> (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader(<span class="hljs-string">"X-CSRFToken"</span>, get_csrf());
                 }
             },
         });</pre></div></div>
@@ -319,9 +313,9 @@ define([<span class="string">'router'</span>, <span class="string">'user_initial
             </div>
             
             <div class="content"><div class='highlight'><pre>        $(document)
-            .ajaxError(<span class="keyword">function</span>(event, jqxhr, settings, exception) {
-            <span class="keyword">if</span> (jqxhr.status == <span class="number">401</span>) window.Router.navigate(<span class="string">"login"</span>, {
-                trigger: <span class="literal">true</span>
+            .ajaxError(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(event, jqxhr, settings, exception)</span> {</span>
+            <span class="hljs-keyword">if</span> (jqxhr.status == <span class="hljs-number">401</span>) window.Router.navigate(<span class="hljs-string">"login"</span>, {
+                trigger: <span class="hljs-literal">true</span>
             });
         });</pre></div></div>
             
@@ -338,17 +332,17 @@ define([<span class="string">'router'</span>, <span class="string">'user_initial
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        $(<span class="string">"#app"</span>)
+            <div class="content"><div class='highlight'><pre>        $(<span class="hljs-string">"#app"</span>)
             .empty()
             .append(AppLayout.el);
         AppLayout.render();
     };
 
-    <span class="keyword">var</span> get_csrf = <span class="keyword">function</span>() {
-        <span class="keyword">return</span> $.cookie(<span class="string">'csrftoken'</span>);
+    <span class="hljs-keyword">var</span> get_csrf = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">return</span> $.cookie(<span class="hljs-string">'csrftoken'</span>);
     };
 
-    <span class="function"><span class="keyword">function</span> <span class="title">csrfSafeMethod</span><span class="params">(method)</span> {</span></pre></div></div>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">csrfSafeMethod</span><span class="hljs-params">(method)</span> {</span></pre></div></div>
             
         </li>
         
@@ -363,14 +357,14 @@ define([<span class="string">'router'</span>, <span class="string">'user_initial
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="keyword">return</span> (<span class="regexp">/^(GET|HEAD|OPTIONS|TRACE)$/</span>.test(method));
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">return</span> (<span class="hljs-regexp">/^(GET|HEAD|OPTIONS|TRACE)$/</span>.test(method));
     };
 
-    <span class="keyword">var</span> update_appcache = <span class="keyword">function</span>() {
+    <span class="hljs-keyword">var</span> update_appcache = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
         $(window)
-            .load(<span class="keyword">function</span>() {
-            window.applicationCache.addEventListener(<span class="string">'updateready'</span>, <span class="keyword">function</span>(e) {
-                <span class="keyword">if</span> (window.applicationCache.status == window.applicationCache.UPDATEREADY) {</pre></div></div>
+            .load(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            window.applicationCache.addEventListener(<span class="hljs-string">'updateready'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
+                <span class="hljs-keyword">if</span> (window.applicationCache.status == window.applicationCache.UPDATEREADY) {</pre></div></div>
             
         </li>
         
@@ -387,15 +381,15 @@ Swap it in and reload the page to get the new hotness.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                    window.applicationCache.swapCache();
-                    <span class="keyword">if</span> (confirm(<span class="string">'A new version of this site is available. Load it?'</span>)) {
+                    <span class="hljs-keyword">if</span> (confirm(<span class="hljs-string">'A new version of this site is available. Load it?'</span>)) {
                         window.location.reload();
                     }
                 }
-            }, <span class="literal">false</span>);
+            }, <span class="hljs-literal">false</span>);
         });
     };
 
-    <span class="keyword">return</span> {
+    <span class="hljs-keyword">return</span> {
         initialize: initialize
     };
 });</pre></div></div>

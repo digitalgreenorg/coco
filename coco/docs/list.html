@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -173,15 +163,15 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p>generic list view - reads entity&#39;s objectstore and prepares table using templates declared in entity&#39;s config</p>
+              <p>generic list view - reads entity’s objectstore and prepares table using templates declared in entity’s config</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>define([<span class="string">'jquery'</span>, <span class="string">'underscore'</span>, <span class="string">'datatable'</span>, <span class="string">'indexeddb_backbone_config'</span>, <span class="string">'layoutmanager'</span>, <span class="string">'views/notification'</span>, <span class="string">'configs'</span>, <span class="string">'offline_utils'</span>, <span class="string">'indexeddb-backbone'</span>], <span class="keyword">function</span>($, pass, pass, indexeddb, layoutmanager, notifs_view, all_configs, Offline) {
+            <div class="content"><div class='highlight'><pre>define([<span class="hljs-string">'jquery'</span>, <span class="hljs-string">'underscore'</span>, <span class="hljs-string">'datatable'</span>, <span class="hljs-string">'indexeddb_backbone_config'</span>, <span class="hljs-string">'layoutmanager'</span>, <span class="hljs-string">'views/notification'</span>, <span class="hljs-string">'configs'</span>, <span class="hljs-string">'offline_utils'</span>, <span class="hljs-string">'indexeddb-backbone'</span>,<span class="hljs-string">'tabletools'</span>, <span class="hljs-string">'zeroclipboard'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($, pass, pass, indexeddb, layoutmanager, notifs_view, all_configs, Offline)</span> {</span>
 
-    <span class="keyword">var</span> ListView = Backbone.Layout.extend({
+    <span class="hljs-keyword">var</span> ListView = Backbone.Layout.extend({
 
-        template: <span class="string">"#list_view_template"</span>,</pre></div></div>
+        template: <span class="hljs-string">"#list_view_template"</span>,</pre></div></div>
             
         </li>
         
@@ -196,8 +186,8 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        initialize: <span class="keyword">function</span>(params) {
-            <span class="keyword">this</span>.entity_config = all_configs[params.entity_name];</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(params)</span> {</span>
+            <span class="hljs-keyword">this</span>.entity_config = all_configs[params.entity_name];</pre></div></div>
             
         </li>
         
@@ -214,7 +204,7 @@ get the template for table header</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.table_header = $(<span class="string">'#'</span> + <span class="keyword">this</span>.entity_config.list_table_header_template)
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.table_header = $(<span class="hljs-string">'#'</span> + <span class="hljs-keyword">this</span>.entity_config.list_table_header_template)
                 .html();</pre></div></div>
             
         </li>
@@ -230,7 +220,7 @@ get the template for table header</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.row_template = _.template($(<span class="string">'#'</span> + <span class="keyword">this</span>.entity_config.list_table_row_template)
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.row_template = _.template($(<span class="hljs-string">'#'</span> + <span class="hljs-keyword">this</span>.entity_config.list_table_row_template)
                 .html());</pre></div></div>
             
         </li>
@@ -246,11 +236,11 @@ get the template for table header</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            _.bindAll(<span class="keyword">this</span>); 
-            <span class="keyword">this</span>.render();
+            <div class="content"><div class='highlight'><pre>            _.bindAll(<span class="hljs-keyword">this</span>); 
+            <span class="hljs-keyword">this</span>.render();
         },
 
-        serialize: <span class="keyword">function</span>() {</pre></div></div>
+        serialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -265,13 +255,13 @@ get the template for table header</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">return</span> {
-                page_header: <span class="keyword">this</span>.entity_config.page_header,
-                table_header: <span class="keyword">this</span>.table_header
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">return</span> {
+                page_header: <span class="hljs-keyword">this</span>.entity_config.page_header,
+                table_header: <span class="hljs-keyword">this</span>.table_header
             };
         },
 
-        afterRender: <span class="keyword">function</span>() {</pre></div></div>
+        afterRender: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -282,23 +272,23 @@ get the template for table header</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>Fetch entity&#39;s full data from offline DB and call render_data when fetched</p>
+              <p>Fetch entity’s full data from offline DB and call render_data when fetched</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            Offline.fetch_collection(<span class="keyword">this</span>.entity_config.entity_name)
-                .done(<span class="keyword">this</span>.render_data)
-                .fail(<span class="keyword">function</span>() {
+            <div class="content"><div class='highlight'><pre>            Offline.fetch_collection(<span class="hljs-keyword">this</span>.entity_config.entity_name)
+                .done(<span class="hljs-keyword">this</span>.render_data)
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                 notifs_view.add_alert({
-                    notif_type: <span class="string">"error"</span>,
-                    message: <span class="string">"Error reading data for listing."</span>
+                    notif_type: <span class="hljs-string">"error"</span>,
+                    message: <span class="hljs-string">"Error reading data for listing."</span>
                 });
             });
         },
 
         
-        render_data: <span class="keyword">function</span>(entity_collection) {
-            console.log(<span class="string">"in render_data...change in collection...rendering list view"</span>);</pre></div></div>
+        render_data: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_collection)</span> {</span>
+            console.log(<span class="hljs-string">"in render_data...change in collection...rendering list view"</span>);</pre></div></div>
             
         </li>
         
@@ -313,8 +303,8 @@ get the template for table header</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            tbody = $(<span class="string">'&lt;tbody&gt;'</span>);
-            tbody.html(<span class="string">''</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            tbody = $(<span class="hljs-string">'&lt;tbody&gt;'</span>);
+            tbody.html(<span class="hljs-string">''</span>);</pre></div></div>
             
         </li>
         
@@ -329,9 +319,9 @@ get the template for table header</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            entity_collection.each(<span class="keyword">function</span>(model) {
-                tbody.append(<span class="keyword">this</span>.row_template(model.toJSON()));
-            }, <span class="keyword">this</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            entity_collection.each(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span> {</span>
+                tbody.append(<span class="hljs-keyword">this</span>.row_template(model.toJSON()));
+            }, <span class="hljs-keyword">this</span>);</pre></div></div>
             
         </li>
         
@@ -346,7 +336,7 @@ get the template for table header</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.$(<span class="string">'#list_table'</span>)
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#list_table'</span>)
                 .append(tbody);</pre></div></div>
             
         </li>
@@ -362,11 +352,27 @@ get the template for table header</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.$(<span class="string">'#list_table'</span>)
-                .dataTable();
-            $(<span class="string">"#loaderimg"</span>)
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#list_table'</span>)
+                .dataTable({
+            		<span class="hljs-string">"sDom"</span>: <span class="hljs-string">'T&lt;"clear"&gt;lfrtip'</span>,
+            		<span class="hljs-string">"oTableTools"</span>: {
+            				<span class="hljs-string">"sSwfPath"</span>: <span class="hljs-string">"/media/coco/app/scripts/libs/tabletools_media/swf/copy_csv_xls.swf"</span>,
+            				<span class="hljs-string">"aButtons"</span>: [
+            				             	{
+											    <span class="hljs-string">"sExtends"</span>:    <span class="hljs-string">"copy"</span>,
+											    <span class="hljs-string">"sButtonText"</span>: <span class="hljs-string">"Copy to Clipboard"</span>
+            				             	},
+            				                {
+            				                    <span class="hljs-string">"sExtends"</span>:    <span class="hljs-string">"xls"</span>,
+            				                    <span class="hljs-string">"sButtonText"</span>: <span class="hljs-string">"Download in Excel"</span>
+            				                }
+            				            ]
+            				
+            			}
+            	});
+            $(<span class="hljs-string">"#loaderimg"</span>)
                 .hide();
-			$(<span class="string">"#sort-helptext"</span>).show();</pre></div></div>
+			$(<span class="hljs-string">"#sort-helptext"</span>).show();</pre></div></div>
             
         </li>
         
@@ -378,9 +384,9 @@ get the template for table header</p>
                 <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               <p>alternate 1 - using raw string to build table rows
-    $tbody = this.$(&quot;tbody&quot;);
-    $tbody.html(&#39;&#39;);
-    var all_items= &#39;&#39;;
+    $tbody = this.$(“tbody”);
+    $tbody.html(‘’);
+    var all_items= ‘’;
     this.collection.each(function(model) {
         all_items+=(this.row_template(model.toJSON()));
     }, this);
@@ -408,15 +414,15 @@ get the template for table header</p>
 <pre><code>    })
         .render()
         .el);
-}, this);</code></pre>
-<p>//////////</p>
+}, <span class="hljs-keyword">this</span>);
+</code></pre><p>//////////</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>        },
 
     });
-    <span class="keyword">return</span> ListView;
+    <span class="hljs-keyword">return</span> ListView;
 });</pre></div></div>
             
         </li>

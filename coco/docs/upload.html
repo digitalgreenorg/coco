@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -179,30 +169,30 @@ To use the module create an instance and call start_upload on it </p>
             </div>
             
             <div class="content"><div class='highlight'><pre>define([
-    <span class="string">'jquery'</span>,
-    <span class="string">'underscore'</span>,
-    <span class="string">'layoutmanager'</span>,
-    <span class="string">'configs'</span>,
-    <span class="string">'views/form'</span>,
-    <span class="string">'collections/upload_collection'</span>,
-    <span class="string">'convert_namespace'</span>,
-    <span class="string">'offline_utils'</span>,
-    <span class="string">'online_utils'</span>,
-    <span class="string">'indexeddb-backbone'</span>,
-    <span class="string">'bootstrapjs'</span>
-], <span class="keyword">function</span>(jquery, underscore, layoutmanager, configs, Form, upload_collection, ConvertNamespace, Offline, Online) {
+    <span class="hljs-string">'jquery'</span>,
+    <span class="hljs-string">'underscore'</span>,
+    <span class="hljs-string">'layoutmanager'</span>,
+    <span class="hljs-string">'configs'</span>,
+    <span class="hljs-string">'views/form'</span>,
+    <span class="hljs-string">'collections/upload_collection'</span>,
+    <span class="hljs-string">'convert_namespace'</span>,
+    <span class="hljs-string">'offline_utils'</span>,
+    <span class="hljs-string">'online_utils'</span>,
+    <span class="hljs-string">'indexeddb-backbone'</span>,
+    <span class="hljs-string">'bootstrapjs'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(jquery, underscore, layoutmanager, configs, Form, upload_collection, ConvertNamespace, Offline, Online)</span> {</span>
 
-    <span class="keyword">var</span> UploadView = Backbone.Layout.extend({
+    <span class="hljs-keyword">var</span> UploadView = Backbone.Layout.extend({
 
-        initialize: <span class="keyword">function</span>() {
-            console.log(<span class="string">"UPLOAD: initializing new upload view"</span>);
-            _(<span class="keyword">this</span>).bindAll(<span class="string">'stop_upload'</span>);
+        initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            console.log(<span class="hljs-string">"UPLOAD: initializing new upload view"</span>);
+            _(<span class="hljs-keyword">this</span>).bindAll(<span class="hljs-string">'stop_upload'</span>);
         },
 
-        template: <span class="string">"#upload_template"</span>,
+        template: <span class="hljs-string">"#upload_template"</span>,
 
         events: {
-            <span class="string">"click #stop_upload"</span>: <span class="string">"stop_upload"</span>
+            <span class="hljs-string">"click #stop_upload"</span>: <span class="hljs-string">"stop_upload"</span>
         },</pre></div></div>
             
         </li>
@@ -218,9 +208,9 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        stop_upload: <span class="keyword">function</span>() {
-            console.log(<span class="string">"stopping upload"</span>);
-            <span class="keyword">this</span>.user_interrupt = <span class="literal">true</span>;
+            <div class="content"><div class='highlight'><pre>        stop_upload: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            console.log(<span class="hljs-string">"stopping upload"</span>);
+            <span class="hljs-keyword">this</span>.user_interrupt = <span class="hljs-literal">true</span>;
         },</pre></div></div>
             
         </li>
@@ -236,7 +226,7 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        increment_pb: <span class="keyword">function</span>() {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        increment_pb: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -251,7 +241,7 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            w = parseFloat(document.getElementById(<span class="string">'pbar'</span>).style.width);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            w = <span class="hljs-built_in">parseFloat</span>(document.getElementById(<span class="hljs-string">'pbar'</span>).style.width);</pre></div></div>
             
         </li>
         
@@ -266,7 +256,7 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            document.getElementById(<span class="string">'pbar'</span>).style.width = (w + progress_bar_step) + <span class="string">'%'</span>;
+            <div class="content"><div class='highlight'><pre>            document.getElementById(<span class="hljs-string">'pbar'</span>).style.width = (w + progress_bar_step) + <span class="hljs-string">'%'</span>;
         },</pre></div></div>
             
         </li>
@@ -282,8 +272,8 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        update_status: <span class="keyword">function</span>(status) {
-            $(<span class="string">'#upl_status'</span>).html(status);
+            <div class="content"><div class='highlight'><pre>        update_status: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(status)</span> {</span>
+            $(<span class="hljs-string">'#upl_status'</span>).html(status);
         },</pre></div></div>
             
         </li>
@@ -295,12 +285,12 @@ To use the module create an instance and call start_upload on it </p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>update the action on the view - for eg - &quot;uploading person&quot;</p>
+              <p>update the action on the view - for eg - “uploading person”</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        update_action: <span class="keyword">function</span>(action) {
-            $(<span class="string">'#upl_action'</span>).html(action);
+            <div class="content"><div class='highlight'><pre>        update_action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(action)</span> {</span>
+            $(<span class="hljs-string">'#upl_action'</span>).html(action);
         },</pre></div></div>
             
         </li>
@@ -316,14 +306,14 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        initialize_upload: <span class="keyword">function</span>() {
-            <span class="keyword">this</span>.user_interrupt = <span class="literal">false</span>;
-            <span class="keyword">this</span>.in_progress = <span class="literal">true</span>;
-            <span class="keyword">this</span>.$(<span class="string">'#upload_modal'</span>).modal({
-                keyboard: <span class="literal">false</span>,
-                backdrop: <span class="string">"static"</span>,
+            <div class="content"><div class='highlight'><pre>        initialize_upload: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">this</span>.user_interrupt = <span class="hljs-literal">false</span>;
+            <span class="hljs-keyword">this</span>.in_progress = <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#upload_modal'</span>).modal({
+                keyboard: <span class="hljs-literal">false</span>,
+                backdrop: <span class="hljs-string">"static"</span>,
             });
-            <span class="keyword">this</span>.$(<span class="string">'#upload_modal'</span>).modal(<span class="string">'show'</span>);
+            <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#upload_modal'</span>).modal(<span class="hljs-string">'show'</span>);
 
         },</pre></div></div>
             
@@ -340,10 +330,10 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        tear_down: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">this</span>.in_progress = <span class="literal">false</span>;
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        tear_down: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">this</span>.in_progress = <span class="hljs-literal">false</span>;
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -358,12 +348,12 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            $(<span class="string">'#upload_modal'</span>).on(<span class="string">'hidden'</span>, <span class="keyword">function</span>() {
+            <div class="content"><div class='highlight'><pre>            $(<span class="hljs-string">'#upload_modal'</span>).on(<span class="hljs-string">'hidden'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                 that.remove();
                 dfd.resolve();
             });
-            $(<span class="string">'#upload_modal'</span>).modal(<span class="string">'hide'</span>);
-            <span class="keyword">return</span> dfd.promise();
+            $(<span class="hljs-string">'#upload_modal'</span>).modal(<span class="hljs-string">'hide'</span>);
+            <span class="hljs-keyword">return</span> dfd.promise();
         },</pre></div></div>
             
         </li>
@@ -379,10 +369,10 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        start_upload: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            console.log(<span class="string">"UPLOAD: start the upload"</span>);
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        start_upload: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            console.log(<span class="hljs-string">"UPLOAD: start the upload"</span>);
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -397,7 +387,7 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.initialize_upload();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.initialize_upload();</pre></div></div>
             
         </li>
         
@@ -412,8 +402,8 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.get_uploadq()
-                .done(<span class="keyword">function</span>(collection) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.get_uploadq()
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(collection)</span> {</span></pre></div></div>
             
         </li>
         
@@ -429,7 +419,7 @@ To use the module create an instance and call start_upload on it </p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                    that.iterate_uploadq(collection)
-                        .done(<span class="keyword">function</span>() {</pre></div></div>
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -445,11 +435,11 @@ To use the module create an instance and call start_upload on it </p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                            that.tear_down()
-                                .done(<span class="keyword">function</span>() {
+                                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                                     dfd.resolve();
                                 });
                         })
-                        .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -465,12 +455,12 @@ To use the module create an instance and call start_upload on it </p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                            that.tear_down()
-                                .done(<span class="keyword">function</span>() {
+                                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                                     dfd.reject(error);
                                 });
                         });
                 })
-                .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -486,11 +476,11 @@ To use the module create an instance and call start_upload on it </p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                    that.tear_down()
-                        .done(<span class="keyword">function</span>() {
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                             dfd.reject(error);
                         });
                 });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -506,8 +496,8 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_uploadq: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        get_uploadq: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();</pre></div></div>
             
         </li>
         
@@ -523,14 +513,14 @@ To use the module create an instance and call start_upload on it </p>
             </div>
             
             <div class="content"><div class='highlight'><pre>            upload_collection.fetch({
-                success: <span class="keyword">function</span>(collection) {
+                success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(collection)</span> {</span>
                     dfd.resolve(collection);
                 },
-                error: <span class="keyword">function</span>(error) {
+                error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                     dfd.reject(error);
                 }
             });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -546,11 +536,11 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        iterate_uploadq: <span class="keyword">function</span>(uploadq) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">this</span>.upload_collection = uploadq;
-            console.log(<span class="string">"UPLOAD: inside upload queue: "</span> + <span class="keyword">this</span>.upload_collection.length + <span class="string">" entries"</span>);
-            $(<span class="string">'#num_upload'</span>).html(<span class="keyword">this</span>.upload_collection.length);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        iterate_uploadq: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(uploadq)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">this</span>.upload_collection = uploadq;
+            console.log(<span class="hljs-string">"UPLOAD: inside upload queue: "</span> + <span class="hljs-keyword">this</span>.upload_collection.length + <span class="hljs-string">" entries"</span>);
+            $(<span class="hljs-string">'#num_upload'</span>).html(<span class="hljs-keyword">this</span>.upload_collection.length);</pre></div></div>
             
         </li>
         
@@ -565,7 +555,7 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            progress_bar_step = <span class="number">100</span> / <span class="keyword">this</span>.upload_collection.length;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            progress_bar_step = <span class="hljs-number">100</span> / <span class="hljs-keyword">this</span>.upload_collection.length;</pre></div></div>
             
         </li>
         
@@ -580,11 +570,11 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.upload_status = {};
-            <span class="keyword">this</span>.upload_status[<span class="string">"total"</span>] = <span class="keyword">this</span>.upload_collection.length;
-            <span class="keyword">this</span>.upload_status[<span class="string">"uploaded"</span>] = <span class="number">0</span>;
-            <span class="keyword">this</span>.pick_next(dfd);
-            <span class="keyword">return</span> dfd;
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.upload_status = {};
+            <span class="hljs-keyword">this</span>.upload_status[<span class="hljs-string">"total"</span>] = <span class="hljs-keyword">this</span>.upload_collection.length;
+            <span class="hljs-keyword">this</span>.upload_status[<span class="hljs-string">"uploaded"</span>] = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">this</span>.pick_next(dfd);
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -600,8 +590,8 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_entity_name: <span class="keyword">function</span>(upload_model) {
-            <span class="keyword">return</span> upload_model.get(<span class="string">'entity_name'</span>)
+            <div class="content"><div class='highlight'><pre>        get_entity_name: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(upload_model)</span> {</span>
+            <span class="hljs-keyword">return</span> upload_model.get(<span class="hljs-string">'entity_name'</span>)
         },</pre></div></div>
             
         </li>
@@ -617,8 +607,8 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_action: <span class="keyword">function</span>(upload_model) {
-            <span class="keyword">return</span> upload_model.get(<span class="string">'action'</span>);
+            <div class="content"><div class='highlight'><pre>        get_action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(upload_model)</span> {</span>
+            <span class="hljs-keyword">return</span> upload_model.get(<span class="hljs-string">'action'</span>);
         },</pre></div></div>
             
         </li>
@@ -634,8 +624,8 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_json: <span class="keyword">function</span>(upload_model) {
-            <span class="keyword">return</span> upload_model.get(<span class="string">'data'</span>);
+            <div class="content"><div class='highlight'><pre>        get_json: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(upload_model)</span> {</span>
+            <span class="hljs-keyword">return</span> upload_model.get(<span class="hljs-string">'data'</span>);
         },</pre></div></div>
             
         </li>
@@ -651,12 +641,12 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_foreign_field_desc: <span class="keyword">function</span>(upload_model) {
-            <span class="keyword">var</span> entity_name = <span class="keyword">this</span>.get_entity_name(upload_model);
-            <span class="keyword">if</span> (configs[entity_name].edit) {
-                <span class="keyword">return</span> configs[entity_name].edit.foreign_entities;
-            } <span class="keyword">else</span>
-                <span class="keyword">return</span> configs[entity_name].foreign_entities;
+            <div class="content"><div class='highlight'><pre>        get_foreign_field_desc: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(upload_model)</span> {</span>
+            <span class="hljs-keyword">var</span> entity_name = <span class="hljs-keyword">this</span>.get_entity_name(upload_model);
+            <span class="hljs-keyword">if</span> (configs[entity_name].edit) {
+                <span class="hljs-keyword">return</span> configs[entity_name].edit.foreign_entities;
+            } <span class="hljs-keyword">else</span>
+                <span class="hljs-keyword">return</span> configs[entity_name].foreign_entities;
         },</pre></div></div>
             
         </li>
@@ -672,8 +662,8 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_offline_id: <span class="keyword">function</span>(upload_model) {
-            <span class="keyword">return</span> parseInt(<span class="keyword">this</span>.get_json(upload_model).id);
+            <div class="content"><div class='highlight'><pre>        get_offline_id: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(upload_model)</span> {</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.get_json(upload_model).id);
         },</pre></div></div>
             
         </li>
@@ -689,8 +679,8 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_online_id: <span class="keyword">function</span>(upload_model) {
-            <span class="keyword">return</span> parseInt(<span class="keyword">this</span>.get_json(upload_model).online_id);
+            <div class="content"><div class='highlight'><pre>        get_online_id: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(upload_model)</span> {</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.get_json(upload_model).online_id);
         },</pre></div></div>
             
         </li>
@@ -706,11 +696,11 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        pick_next: <span class="keyword">function</span>(whole_upload_dfd) {
-            console.log(<span class="string">"in pick_next"</span>);
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;
-            <span class="keyword">this</span>.update_status(<span class="keyword">this</span>.upload_status[<span class="string">"uploaded"</span>] + <span class="string">"/"</span> + <span class="keyword">this</span>.upload_status[<span class="string">"total"</span>]);
-            <span class="keyword">this</span>.current_entry = <span class="keyword">this</span>.upload_collection.shift();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        pick_next: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(whole_upload_dfd)</span> {</span>
+            console.log(<span class="hljs-string">"in pick_next"</span>);
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+            <span class="hljs-keyword">this</span>.update_status(<span class="hljs-keyword">this</span>.upload_status[<span class="hljs-string">"uploaded"</span>] + <span class="hljs-string">"/"</span> + <span class="hljs-keyword">this</span>.upload_status[<span class="hljs-string">"total"</span>]);
+            <span class="hljs-keyword">this</span>.current_entry = <span class="hljs-keyword">this</span>.upload_collection.shift();</pre></div></div>
             
         </li>
         
@@ -725,8 +715,8 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (!<span class="keyword">this</span>.current_entry) {
-                <span class="keyword">return</span> whole_upload_dfd.resolve();
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.current_entry) {
+                <span class="hljs-keyword">return</span> whole_upload_dfd.resolve();
             }</pre></div></div>
             
         </li>
@@ -742,7 +732,7 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.user_interrupt) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.user_interrupt) {</pre></div></div>
             
         </li>
         
@@ -757,7 +747,7 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">this</span>.upload_collection.unshift(<span class="keyword">this</span>.current_entry);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">this</span>.upload_collection.unshift(<span class="hljs-keyword">this</span>.current_entry);</pre></div></div>
             
         </li>
         
@@ -772,7 +762,7 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">return</span> whole_upload_dfd.reject(<span class="string">"User stopped Sync"</span>);
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">return</span> whole_upload_dfd.reject(<span class="hljs-string">"User stopped Sync"</span>);
             }</pre></div></div>
             
         </li>
@@ -788,10 +778,10 @@ To use the module create an instance and call start_upload on it </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">else</span> {
-                <span class="keyword">this</span>.process_upload_entry(<span class="keyword">this</span>.current_entry)
-                    .fail(<span class="keyword">function</span>(error) {
-                        console.log(<span class="string">"FAILED TO UPLOAD AN OBJECT: "</span>);
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.process_upload_entry(<span class="hljs-keyword">this</span>.current_entry)
+                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
+                        console.log(<span class="hljs-string">"FAILED TO UPLOAD AN OBJECT: "</span>);
                         console.log(error);</pre></div></div>
             
         </li>
@@ -804,18 +794,18 @@ To use the module create an instance and call start_upload on it </p>
                 <a class="pilcrow" href="#section-35">&#182;</a>
               </div>
               <p>it would be reached in foll cases:
-object to be uploaded doesn&#39;t exists in offline anymore
+object to be uploaded doesn’t exists in offline anymore
 ConvertNamespace failed
-online_id couldn&#39;t be injected
+online_id couldn’t be injected
 The object discarded in upload error form could not be deleted</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>                    })
-                    .done(<span class="keyword">function</span>() {
-                        console.log(<span class="string">"SUCESSFULLY UPLOADED AN OBJECT"</span>);
+                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                        console.log(<span class="hljs-string">"SUCESSFULLY UPLOADED AN OBJECT"</span>);
                     })
-                    .always(<span class="keyword">function</span>() {</pre></div></div>
+                    .always(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -861,7 +851,7 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                        that.upload_status[<span class="string">"uploaded"</span>]++;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                        that.upload_status[<span class="hljs-string">"uploaded"</span>]++;</pre></div></div>
             
         </li>
         
@@ -895,8 +885,8 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        process_upload_entry: <span class="keyword">function</span>(up_entry) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        process_upload_entry: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(up_entry)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();</pre></div></div>
             
         </li>
         
@@ -911,10 +901,10 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.update_action(<span class="string">"Uploading "</span> + <span class="keyword">this</span>.get_entity_name(up_entry));
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.update_action(<span class="hljs-string">"Uploading "</span> + <span class="hljs-keyword">this</span>.get_entity_name(up_entry));
 
-            <span class="keyword">switch</span> (<span class="keyword">this</span>.get_action(up_entry)) {
-                <span class="keyword">case</span> <span class="string">'A'</span>:</pre></div></div>
+            <span class="hljs-keyword">switch</span> (<span class="hljs-keyword">this</span>.get_action(up_entry)) {
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'A'</span>:</pre></div></div>
             
         </li>
         
@@ -929,9 +919,9 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">this</span>.upload_add_edit(up_entry, dfd);
-                    <span class="keyword">break</span>;
-                <span class="keyword">case</span> <span class="string">'E'</span>:</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">this</span>.upload_add_edit(up_entry, dfd);
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'E'</span>:</pre></div></div>
             
         </li>
         
@@ -946,9 +936,9 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">this</span>.upload_add_edit(up_entry, dfd);
-                    <span class="keyword">break</span>;
-                <span class="keyword">case</span> <span class="string">'D'</span>:</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">this</span>.upload_add_edit(up_entry, dfd);
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'D'</span>:</pre></div></div>
             
         </li>
         
@@ -963,18 +953,18 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">this</span>.upload_delete(up_entry, dfd);
-                    <span class="keyword">break</span>;
-                <span class="keyword">default</span>:
-                    console.log(<span class="string">"ambiguous case"</span>);
-                    dfd.reject(<span class="string">"UPLOAD:UNEXPECTED ERROR: Ambiguous case. None of add, edit , delete!"</span>);
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">this</span>.upload_delete(up_entry, dfd);
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">default</span>:
+                    console.log(<span class="hljs-string">"ambiguous case"</span>);
+                    dfd.reject(<span class="hljs-string">"UPLOAD:UNEXPECTED ERROR: Ambiguous case. None of add, edit , delete!"</span>);
             }
-            <span class="keyword">return</span> dfd.promise();
+            <span class="hljs-keyword">return</span> dfd.promise();
 
         },
 
-        upload_add_edit: <span class="keyword">function</span>(up_model, dfd) {
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+        upload_add_edit: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(up_model, dfd)</span> {</span>
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -989,9 +979,9 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            Offline.fetch_object(<span class="keyword">this</span>.get_entity_name(up_model), <span class="string">"id"</span>, <span class="keyword">this</span>.get_offline_id(up_model))
-                .done(<span class="keyword">function</span>(off_model) {
-                    console.log(<span class="string">"Off model fetched - "</span> + JSON.stringify(off_model.toJSON()));</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            Offline.fetch_object(<span class="hljs-keyword">this</span>.get_entity_name(up_model), <span class="hljs-string">"id"</span>, <span class="hljs-keyword">this</span>.get_offline_id(up_model))
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model)</span> {</span>
+                    console.log(<span class="hljs-string">"Off model fetched - "</span> + <span class="hljs-built_in">JSON</span>.stringify(off_model.toJSON()));</pre></div></div>
             
         </li>
         
@@ -1006,8 +996,8 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    ConvertNamespace.convert(that.get_json(up_model), that.get_foreign_field_desc(up_model), <span class="string">"offlinetoonline"</span>)
-                        .done(<span class="keyword">function</span>(on_off_obj) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                    ConvertNamespace.convert(that.get_json(up_model), that.get_foreign_field_desc(up_model), <span class="hljs-string">"offlinetoonline"</span>)
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(on_off_obj)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1022,9 +1012,9 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            <span class="keyword">if</span> (that.get_action(up_model) == <span class="string">"A"</span>) {
-                                <span class="keyword">delete</span> on_off_obj.on_json.id;
-                            } <span class="keyword">else</span> {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                            <span class="hljs-keyword">if</span> (that.get_action(up_model) == <span class="hljs-string">"A"</span>) {
+                                <span class="hljs-keyword">delete</span> on_off_obj.on_json.id;
+                            } <span class="hljs-keyword">else</span> {</pre></div></div>
             
         </li>
         
@@ -1039,8 +1029,8 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                                on_off_obj.on_json.id = parseInt(off_model.get(<span class="string">"online_id"</span>));
-                                <span class="keyword">delete</span> on_off_obj.on_json.online_id;
+            <div class="content"><div class='highlight'><pre>                                on_off_obj.on_json.id = <span class="hljs-built_in">parseInt</span>(off_model.get(<span class="hljs-string">"online_id"</span>));
+                                <span class="hljs-keyword">delete</span> on_off_obj.on_json.online_id;
                             }</pre></div></div>
             
         </li>
@@ -1056,10 +1046,10 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            Online.save(<span class="literal">null</span>, that.get_entity_name(up_model), on_off_obj.on_json)
-                                .done(<span class="keyword">function</span>(on_model) {
-                                    console.log(<span class="string">"INCD:ADD: Successfully uploaded model. uploaded model - "</span> + JSON.stringify(on_model.toJSON()));
-                                    <span class="keyword">var</span> off_json = off_model.toJSON();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                            Online.save(<span class="hljs-literal">null</span>, that.get_entity_name(up_model), on_off_obj.on_json)
+                                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(on_model)</span> {</span>
+                                    console.log(<span class="hljs-string">"INCD:ADD: Successfully uploaded model. uploaded model - "</span> + <span class="hljs-built_in">JSON</span>.stringify(on_model.toJSON()));
+                                    <span class="hljs-keyword">var</span> off_json = off_model.toJSON();</pre></div></div>
             
         </li>
         
@@ -1074,9 +1064,9 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                                    off_json.online_id = parseInt(on_model.get(<span class="string">"id"</span>));
+            <div class="content"><div class='highlight'><pre>                                    off_json.online_id = <span class="hljs-built_in">parseInt</span>(on_model.get(<span class="hljs-string">"id"</span>));
                                     Offline.save(off_model, that.get_entity_name(up_model), off_json)
-                                        .done(<span class="keyword">function</span>(off_model) {</pre></div></div>
+                                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1091,14 +1081,14 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                                            console.log(<span class="string">"OFF model after all upload - "</span> , JSON.stringify(off_model.toJSON()));
+            <div class="content"><div class='highlight'><pre>                                            console.log(<span class="hljs-string">"OFF model after all upload - "</span> , <span class="hljs-built_in">JSON</span>.stringify(off_model.toJSON()));
                                             dfd.resolve();
                                         })
-                                        .fail(<span class="keyword">function</span>(error) {
-                                            dfd.reject(<span class="string">"UPLOAD: Error saving online_id in offline obj: "</span>, error);
+                                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
+                                            dfd.reject(<span class="hljs-string">"UPLOAD: Error saving online_id in offline obj: "</span>, error);
                                         });
                                 })
-                                .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1113,7 +1103,7 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                                    console.log(<span class="string">"Error while saving oject on server"</span>);
+            <div class="content"><div class='highlight'><pre>                                    console.log(<span class="hljs-string">"Error while saving oject on server"</span>);
                                     that.curr_entry_dfd = dfd;</pre></div></div>
             
         </li>
@@ -1132,7 +1122,7 @@ The object discarded in upload error form could not be deleted</p>
             <div class="content"><div class='highlight'><pre>                                    that.show_form(that.get_entity_name(up_model), on_off_obj.off_json, error.responseText);
                                 });
                         })
-                        .fail(<span class="keyword">function</span>(model, error) {</pre></div></div>
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1147,11 +1137,11 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            console.log(<span class="string">"UPLOAD: Not uploading object coz ConvertNamespace failed"</span>);
+            <div class="content"><div class='highlight'><pre>                            console.log(<span class="hljs-string">"UPLOAD: Not uploading object coz ConvertNamespace failed"</span>);
                             dfd.reject(error);
                         });
                 })
-                .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1162,13 +1152,13 @@ The object discarded in upload error form could not be deleted</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-55">&#182;</a>
               </div>
-              <p>the object to be added/edited doesn&#39;t exist anymore....move on</p>
+              <p>the object to be added/edited doesn’t exist anymore….move on</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">if</span> (error == <span class="string">"Not Found"</span>) {
-                        <span class="keyword">return</span> dfd.reject(<span class="string">"The object to be uploaded doesn't exists anymore."</span>)
-                    } <span class="keyword">else</span>
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">if</span> (error == <span class="hljs-string">"Not Found"</span>) {
+                        <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-string">"The object to be uploaded doesn't exists anymore."</span>)
+                    } <span class="hljs-keyword">else</span>
                         dfd.reject(error);
                 });
         },</pre></div></div>
@@ -1186,8 +1176,8 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        show_form: <span class="keyword">function</span>(entity_name, json, err_msg) {
-            console.log(<span class="string">"UPLOAD:ERROR: need to show this json -"</span> + JSON.stringify(json));</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        show_form: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, json, err_msg)</span> {</span>
+            console.log(<span class="hljs-string">"UPLOAD:ERROR: need to show this json -"</span> + <span class="hljs-built_in">JSON</span>.stringify(json));</pre></div></div>
             
         </li>
         
@@ -1202,10 +1192,10 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            p = <span class="keyword">new</span> Form({
+            <div class="content"><div class='highlight'><pre>            p = <span class="hljs-keyword">new</span> Form({
                 serialize: {
-                    button1: <span class="string">"Save again"</span>,
-                    button2: <span class="string">"Discard"</span>
+                    button1: <span class="hljs-string">"Save again"</span>,
+                    button2: <span class="hljs-string">"Discard"</span>
                 },
                 entity_name: entity_name,
                 model_json: json
@@ -1240,7 +1230,7 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.listenTo(p, <span class="string">'save_clicked'</span>, <span class="keyword">this</span>.after_upload_error_save_again);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.listenTo(p, <span class="hljs-string">'save_clicked'</span>, <span class="hljs-keyword">this</span>.after_upload_error_save_again);</pre></div></div>
             
         </li>
         
@@ -1255,8 +1245,8 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.listenTo(p, <span class="string">'button2_clicked'</span>, <span class="keyword">this</span>.after_upload_error_discard);
-            <span class="keyword">this</span>.$(<span class="string">'#upload_form'</span>)
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.listenTo(p, <span class="hljs-string">'button2_clicked'</span>, <span class="hljs-keyword">this</span>.after_upload_error_discard);
+            <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#upload_form'</span>)
                 .html(p.el);
         },</pre></div></div>
             
@@ -1273,9 +1263,9 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        after_upload_error_save_again: <span class="keyword">function</span>(e) {
-            console.log(<span class="string">"UPLOAD:ERROR: edit and retry"</span>);
-            console.log(<span class="string">"UPLOAD:ERROR: json from form - "</span> + JSON.stringify(e.context.final_json));</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        after_upload_error_save_again: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
+            console.log(<span class="hljs-string">"UPLOAD:ERROR: edit and retry"</span>);
+            console.log(<span class="hljs-string">"UPLOAD:ERROR: json from form - "</span> + <span class="hljs-built_in">JSON</span>.stringify(e.context.final_json));</pre></div></div>
             
         </li>
         
@@ -1290,8 +1280,8 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> after_upload_error_json = e.context.final_json;
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> after_upload_error_json = e.context.final_json;
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -1306,8 +1296,8 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            Offline.save(<span class="literal">null</span>, <span class="keyword">this</span>.get_entity_name(<span class="keyword">this</span>.current_entry), after_upload_error_json)
-                .done(<span class="keyword">function</span>(off_model) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            Offline.save(<span class="hljs-literal">null</span>, <span class="hljs-keyword">this</span>.get_entity_name(<span class="hljs-keyword">this</span>.current_entry), after_upload_error_json)
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(off_model)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1322,7 +1312,7 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    that.$(<span class="string">'#upload_form'</span>)
+            <div class="content"><div class='highlight'><pre>                    that.$(<span class="hljs-string">'#upload_form'</span>)
                         .empty();</pre></div></div>
             
         </li>
@@ -1338,7 +1328,7 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    that.current_entry.set(<span class="string">'data'</span>, after_upload_error_json);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                    that.current_entry.set(<span class="hljs-string">'data'</span>, after_upload_error_json);</pre></div></div>
             
         </li>
         
@@ -1355,7 +1345,7 @@ The object discarded in upload error form could not be deleted</p>
             
             <div class="content"><div class='highlight'><pre>                    that.upload_add_edit(that.current_entry, that.curr_entry_dfd);
                 })
-                .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1387,10 +1377,10 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        after_upload_error_discard: <span class="keyword">function</span>(e) {
-            console.log(<span class="string">"DISCARD"</span>);
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;
-            <span class="keyword">if</span> (<span class="keyword">this</span>.get_action(<span class="keyword">this</span>.current_entry) == <span class="string">"A"</span>) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        after_upload_error_discard: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
+            console.log(<span class="hljs-string">"DISCARD"</span>);
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.get_action(<span class="hljs-keyword">this</span>.current_entry) == <span class="hljs-string">"A"</span>) {</pre></div></div>
             
         </li>
         
@@ -1405,14 +1395,14 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                Offline.delete_object(<span class="literal">null</span>, <span class="keyword">this</span>.get_entity_name(<span class="keyword">this</span>.current_entry), <span class="keyword">this</span>.get_offline_id(<span class="keyword">this</span>.current_entry))
-                    .done(<span class="keyword">function</span>() {
-                        <span class="keyword">return</span> that.curr_entry_dfd.resolve();
+            <div class="content"><div class='highlight'><pre>                Offline.delete_object(<span class="hljs-literal">null</span>, <span class="hljs-keyword">this</span>.get_entity_name(<span class="hljs-keyword">this</span>.current_entry), <span class="hljs-keyword">this</span>.get_offline_id(<span class="hljs-keyword">this</span>.current_entry))
+                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                        <span class="hljs-keyword">return</span> that.curr_entry_dfd.resolve();
                     })
-                    .fail(<span class="keyword">function</span>(error) {
-                        <span class="keyword">return</span> that.curr_entry_dfd.reject(<span class="string">"The object discarded in upload error form could not be deleted - "</span> , error);
+                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
+                        <span class="hljs-keyword">return</span> that.curr_entry_dfd.reject(<span class="hljs-string">"The object discarded in upload error form could not be deleted - "</span> , error);
                     });
-            } <span class="keyword">else</span> {</pre></div></div>
+            } <span class="hljs-keyword">else</span> {</pre></div></div>
             
         </li>
         
@@ -1427,14 +1417,14 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">this</span>.curr_entry_dfd.resolve();
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">this</span>.curr_entry_dfd.resolve();
             }
-            <span class="keyword">this</span>.$(<span class="string">'#upload_form'</span>)
-                .html(<span class="string">""</span>);
+            <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#upload_form'</span>)
+                .html(<span class="hljs-string">""</span>);
         },
 
-        upload_delete: <span class="keyword">function</span>(up_model, dfd) {
-            <span class="keyword">if</span> (<span class="keyword">this</span>.get_online_id(up_model)) {</pre></div></div>
+        upload_delete: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(up_model, dfd)</span> {</span>
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.get_online_id(up_model)) {</pre></div></div>
             
         </li>
         
@@ -1449,14 +1439,14 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                Online.delete_object(<span class="literal">null</span>, <span class="keyword">this</span>.get_entity_name(up_model), <span class="keyword">this</span>.get_online_id(up_model))
-                    .done(<span class="keyword">function</span>() {
-                        <span class="keyword">return</span> dfd.resolve();
+            <div class="content"><div class='highlight'><pre>                Online.delete_object(<span class="hljs-literal">null</span>, <span class="hljs-keyword">this</span>.get_entity_name(up_model), <span class="hljs-keyword">this</span>.get_online_id(up_model))
+                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                        <span class="hljs-keyword">return</span> dfd.resolve();
                     })
-                    .fail(<span class="keyword">function</span>(error) {
-                        <span class="keyword">return</span> dfd.reject(<span class="string">"The object discarded in upload error form could not be deleted - "</span> + error);
+                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
+                        <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-string">"The object discarded in upload error form could not be deleted - "</span> + error);
                     });
-            } <span class="keyword">else</span> {</pre></div></div>
+            } <span class="hljs-keyword">else</span> {</pre></div></div>
             
         </li>
         
@@ -1471,7 +1461,7 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">return</span> dfd.resolve();
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">return</span> dfd.resolve();
             }
         },
 
@@ -1491,7 +1481,7 @@ The object discarded in upload error form could not be deleted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">return</span> UploadView;
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">return</span> UploadView;
 });</pre></div></div>
             
         </li>

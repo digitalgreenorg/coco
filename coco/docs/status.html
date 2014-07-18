@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -180,33 +170,33 @@ It checks whether offline db exists or not, if not initiates the full download m
             
             <div class="content"><div class='highlight'><pre>
 define([
-    <span class="string">'jquery'</span>,
-    <span class="string">'underscore'</span>,
-    <span class="string">'layoutmanager'</span>,
-    <span class="string">'indexeddb_backbone_config'</span>,
-    <span class="string">'views/full_download'</span>,
-    <span class="string">'configs'</span>,
-    <span class="string">'collections/upload_collection'</span>,
-    <span class="string">'views/notification'</span>,
-    <span class="string">'offline_utils'</span>,
-    <span class="string">'indexeddb-backbone'</span>
-], <span class="keyword">function</span>(jquery, underscore, layoutmanager, indexeddb, FullDownloadView, configs, upload_collection, notifs_view, Offline) {
+    <span class="hljs-string">'jquery'</span>,
+    <span class="hljs-string">'underscore'</span>,
+    <span class="hljs-string">'layoutmanager'</span>,
+    <span class="hljs-string">'indexeddb_backbone_config'</span>,
+    <span class="hljs-string">'views/full_download'</span>,
+    <span class="hljs-string">'configs'</span>,
+    <span class="hljs-string">'collections/upload_collection'</span>,
+    <span class="hljs-string">'views/notification'</span>,
+    <span class="hljs-string">'offline_utils'</span>,
+    <span class="hljs-string">'indexeddb-backbone'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(jquery, underscore, layoutmanager, indexeddb, FullDownloadView, configs, upload_collection, notifs_view, Offline)</span> {</span>
 
-    <span class="keyword">var</span> StatusView = Backbone.Layout.extend({
-        template: <span class="string">"#status"</span>,
-        timestamp: <span class="literal">null</span>,
-        upload_entries: <span class="literal">null</span>,
+    <span class="hljs-keyword">var</span> StatusView = Backbone.Layout.extend({
+        template: <span class="hljs-string">"#status"</span>,
+        timestamp: <span class="hljs-literal">null</span>,
+        upload_entries: <span class="hljs-literal">null</span>,
         events: {
-            <span class="string">"click button#download"</span>: <span class="string">"download"</span>,
-            <span class="string">"click button#reset_database"</span>: <span class="string">"reset"</span>
+            <span class="hljs-string">"click button#download"</span>: <span class="hljs-string">"download"</span>,
+            <span class="hljs-string">"click button#reset_database"</span>: <span class="hljs-string">"reset"</span>
         },
 
-        initialize: <span class="keyword">function</span>() {
-            _(<span class="keyword">this</span>).bindAll(<span class="string">'fill_status'</span>);
-            <span class="keyword">this</span>.fill_status();
+        initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            _(<span class="hljs-keyword">this</span>).bindAll(<span class="hljs-string">'fill_status'</span>);
+            <span class="hljs-keyword">this</span>.fill_status();
         },
 
-        serialize: <span class="keyword">function</span>() {</pre></div></div>
+        serialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -221,11 +211,11 @@ define([
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">return</span> {
-                full_d_timestamp: <span class="keyword">this</span>.full_download_timestamp,
-                inc_d_timestamp: <span class="keyword">this</span>.inc_download_timestamp,
-                num_upload_entries: <span class="keyword">this</span>.upload_entries,
-                db_version: <span class="keyword">this</span>.db_version,
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">return</span> {
+                full_d_timestamp: <span class="hljs-keyword">this</span>.full_download_timestamp,
+                inc_d_timestamp: <span class="hljs-keyword">this</span>.inc_download_timestamp,
+                num_upload_entries: <span class="hljs-keyword">this</span>.upload_entries,
+                db_version: <span class="hljs-keyword">this</span>.db_version,
                 upload_collection: upload_collection.toJSON()
             }
         },</pre></div></div>
@@ -243,8 +233,8 @@ define([
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        fill_status: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        fill_status: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -252,10 +242,10 @@ define([
         <li id="section-4">
             <div class="annotation">
               
-              <div class="pilwrap for-h1">
+              <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <h1>of unsynced entries</h1>
+              <h1 id="of-unsynced-entries">of unsynced entries</h1>
 
             </div>
             
@@ -274,7 +264,7 @@ define([
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            that.db_version = indexeddb.migrations[<span class="number">0</span>].version;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            that.db_version = indexeddb.migrations[<span class="hljs-number">0</span>].version;</pre></div></div>
             
         </li>
         
@@ -285,13 +275,13 @@ define([
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>fetch last full download&#39;s timestamp</p>
+              <p>fetch last full download’s timestamp</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            Offline.fetch_object(<span class="string">"meta_data"</span>, <span class="string">"key"</span>, <span class="string">"last_full_download"</span>)
-                .done(<span class="keyword">function</span>(model) {
-                    that.full_download_timestamp = <span class="keyword">new</span> Date(model.get(<span class="string">'timestamp'</span>));</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            Offline.fetch_object(<span class="hljs-string">"meta_data"</span>, <span class="hljs-string">"key"</span>, <span class="hljs-string">"last_full_download"</span>)
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span> {</span>
+                    that.full_download_timestamp = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(model.get(<span class="hljs-string">'timestamp'</span>));</pre></div></div>
             
         </li>
         
@@ -302,13 +292,13 @@ define([
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>fetch last inc download&#39;s timestamp</p>
+              <p>fetch last inc download’s timestamp</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    Offline.fetch_object(<span class="string">"meta_data"</span>, <span class="string">"key"</span>, <span class="string">"last_inc_download"</span>)
-                        .done(<span class="keyword">function</span>(model) {
-                            that.inc_download_timestamp = <span class="keyword">new</span> Date(model.get(<span class="string">'timestamp'</span>));</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                    Offline.fetch_object(<span class="hljs-string">"meta_data"</span>, <span class="hljs-string">"key"</span>, <span class="hljs-string">"last_inc_download"</span>)
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span> {</span>
+                            that.inc_download_timestamp = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(model.get(<span class="hljs-string">'timestamp'</span>));</pre></div></div>
             
         </li>
         
@@ -319,13 +309,13 @@ define([
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>all stats fetched....render the view</p>
+              <p>all stats fetched….render the view</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>                            that.render();
                         })
-                        .fail(<span class="keyword">function</span>(model, error) {</pre></div></div>
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -336,19 +326,19 @@ define([
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p>all stats fetched....render the view</p>
+              <p>all stats fetched….render the view</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            that.inc_download_timestamp = <span class="string">"Never"</span>;
+            <div class="content"><div class='highlight'><pre>                            that.inc_download_timestamp = <span class="hljs-string">"Never"</span>;
                             that.render();
                         });
                     that.render();
                 })
-                .fail(<span class="keyword">function</span>(model, error) {
-                    console.log(<span class="string">"STATUS: error while fetching last_downloaded from meta_data objectStore"</span>);
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span>
+                    console.log(<span class="hljs-string">"STATUS: error while fetching last_downloaded from meta_data objectStore"</span>);
                     console.log(error);
-                    <span class="keyword">if</span> (error == <span class="string">"Not Found"</span>) {</pre></div></div>
+                    <span class="hljs-keyword">if</span> (error == <span class="hljs-string">"Not Found"</span>) {</pre></div></div>
             
         </li>
         
@@ -359,13 +349,13 @@ define([
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
-              <p>offline db not populated...full donwload never finished</p>
+              <p>offline db not populated…full donwload never finished</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                        that.full_download_timestamp = <span class="string">"Never"</span>;
+            <div class="content"><div class='highlight'><pre>                        that.full_download_timestamp = <span class="hljs-string">"Never"</span>;
                         that.render()
-                            .done(<span class="keyword">function</span>() {</pre></div></div>
+                            .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -401,8 +391,8 @@ define([
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        download: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        download: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();</pre></div></div>
             
         </li>
         
@@ -417,8 +407,8 @@ define([
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (!<span class="keyword">this</span>.full_download_v) {
-                <span class="keyword">this</span>.full_download_v = <span class="keyword">new</span> FullDownloadView();
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.full_download_v) {
+                <span class="hljs-keyword">this</span>.full_download_v = <span class="hljs-keyword">new</span> FullDownloadView();
             }</pre></div></div>
             
         </li>
@@ -434,8 +424,8 @@ define([
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.setView(<span class="string">"#modal"</span>, <span class="keyword">this</span>.full_download_v).render();
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.setView(<span class="hljs-string">"#modal"</span>, <span class="hljs-keyword">this</span>.full_download_v).render();
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -450,8 +440,8 @@ define([
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.full_download_v.start_full_download()
-                .done(<span class="keyword">function</span>() {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.full_download_v.start_full_download()
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -468,19 +458,19 @@ define([
             
             <div class="content"><div class='highlight'><pre>                    that.fill_status();
                     notifs_view.add_alert({
-                        notif_type: <span class="string">"success"</span>,
-                        message: <span class="string">"Successfully downloaded the database"</span>
+                        notif_type: <span class="hljs-string">"success"</span>,
+                        message: <span class="hljs-string">"Successfully downloaded the database"</span>
                     });
                     dfd.resolve();
                 })
-                .fail(<span class="keyword">function</span>(error) {
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                     notifs_view.add_alert({
-                        notif_type: <span class="string">"error"</span>,
-                        message: <span class="string">"Failed to download the database : "</span> + error
+                        notif_type: <span class="hljs-string">"error"</span>,
+                        message: <span class="hljs-string">"Failed to download the database : "</span> + error
                     });
                     dfd.reject();
                 });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -496,9 +486,9 @@ define([
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        reset: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> val = confirm(<span class="string">"Your database will be deleted and downloaded again. Are you sure you want to continue?"</span>)
-            <span class="keyword">if</span> (val == <span class="literal">true</span>) {
+            <div class="content"><div class='highlight'><pre>        reset: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> val = confirm(<span class="hljs-string">"Your database will be deleted and downloaded again. Are you sure you want to continue?"</span>)
+            <span class="hljs-keyword">if</span> (val == <span class="hljs-literal">true</span>) {
                 Offline.reset_database();
             }
         }
@@ -519,7 +509,7 @@ define([
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">return</span> StatusView;
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">return</span> StatusView;
 });</pre></div></div>
             
         </li>

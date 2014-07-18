@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -177,10 +167,10 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>define([<span class="string">'jquery'</span>, <span class="string">'underscore'</span>, <span class="string">'backbone'</span>, <span class="string">'views/app_layout'</span>, <span class="string">'configs'</span>, <span class="string">'auth'</span>], <span class="keyword">function</span>(jquery, underscore, backbone, AppLayout, configs, Auth) {
+            <div class="content"><div class='highlight'><pre>define([<span class="hljs-string">'jquery'</span>, <span class="hljs-string">'underscore'</span>, <span class="hljs-string">'backbone'</span>, <span class="hljs-string">'views/app_layout'</span>, <span class="hljs-string">'configs'</span>, <span class="hljs-string">'auth'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(jquery, underscore, backbone, AppLayout, configs, Auth)</span> {</span>
 
-    <span class="keyword">var</span> initialize = <span class="keyword">function</span>() {
-        console.log(<span class="string">"Initializing router"</span>);</pre></div></div>
+    <span class="hljs-keyword">var</span> initialize = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        console.log(<span class="hljs-string">"Initializing router"</span>);</pre></div></div>
             
         </li>
         
@@ -195,7 +185,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="keyword">var</span> app_router = <span class="keyword">new</span> AppRouter();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> app_router = <span class="hljs-keyword">new</span> AppRouter();</pre></div></div>
             
         </li>
         
@@ -228,7 +218,7 @@
             <div class="content"><div class='highlight'><pre>        Backbone.history.start();
     };
 
-    <span class="keyword">var</span> AppRouter = Backbone.Router.extend({</pre></div></div>
+    <span class="hljs-keyword">var</span> AppRouter = Backbone.Router.extend({</pre></div></div>
             
         </li>
         
@@ -244,39 +234,19 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>        routes: {
-            <span class="string">""</span>: <span class="string">"home"</span>,
-            <span class="string">":entity/list"</span>: <span class="string">"list"</span>,
-            <span class="string">":entity/add"</span>: <span class="string">"add"</span>,
-            <span class="string">":entity/edit/:id"</span>: <span class="string">"edit"</span>,
-            <span class="string">"login"</span>: <span class="string">"login"</span>
+            <span class="hljs-string">""</span>: <span class="hljs-string">"home"</span>,
+            <span class="hljs-string">":entity/list"</span>: <span class="hljs-string">"list"</span>,
+            <span class="hljs-string">":entity/add"</span>: <span class="hljs-string">"add"</span>,
+            <span class="hljs-string">":entity/edit/:id"</span>: <span class="hljs-string">"edit"</span>,
+            <span class="hljs-string">"login"</span>: <span class="hljs-string">"login"</span>
         },
-        home: <span class="keyword">function</span>() {
-            <span class="keyword">this</span>.check_login_wrapper()
-                .done(<span class="keyword">function</span>() {
+        home: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">this</span>.check_login_wrapper()
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                 AppLayout.render_home_view();
             });
         },
-        list: <span class="keyword">function</span>(entity_name) {
-            <span class="keyword">this</span>.check_login_wrapper()
-                .done(<span class="keyword">function</span>() {
-                AppLayout.render_list_view(entity_name);
-            });
-        },
-        add: <span class="keyword">function</span>(entity_name) {
-            <span class="keyword">this</span>.check_login_wrapper()
-                .done(<span class="keyword">function</span>() {
-                AppLayout.render_add_edit_view(entity_name, <span class="literal">null</span>);
-            });
-        },
-        edit: <span class="keyword">function</span>(entity_name, id) {
-            <span class="keyword">this</span>.check_login_wrapper()
-                .done(<span class="keyword">function</span>() {
-                AppLayout.render_add_edit_view(entity_name, parseInt(id));
-            });
-        },
-        login: <span class="keyword">function</span>() {
-            AppLayout.render_login();
-        },</pre></div></div>
+        list: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name)</span> {</span></pre></div></div>
             
         </li>
         
@@ -287,17 +257,21 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>check_login wrapper for checking whether user is logged in before routing to any of the above defined routes </p>
+              <p>Check if entity present in url is valid or not and if list view of that entity is enable in case it is valid</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        check_login_wrapper: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            console.log(<span class="string">"Authenticating before routing"</span>);
-            Auth.check_login()
-                .fail(<span class="keyword">function</span>(err) {
-                console.log(<span class="string">"UnAuthenticated"</span>);
-                dfd.reject();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        	<span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.entity_valid(entity_name) &amp;&amp; <span class="hljs-keyword">this</span>.entity_list_enabled(entity_name)){
+        		<span class="hljs-keyword">this</span>.check_login_wrapper()
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+                    AppLayout.render_list_view(entity_name);
+                });
+        	}
+        	<span class="hljs-keyword">else</span>{
+        		alert(<span class="hljs-string">"You are not authorized to view this page. Please contact your administrator."</span>);
+        	}
+        },
+        add: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name)</span> {</span></pre></div></div>
             
         </li>
         
@@ -308,24 +282,175 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
+              <p>Check if entity present in url is valid or not and if add view of that entity is enable in case it is valid</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        	<span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.entity_valid(entity_name) &amp;&amp; <span class="hljs-keyword">this</span>.entity_add_enabled(entity_name)){
+        		<span class="hljs-keyword">this</span>.check_login_wrapper()
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+                    AppLayout.render_add_edit_view(entity_name, <span class="hljs-literal">null</span>);
+                });
+        	}
+        	<span class="hljs-keyword">else</span>{
+        		alert(<span class="hljs-string">"You are not authorized to view this page. Please contact your administrator."</span>);
+        	}
+            
+        },
+        edit: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, id)</span> {</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Check if entity present in url is valid or not and if edit view of that entity is enable in case it is valid</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        	<span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.entity_valid(entity_name) &amp;&amp; <span class="hljs-keyword">this</span>.entity_add_enabled(entity_name)){
+        		<span class="hljs-keyword">this</span>.check_login_wrapper()
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+                    AppLayout.render_add_edit_view(entity_name, <span class="hljs-built_in">parseInt</span>(id));
+                });
+        	}
+        	<span class="hljs-keyword">else</span>{
+        		alert(<span class="hljs-string">"You are not authorized to view this page. Please contact your administrator."</span>);
+        	}
+        },
+        login: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            AppLayout.render_login();
+        },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Check if user entered wrong entity name in url.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        entity_valid: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name)</span>{</span>
+        	<span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> configs[entity_name] == <span class="hljs-string">'undefined'</span>){
+        		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        	}
+        	<span class="hljs-keyword">else</span>{
+        		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        	}
+        },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Check if list view was allowed in configs so that user may not directly enter the url and access table</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        entity_list_enabled: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name)</span>{</span>
+            <span class="hljs-keyword">var</span> listing = <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">if</span>(configs[entity_name].dashboard_display)
+            {
+            	listing = configs[entity_name].dashboard_display.listing;
+            }
+            <span class="hljs-keyword">return</span> listing;
+        },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Check if add view was allowed in configs so that user may not directly enter the url and access form</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        entity_add_enabled: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name)</span>{</span>
+            <span class="hljs-keyword">var</span> add = <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">var</span> enable_months;
+            <span class="hljs-keyword">if</span>(configs[entity_name].dashboard_display)
+            {
+                add = configs[entity_name].dashboard_display.add;
+                enable_months = configs[entity_name].dashboard_display.enable_months;
+            }
+            <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> enable_months != <span class="hljs-string">'undefined'</span>){
+            	<span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+                n = d.getMonth();
+                n=n+<span class="hljs-number">1</span>;
+                res=$.inArray(n, enable_months);
+                <span class="hljs-keyword">if</span>(res === -<span class="hljs-number">1</span>){
+                	add=<span class="hljs-literal">false</span>;
+                }
+            }
+            <span class="hljs-keyword">return</span> add;
+        },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>check_login wrapper for checking whether user is logged in before routing to any of the above defined routes </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        check_login_wrapper: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            console.log(<span class="hljs-string">"Authenticating before routing"</span>);
+            Auth.check_login()
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err)</span> {</span>
+                console.log(<span class="hljs-string">"UnAuthenticated"</span>);
+                dfd.reject();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
               <p>navigate to login url if user is not logged in</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                window.Router.navigate(<span class="string">"login"</span>, {
-                    trigger: <span class="literal">true</span>
+            <div class="content"><div class='highlight'><pre>                window.Router.navigate(<span class="hljs-string">"login"</span>, {
+                    trigger: <span class="hljs-literal">true</span>
                 });
             })
-                .done(<span class="keyword">function</span>() {
-                console.log(<span class="string">"Authenticated"</span>);
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                console.log(<span class="hljs-string">"Authenticated"</span>);
                 dfd.resolve();
             });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         }
 
     });
 
-    <span class="keyword">return</span> {
+    <span class="hljs-keyword">return</span> {
         initialize: initialize
     };
 });</pre></div></div>

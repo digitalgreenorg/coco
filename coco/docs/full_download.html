@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -184,26 +174,26 @@ external code which flushes the database before calling this module.</p>
             
             <div class="content"><div class='highlight'><pre>
 define([
-    <span class="string">'jquery'</span>,
-    <span class="string">'underscore'</span>,
-    <span class="string">'layoutmanager'</span>,
-    <span class="string">'indexeddb_backbone_config'</span>,
-    <span class="string">'configs'</span>,
-    <span class="string">'offline_utils'</span>,
-    <span class="string">'bootstrapjs'</span>
-], <span class="keyword">function</span>(jquery, underscore, layoutmanager, indexeddb, all_configs, Offline) {
+    <span class="hljs-string">'jquery'</span>,
+    <span class="hljs-string">'underscore'</span>,
+    <span class="hljs-string">'layoutmanager'</span>,
+    <span class="hljs-string">'indexeddb_backbone_config'</span>,
+    <span class="hljs-string">'configs'</span>,
+    <span class="hljs-string">'offline_utils'</span>,
+    <span class="hljs-string">'bootstrapjs'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(jquery, underscore, layoutmanager, indexeddb, all_configs, Offline)</span> {</span>
 
 
-    <span class="keyword">var</span> FullDownloadView = Backbone.Layout.extend({
+    <span class="hljs-keyword">var</span> FullDownloadView = Backbone.Layout.extend({
 
-        initialize: <span class="keyword">function</span>() {
-            _.bindAll(<span class="keyword">this</span>);
+        initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            _.bindAll(<span class="hljs-keyword">this</span>);
         },
 
-        template: <span class="string">"#download_template"</span>,
+        template: <span class="hljs-string">"#download_template"</span>,
 
-        internet_connected: <span class="keyword">function</span>() {
-            <span class="keyword">return</span> navigator.onLine;
+        internet_connected: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">return</span> navigator.onLine;
         },</pre></div></div>
             
         </li>
@@ -219,14 +209,14 @@ define([
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        serialize: <span class="keyword">function</span>() {
-            <span class="keyword">return</span> {
+            <div class="content"><div class='highlight'><pre>        serialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">return</span> {
                 all_configs: all_configs
             }
         },
 
         events: {
-            <span class="string">'click #stop_full_download'</span>: <span class="string">'stop_download'</span>
+            <span class="hljs-string">'click #stop_full_download'</span>: <span class="hljs-string">'stop_download'</span>
         },</pre></div></div>
             
         </li>
@@ -242,8 +232,8 @@ define([
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        stop_download: <span class="keyword">function</span>() {
-            console.log(<span class="string">"stopping download"</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        stop_download: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            console.log(<span class="hljs-string">"stopping download"</span>);</pre></div></div>
             
         </li>
         
@@ -258,7 +248,7 @@ define([
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.remove_ui();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.remove_ui();</pre></div></div>
             
         </li>
         
@@ -273,15 +263,15 @@ define([
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            $.each(<span class="keyword">this</span>.network_requests, <span class="keyword">function</span>(index, xhr) {
+            <div class="content"><div class='highlight'><pre>            $.each(<span class="hljs-keyword">this</span>.network_requests, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(index, xhr)</span> {</span>
                 xhr.abort();
             });
 
-            <span class="keyword">this</span>.full_download_dfd.reject(<span class="string">"User stopped download"</span>);
+            <span class="hljs-keyword">this</span>.full_download_dfd.reject(<span class="hljs-string">"User stopped download"</span>);
 
         },
 
-        remove_ui: <span class="keyword">function</span>() {</pre></div></div>
+        remove_ui: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -292,12 +282,12 @@ define([
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>calling remove without hiding modal causes modal&#39;s backdrop to remain</p>
+              <p>calling remove without hiding modal causes modal’s backdrop to remain</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.$(<span class="string">'#full_download_modal'</span>).modal(<span class="string">'hide'</span>);
-            <span class="keyword">this</span>.remove();
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#full_download_modal'</span>).modal(<span class="hljs-string">'hide'</span>);
+            <span class="hljs-keyword">this</span>.remove();
         },</pre></div></div>
             
         </li>
@@ -311,12 +301,12 @@ define([
               </div>
               <p>Checks internet connectivity
 Initializes UI and objects used to update status. 
-Fetches the full_download_info objectStore to resume download, if that&#39;s the case
+Fetches the full_download_info objectStore to resume download, if that’s the case
 Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        initialize_download: <span class="keyword">function</span>() {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        initialize_download: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -331,7 +321,7 @@ Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.start_time = <span class="keyword">new</span> Date().toJSON().replace(<span class="string">"Z"</span>, <span class="string">""</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.start_time = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toJSON().replace(<span class="hljs-string">"Z"</span>, <span class="hljs-string">""</span>);</pre></div></div>
             
         </li>
         
@@ -346,7 +336,7 @@ Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (!<span class="keyword">this</span>.internet_connected()) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.internet_connected()) {</pre></div></div>
             
         </li>
         
@@ -361,9 +351,9 @@ Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-                dfd.reject(<span class="string">"Can't download database. Internet is not connected"</span>);
-                <span class="keyword">return</span> dfd;
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+                dfd.reject(<span class="hljs-string">"Can't download database. Internet is not connected"</span>);
+                <span class="hljs-keyword">return</span> dfd;
             }</pre></div></div>
             
         </li>
@@ -379,11 +369,11 @@ Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.$(<span class="string">'#full_download_modal'</span>).modal({
-                keyboard: <span class="literal">false</span>,
-                backdrop: <span class="string">"static"</span>,
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#full_download_modal'</span>).modal({
+                keyboard: <span class="hljs-literal">false</span>,
+                backdrop: <span class="hljs-string">"static"</span>,
             });
-            <span class="keyword">this</span>.$(<span class="string">'#full_download_modal'</span>).modal(<span class="string">'show'</span>);</pre></div></div>
+            <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#full_download_modal'</span>).modal(<span class="hljs-string">'show'</span>);</pre></div></div>
             
         </li>
         
@@ -398,7 +388,7 @@ Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.download_status = {};</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.download_status = {};</pre></div></div>
             
         </li>
         
@@ -413,7 +403,7 @@ Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.network_requests = [];</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.network_requests = [];</pre></div></div>
             
         </li>
         
@@ -428,7 +418,7 @@ Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> already_downloaded_chunks_dfd = <span class="keyword">this</span>.get_already_downloaded_chunks();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> already_downloaded_chunks_dfd = <span class="hljs-keyword">this</span>.get_already_downloaded_chunks();</pre></div></div>
             
         </li>
         
@@ -443,7 +433,7 @@ Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> start_time_dfd = <span class="keyword">this</span>.fetch_or_set_download_start_time();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> start_time_dfd = <span class="hljs-keyword">this</span>.fetch_or_set_download_start_time();</pre></div></div>
             
         </li>
         
@@ -458,7 +448,7 @@ Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">return</span> $.when.apply($, [already_downloaded_chunks_dfd, start_time_dfd]);
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">return</span> $.when.apply($, [already_downloaded_chunks_dfd, start_time_dfd]);
         },</pre></div></div>
             
         </li>
@@ -474,18 +464,18 @@ Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_already_downloaded_chunks: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;
-            Offline.fetch_collection(<span class="string">"full_download_info"</span>)
-                .done(<span class="keyword">function</span>(coll) {
+            <div class="content"><div class='highlight'><pre>        get_already_downloaded_chunks: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+            Offline.fetch_collection(<span class="hljs-string">"full_download_info"</span>)
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(coll)</span> {</span>
                     that.full_download_info_coll = coll;
                     dfd.resolve();
                 })
-                .fail(<span class="keyword">function</span>(error) {
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                     dfd.reject(error);
                 });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
 
         },</pre></div></div>
             
@@ -502,28 +492,28 @@ Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        fetch_or_set_download_start_time: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;
-            Offline.fetch_object(<span class="string">"meta_data"</span>, <span class="string">"key"</span>, <span class="string">"last_full_download_start"</span>)
-                .fail(<span class="keyword">function</span>(model, error) {
+            <div class="content"><div class='highlight'><pre>        fetch_or_set_download_start_time: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+            Offline.fetch_object(<span class="hljs-string">"meta_data"</span>, <span class="hljs-string">"key"</span>, <span class="hljs-string">"last_full_download_start"</span>)
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span>
                     that.set_timestamp(model, that.start_time)
-                        .done(<span class="keyword">function</span>() {
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                             dfd.resolve();
                         })
-                        .fail(<span class="keyword">function</span>(error) {
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                             dfd.reject(error);
                         });
                 })
-                .done(<span class="keyword">function</span>(model) {
-                    that.start_time = model.get(<span class="string">"timestamp"</span>);
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span> {</span>
+                    that.start_time = model.get(<span class="hljs-string">"timestamp"</span>);
                     dfd.resolve();
                 });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },
 
-        set_timestamp: <span class="keyword">function</span>(model, timestamp) {
-            model.set(<span class="string">'timestamp'</span>, timestamp);</pre></div></div>
+        set_timestamp: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, timestamp)</span> {</span>
+            model.set(<span class="hljs-string">'timestamp'</span>, timestamp);</pre></div></div>
             
         </li>
         
@@ -538,7 +528,7 @@ Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">return</span> model.save(); 
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">return</span> model.save(); 
         },</pre></div></div>
             
         </li>
@@ -554,9 +544,9 @@ Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        start_full_download: <span class="keyword">function</span>() {
-            <span class="keyword">this</span>.full_download_dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        start_full_download: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">this</span>.full_download_dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -571,8 +561,8 @@ Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.initialize_download()
-                .done(<span class="keyword">function</span>() {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.initialize_download()
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -588,7 +578,7 @@ Stores the start time for download</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                    that.iterate_object_stores()
-                        .done(<span class="keyword">function</span>() {</pre></div></div>
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -604,7 +594,7 @@ Stores the start time for download</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                            that.finish_download()
-                                .done(<span class="keyword">function</span>() {</pre></div></div>
+                                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -620,7 +610,7 @@ Stores the start time for download</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                                    that.call_after_download()
-                                        .done(<span class="keyword">function</span>() {</pre></div></div>
+                                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -638,7 +628,7 @@ Stores the start time for download</p>
             <div class="content"><div class='highlight'><pre>                                            that.remove_ui();
                                             that.full_download_dfd.resolve();
                                         })
-                                        .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -657,7 +647,7 @@ Stores the start time for download</p>
                                             that.full_download_dfd.reject(error);
                                         });
                                 })
-                                .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -676,7 +666,7 @@ Stores the start time for download</p>
                                     that.full_download_dfd.reject(error);
                                 });
                         })
-                        .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -695,7 +685,7 @@ Stores the start time for download</p>
                             that.full_download_dfd.reject(error);
                         })
                 })
-                .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -714,7 +704,7 @@ Stores the start time for download</p>
                     that.full_download_dfd.reject(error);
                 });
 
-            <span class="keyword">return</span> <span class="keyword">this</span>.full_download_dfd;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.full_download_dfd;
         },</pre></div></div>
             
         </li>
@@ -730,7 +720,7 @@ Stores the start time for download</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        call_after_download: <span class="keyword">function</span>() {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        call_after_download: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -746,10 +736,10 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (all_configs.misc.afterFullDownload)
-                <span class="keyword">return</span> all_configs.misc.afterFullDownload(<span class="keyword">this</span>.start_time, <span class="keyword">this</span>.download_status) 
-            <span class="keyword">else</span>
-                <span class="keyword">return</span> <span class="keyword">new</span> $.Deferred().resolve();
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (all_configs.misc.afterFullDownload)
+                <span class="hljs-keyword">return</span> all_configs.misc.afterFullDownload(<span class="hljs-keyword">this</span>.start_time, <span class="hljs-keyword">this</span>.download_status) 
+            <span class="hljs-keyword">else</span>
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> $.Deferred().resolve();
         },</pre></div></div>
             
         </li>
@@ -766,9 +756,9 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        iterate_object_stores: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">this</span>.$(<span class="string">'#stop_full_download'</span>).prop(<span class="string">"disabled"</span>, <span class="literal">false</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        iterate_object_stores: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#stop_full_download'</span>).prop(<span class="hljs-string">"disabled"</span>, <span class="hljs-literal">false</span>);</pre></div></div>
             
         </li>
         
@@ -779,11 +769,11 @@ must return a promise</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-33">&#182;</a>
               </div>
-              <p>stores the dfds for each entity&#39;s download process</p>
+              <p>stores the dfds for each entity’s download process</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> entity_dfds = [];</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> entity_dfds = [];</pre></div></div>
             
         </li>
         
@@ -798,9 +788,9 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">for</span> (<span class="keyword">var</span> member <span class="keyword">in</span> all_configs) {
-                <span class="keyword">if</span> (member == <span class="string">"misc"</span>)
-                    <span class="keyword">continue</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> member <span class="hljs-keyword">in</span> all_configs) {
+                <span class="hljs-keyword">if</span> (member == <span class="hljs-string">"misc"</span>)
+                    <span class="hljs-keyword">continue</span>;</pre></div></div>
             
         </li>
         
@@ -815,9 +805,9 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">this</span>.download_status[member] = {
-                    total: <span class="literal">null</span>,
-                    downloaded: <span class="number">0</span>
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">this</span>.download_status[member] = {
+                    total: <span class="hljs-literal">null</span>,
+                    downloaded: <span class="hljs-number">0</span>
                 };</pre></div></div>
             
         </li>
@@ -833,7 +823,7 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">var</span> entity_dfd = <span class="keyword">this</span>.start_full_download_for_entity(all_configs[member][<span class="string">"entity_name"</span>]);
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">var</span> entity_dfd = <span class="hljs-keyword">this</span>.start_full_download_for_entity(all_configs[member][<span class="hljs-string">"entity_name"</span>]);
                 entity_dfds.push(entity_dfd);
             }</pre></div></div>
             
@@ -851,13 +841,13 @@ must return a promise</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>            $.when.apply($, entity_dfds)
-                .done(<span class="keyword">function</span>() {
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                     dfd.resolve();
                 })
-                .fail(<span class="keyword">function</span>(error) {
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                     dfd.reject(error);
                 });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -873,7 +863,7 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        update_pb_ui: <span class="keyword">function</span>() {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        update_pb_ui: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -884,13 +874,13 @@ must return a promise</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-39">&#182;</a>
               </div>
-              <p>can&#39;t fill progress bar untill total num of objects is known</p>
+              <p>can’t fill progress bar untill total num of objects is known</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> ready_to_show = <span class="literal">true</span>;
-            <span class="keyword">var</span> total = <span class="number">0</span>;
-            <span class="keyword">var</span> downloaded = <span class="number">0</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> ready_to_show = <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">var</span> total = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">var</span> downloaded = <span class="hljs-number">0</span>;</pre></div></div>
             
         </li>
         
@@ -905,7 +895,7 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            _.each(<span class="keyword">this</span>.download_status, <span class="keyword">function</span>(status, entity) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            _.each(<span class="hljs-keyword">this</span>.download_status, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(status, entity)</span> {</span></pre></div></div>
             
         </li>
         
@@ -916,14 +906,14 @@ must return a promise</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-41">&#182;</a>
               </div>
-              <p>if total objects for any entity are not yet known, then can&#39;t show the progress</p>
+              <p>if total objects for any entity are not yet known, then can’t show the progress</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">if</span> (status.total == <span class="literal">null</span>) {
-                    ready_to_show = <span class="literal">false</span>;
-                    <span class="keyword">return</span>;
-                } <span class="keyword">else</span> {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">if</span> (status.total == <span class="hljs-literal">null</span>) {
+                    ready_to_show = <span class="hljs-literal">false</span>;
+                    <span class="hljs-keyword">return</span>;
+                } <span class="hljs-keyword">else</span> {</pre></div></div>
             
         </li>
         
@@ -957,8 +947,8 @@ must return a promise</p>
                 }
             });
 
-            <span class="keyword">if</span> (!ready_to_show)
-                <span class="keyword">return</span>;</pre></div></div>
+            <span class="hljs-keyword">if</span> (!ready_to_show)
+                <span class="hljs-keyword">return</span>;</pre></div></div>
             
         </li>
         
@@ -973,8 +963,8 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> percent_complete = (downloaded / total) * <span class="number">100</span> + <span class="string">"%"</span>;
-            $(<span class="string">'#pbar'</span>).css(<span class="string">"width"</span>, percent_complete);
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> percent_complete = (downloaded / total) * <span class="hljs-number">100</span> + <span class="hljs-string">"%"</span>;
+            $(<span class="hljs-string">'#pbar'</span>).css(<span class="hljs-string">"width"</span>, percent_complete);
         },</pre></div></div>
             
         </li>
@@ -990,7 +980,7 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        update_status_ui: <span class="keyword">function</span>(entity_name) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        update_status_ui: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1005,7 +995,7 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> downloaded = <span class="keyword">this</span>.download_status[entity_name].downloaded;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> downloaded = <span class="hljs-keyword">this</span>.download_status[entity_name].downloaded;</pre></div></div>
             
         </li>
         
@@ -1020,7 +1010,7 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> total = <span class="keyword">this</span>.download_status[entity_name].total;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> total = <span class="hljs-keyword">this</span>.download_status[entity_name].total;</pre></div></div>
             
         </li>
         
@@ -1035,9 +1025,9 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> s_text = <span class="string">"In Progress"</span>;
-            <span class="keyword">if</span> (downloaded &gt;= total)
-                s_text = <span class="string">"Done"</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> s_text = <span class="hljs-string">"In Progress"</span>;
+            <span class="hljs-keyword">if</span> (downloaded &gt;= total)
+                s_text = <span class="hljs-string">"Done"</span>;</pre></div></div>
             
         </li>
         
@@ -1052,7 +1042,7 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> s_num = String(downloaded) + <span class="string">"/"</span> + String(total);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> s_num = <span class="hljs-built_in">String</span>(downloaded) + <span class="hljs-string">"/"</span> + <span class="hljs-built_in">String</span>(total);</pre></div></div>
             
         </li>
         
@@ -1067,8 +1057,8 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.$(<span class="string">'#'</span> + entity_name).find(<span class="string">'.status_text'</span>).html(s_text);
-            <span class="keyword">this</span>.$(<span class="string">'#'</span> + entity_name).find(<span class="string">'.status_numbers'</span>).html(s_num);
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#'</span> + entity_name).find(<span class="hljs-string">'.status_text'</span>).html(s_text);
+            <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#'</span> + entity_name).find(<span class="hljs-string">'.status_numbers'</span>).html(s_num);
         },</pre></div></div>
             
         </li>
@@ -1084,9 +1074,9 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        start_full_download_for_entity: <span class="keyword">function</span>(entity_name) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        start_full_download_for_entity: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -1102,7 +1092,7 @@ must return a promise</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>            that.get_num_of_objects_to_download(entity_name)
-                .done(<span class="keyword">function</span>(total_num_objects) {</pre></div></div>
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(total_num_objects)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1118,7 +1108,7 @@ must return a promise</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                    that.chunk_it_fetch_it_save_it(entity_name, total_num_objects)
-                        .done(<span class="keyword">function</span>() {</pre></div></div>
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -1133,10 +1123,10 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            console.log(<span class="string">"FINISHED DOWNLOADING - "</span> + entity_name);
-                            <span class="keyword">return</span> dfd.resolve();
+            <div class="content"><div class='highlight'><pre>                            console.log(<span class="hljs-string">"FINISHED DOWNLOADING - "</span> + entity_name);
+                            <span class="hljs-keyword">return</span> dfd.resolve();
                         })
-                        .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1151,10 +1141,10 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            <span class="keyword">return</span> dfd.reject(error);
+            <div class="content"><div class='highlight'><pre>                            <span class="hljs-keyword">return</span> dfd.reject(error);
                         });
                 })
-                .fail(<span class="keyword">function</span>() {</pre></div></div>
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -1169,10 +1159,10 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    console.log(<span class="string">"DASHBOARD:DOWNLOAD:UnexpectedError: Error fetching num of objects to download for - "</span> + entity_name);
-                    <span class="keyword">return</span> dfd.reject(<span class="string">"Failed to fetch num of objects for - "</span> + entity_name);
+            <div class="content"><div class='highlight'><pre>                    console.log(<span class="hljs-string">"DASHBOARD:DOWNLOAD:UnexpectedError: Error fetching num of objects to download for - "</span> + entity_name);
+                    <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-string">"Failed to fetch num of objects for - "</span> + entity_name);
                 });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -1188,9 +1178,9 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        get_num_of_objects_to_download: <span class="keyword">function</span>(entity_name) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            console.log(<span class="string">"DASHBOARD:DOWNLOAD: Fetching num of objects to download for - "</span> + entity_name);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        get_num_of_objects_to_download: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            console.log(<span class="hljs-string">"DASHBOARD:DOWNLOAD: Fetching num of objects to download for - "</span> + entity_name);</pre></div></div>
             
         </li>
         
@@ -1205,10 +1195,10 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> xhr = $.get(all_configs[entity_name].rest_api_url, {
-                limit: <span class="number">1</span>,
-                offset: <span class="number">0</span>
-            }, <span class="keyword">function</span>(data) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> xhr = $.get(all_configs[entity_name].rest_api_url, {
+                limit: <span class="hljs-number">1</span>,
+                offset: <span class="hljs-number">0</span>
+            }, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1223,13 +1213,13 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">if</span> (data &amp;&amp; data.meta)
-                    <span class="keyword">return</span> dfd.resolve(data.meta.total_count);
-                <span class="keyword">else</span>
-                    <span class="keyword">return</span> dfd.reject();
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">if</span> (data &amp;&amp; data.meta)
+                    <span class="hljs-keyword">return</span> dfd.resolve(data.meta.total_count);
+                <span class="hljs-keyword">else</span>
+                    <span class="hljs-keyword">return</span> dfd.reject();
             });
-            <span class="keyword">this</span>.network_requests.push(xhr);
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">this</span>.network_requests.push(xhr);
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -1245,11 +1235,11 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        update_download_status: <span class="keyword">function</span>(entity_name, key, increment) {
-            <span class="keyword">var</span> s_obj = <span class="keyword">this</span>.download_status[entity_name];
-            <span class="keyword">if</span> (!s_obj[key])
+            <div class="content"><div class='highlight'><pre>        update_download_status: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, key, increment)</span> {</span>
+            <span class="hljs-keyword">var</span> s_obj = <span class="hljs-keyword">this</span>.download_status[entity_name];
+            <span class="hljs-keyword">if</span> (!s_obj[key])
                 s_obj[key] = increment;
-            <span class="keyword">else</span>
+            <span class="hljs-keyword">else</span>
                 s_obj[key] += increment;</pre></div></div>
             
         </li>
@@ -1265,14 +1255,14 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.update_status_ui(entity_name);
-            <span class="keyword">this</span>.update_pb_ui();
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.update_status_ui(entity_name);
+            <span class="hljs-keyword">this</span>.update_pb_ui();
 
         },
 
-        chunk_it_fetch_it_save_it: <span class="keyword">function</span>(entity_name, total_num_objects) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">this</span>.update_download_status(entity_name, <span class="string">"total"</span>, total_num_objects);</pre></div></div>
+        chunk_it_fetch_it_save_it: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, total_num_objects)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">this</span>.update_download_status(entity_name, <span class="hljs-string">"total"</span>, total_num_objects);</pre></div></div>
             
         </li>
         
@@ -1287,7 +1277,7 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> limit = <span class="number">1500</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> limit = <span class="hljs-number">1500</span>;</pre></div></div>
             
         </li>
         
@@ -1302,7 +1292,7 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (all_configs[entity_name].download_chunk_size) 
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (all_configs[entity_name].download_chunk_size) 
                 limit = all_configs[entity_name].download_chunk_size;</pre></div></div>
             
         </li>
@@ -1318,7 +1308,7 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">else</span> <span class="keyword">if</span> (all_configs.misc.download_chunk_size) 
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (all_configs.misc.download_chunk_size) 
                 limit = all_configs.misc.download_chunk_size;</pre></div></div>
             
         </li>
@@ -1334,11 +1324,11 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> num_chunks = Math.ceil(total_num_objects / limit);
-            console.log(<span class="string">"Num of chunks for - "</span> + entity_name + <span class="string">" = "</span> + num_chunks);
-            <span class="keyword">var</span> offset = <span class="number">0</span>;
-            <span class="keyword">var</span> chunk_dfds = [];
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> num_chunks = <span class="hljs-built_in">Math</span>.ceil(total_num_objects / limit);
+            console.log(<span class="hljs-string">"Num of chunks for - "</span> + entity_name + <span class="hljs-string">" = "</span> + num_chunks);
+            <span class="hljs-keyword">var</span> offset = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">var</span> chunk_dfds = [];
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -1353,9 +1343,9 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; num_chunks; i++) {
-                <span class="keyword">var</span> chunk_dfd = <span class="keyword">this</span>.process_chunk(entity_name, offset, limit);
-                chunk_dfd.done(<span class="keyword">function</span>(num_objects_saved) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; num_chunks; i++) {
+                <span class="hljs-keyword">var</span> chunk_dfd = <span class="hljs-keyword">this</span>.process_chunk(entity_name, offset, limit);
+                chunk_dfd.done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(num_objects_saved)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1370,7 +1360,7 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    that.update_download_status(entity_name, <span class="string">"downloaded"</span>, num_objects_saved);
+            <div class="content"><div class='highlight'><pre>                    that.update_download_status(entity_name, <span class="hljs-string">"downloaded"</span>, num_objects_saved);
                 });
                 chunk_dfds.push(chunk_dfd);
                 offset += limit;
@@ -1385,23 +1375,23 @@ must return a promise</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-68">&#182;</a>
               </div>
-              <p>resolve when all chunks of this entity are processed...</p>
+              <p>resolve when all chunks of this entity are processed…</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>            $.when.apply($, chunk_dfds)
-                .done(<span class="keyword">function</span>() {
-                    <span class="keyword">return</span> dfd.resolve();
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    <span class="hljs-keyword">return</span> dfd.resolve();
                 })
-                .fail(<span class="keyword">function</span>(error) {
-                    <span class="keyword">return</span> dfd.reject(error);
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
+                    <span class="hljs-keyword">return</span> dfd.reject(error);
                 });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },
 
-        process_chunk: <span class="keyword">function</span>(entity_name, offset, limit) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+        process_chunk: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, offset, limit)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -1416,7 +1406,7 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">var</span> num_downloaded = <span class="keyword">this</span>.is_already_downloaded(entity_name, offset, limit);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> num_downloaded = <span class="hljs-keyword">this</span>.is_already_downloaded(entity_name, offset, limit);</pre></div></div>
             
         </li>
         
@@ -1431,9 +1421,9 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (num_downloaded != -<span class="number">1</span>)
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (num_downloaded != -<span class="hljs-number">1</span>)
                 dfd.resolve(num_downloaded);
-            <span class="keyword">else</span> {</pre></div></div>
+            <span class="hljs-keyword">else</span> {</pre></div></div>
             
         </li>
         
@@ -1448,8 +1438,8 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">this</span>.fetch_save(entity_name, offset, limit)
-                    .done(<span class="keyword">function</span>(num_downloaded) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">this</span>.fetch_save(entity_name, offset, limit)
+                    .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(num_downloaded)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1481,7 +1471,7 @@ must return a promise</p>
             
             <div class="content"><div class='highlight'><pre>                        dfd.resolve(num_downloaded);
                     })
-                    .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                    .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1500,7 +1490,7 @@ must return a promise</p>
                     });
             }
 
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -1516,8 +1506,8 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        is_already_downloaded: <span class="keyword">function</span>(entity_name, offset, limit) {
-            <span class="keyword">var</span> exists = <span class="keyword">this</span>.full_download_info_coll.where({
+            <div class="content"><div class='highlight'><pre>        is_already_downloaded: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, offset, limit)</span> {</span>
+            <span class="hljs-keyword">var</span> exists = <span class="hljs-keyword">this</span>.full_download_info_coll.where({
                 entity_name: entity_name,
                 offset: offset,
                 limit: limit
@@ -1536,11 +1526,11 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">if</span> (exists.length) {
-                console.log(<span class="string">"CHUNK ALREADY EXISTS DOWNLOADED"</span>);
-                <span class="keyword">return</span> exists[<span class="number">0</span>].get(<span class="string">"num_objects_downloaded"</span>);
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span> (exists.length) {
+                console.log(<span class="hljs-string">"CHUNK ALREADY EXISTS DOWNLOADED"</span>);
+                <span class="hljs-keyword">return</span> exists[<span class="hljs-number">0</span>].get(<span class="hljs-string">"num_objects_downloaded"</span>);
             }
-            <span class="keyword">return</span> -<span class="number">1</span>
+            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>
         },</pre></div></div>
             
         </li>
@@ -1556,15 +1546,15 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        save_as_downloaded: <span class="keyword">function</span>(entity_name, offset, limit, num_downloaded) {
-            <span class="keyword">this</span>.full_download_info_coll.create({
+            <div class="content"><div class='highlight'><pre>        save_as_downloaded: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, offset, limit, num_downloaded)</span> {</span>
+            <span class="hljs-keyword">this</span>.full_download_info_coll.create({
                 entity_name: entity_name,
                 offset: offset,
                 limit: limit,
                 num_objects_downloaded: num_downloaded
             }, {
-                success: <span class="keyword">function</span>(model) {
-                    console.log(<span class="string">"CHUNK SAVED AS DOWNLOADED-"</span> + JSON.stringify(model));
+                success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span> {</span>
+                    console.log(<span class="hljs-string">"CHUNK SAVED AS DOWNLOADED-"</span> + <span class="hljs-built_in">JSON</span>.stringify(model));
                 }
             });
         },</pre></div></div>
@@ -1582,9 +1572,9 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        fetch_save: <span class="keyword">function</span>(entity_name, offset, limit) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        fetch_save: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, offset, limit)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -1599,8 +1589,8 @@ must return a promise</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="keyword">this</span>.fetch_collection(entity_name, offset, limit)
-                .done(<span class="keyword">function</span>(collection) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.fetch_collection(entity_name, offset, limit)
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(collection)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1616,7 +1606,7 @@ must return a promise</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>                    that.save_collection(entity_name, collection)
-                        .done(<span class="keyword">function</span>() {</pre></div></div>
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -1632,9 +1622,9 @@ return the number of objects downloaded in this chunk</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            <span class="keyword">return</span> dfd.resolve(collection.length);
+            <div class="content"><div class='highlight'><pre>                            <span class="hljs-keyword">return</span> dfd.resolve(collection.length);
                         })
-                        .fail(<span class="keyword">function</span>(error) {</pre></div></div>
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1649,10 +1639,10 @@ return the number of objects downloaded in this chunk</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                            <span class="keyword">return</span> dfd.reject(<span class="string">"DOWNLOAD: Failed to save an object of "</span> + entity_name + <span class="string">" - "</span> + error);
+            <div class="content"><div class='highlight'><pre>                            <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-string">"DOWNLOAD: Failed to save an object of "</span> + entity_name + <span class="hljs-string">" - "</span> + error);
                         });
                 })
-                .fail(<span class="keyword">function</span>() {</pre></div></div>
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
             
         </li>
         
@@ -1667,10 +1657,10 @@ return the number of objects downloaded in this chunk</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    console.log(<span class="string">"DASHBOARD:DOWNLOAD: error fetching collection from server"</span>);
-                    <span class="keyword">return</span> dfd.reject(<span class="string">"DOWNLOAD: Failed to fetch collection for "</span> + entity_name);
+            <div class="content"><div class='highlight'><pre>                    console.log(<span class="hljs-string">"DASHBOARD:DOWNLOAD: error fetching collection from server"</span>);
+                    <span class="hljs-keyword">return</span> dfd.reject(<span class="hljs-string">"DOWNLOAD: Failed to fetch collection for "</span> + entity_name);
                 });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -1687,38 +1677,38 @@ fetches the chunk from server and returns as a backbone collection</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        fetch_collection: <span class="keyword">function</span>(entity_name, offset, limit) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> generic_collection_online = Backbone.Collection.extend({
+            <div class="content"><div class='highlight'><pre>        fetch_collection: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, offset, limit)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> generic_collection_online = Backbone.Collection.extend({
                 url: all_configs[entity_name].rest_api_url,
                 sync: Backbone.ajaxSync,
-                parse: <span class="keyword">function</span>(data) {
-                    <span class="keyword">return</span> data.objects;
+                parse: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> {</span>
+                    <span class="hljs-keyword">return</span> data.objects;
                 }
             });
-            <span class="keyword">var</span> collection_online = <span class="keyword">new</span> generic_collection_online();
-            <span class="keyword">var</span> xhr = collection_online.fetch({
+            <span class="hljs-keyword">var</span> collection_online = <span class="hljs-keyword">new</span> generic_collection_online();
+            <span class="hljs-keyword">var</span> xhr = collection_online.fetch({
                 data: {
                     limit: limit,
                     offset: offset
                 },
-                success: <span class="keyword">function</span>(collection) {
-                    <span class="keyword">return</span> dfd.resolve(collection);
+                success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(collection)</span> {</span>
+                    <span class="hljs-keyword">return</span> dfd.resolve(collection);
                 },
-                error: <span class="keyword">function</span>() {
-                    <span class="keyword">return</span> dfd.reject();
+                error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    <span class="hljs-keyword">return</span> dfd.reject();
                 }
             });
-            <span class="keyword">this</span>.network_requests.push(xhr);
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">this</span>.network_requests.push(xhr);
+            <span class="hljs-keyword">return</span> dfd;
         },
 
-        save_collection: <span class="keyword">function</span>(entity_name, collection) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> objects = collection.toJSON();
-            <span class="keyword">var</span> dfds = [];
-            <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; objects.length; i++) {
-                objects[i][<span class="string">'id'</span>] = parseInt(objects[i][<span class="string">'id'</span>]);</pre></div></div>
+        save_collection: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, collection)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> objects = collection.toJSON();
+            <span class="hljs-keyword">var</span> dfds = [];
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; objects.length; i++) {
+                objects[i][<span class="hljs-string">'id'</span>] = <span class="hljs-built_in">parseInt</span>(objects[i][<span class="hljs-string">'id'</span>]);</pre></div></div>
             
         </li>
         
@@ -1729,11 +1719,11 @@ fetches the chunk from server and returns as a backbone collection</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-85">&#182;</a>
               </div>
-              <p>in each object, inject &#39;online_id&#39; </p>
+              <p>in each object, inject ‘online_id’ </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                objects[i][<span class="string">'online_id'</span>] = parseInt(objects[i][<span class="string">'id'</span>]);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>                objects[i][<span class="hljs-string">'online_id'</span>] = <span class="hljs-built_in">parseInt</span>(objects[i][<span class="hljs-string">'id'</span>]);</pre></div></div>
             
         </li>
         
@@ -1748,7 +1738,7 @@ fetches the chunk from server and returns as a backbone collection</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                <span class="keyword">var</span> s_dfd = <span class="keyword">this</span>.save_object(entity_name, objects[i]);
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">var</span> s_dfd = <span class="hljs-keyword">this</span>.save_object(entity_name, objects[i]);
                 dfds.push(s_dfd);
             }</pre></div></div>
             
@@ -1766,14 +1756,14 @@ fetches the chunk from server and returns as a backbone collection</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>            $.when.apply($, dfds)
-                .done(<span class="keyword">function</span>() {
-                    <span class="keyword">return</span> dfd.resolve();
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    <span class="hljs-keyword">return</span> dfd.resolve();
                 })
-                .fail(<span class="keyword">function</span>(error) {
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                     console.log(error);
-                    <span class="keyword">return</span> dfd.reject();
+                    <span class="hljs-keyword">return</span> dfd.reject();
                 });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -1785,18 +1775,18 @@ fetches the chunk from server and returns as a backbone collection</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-88">&#182;</a>
               </div>
-              <p>custom save to allow constraint error fails - can&#39;t use the offline_utils save</p>
+              <p>custom save to allow constraint error fails - can’t use the offline_utils save</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        save_object: <span class="keyword">function</span>(entity_name, json) {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            <span class="keyword">var</span> model = Offline.create_b_model(entity_name);
+            <div class="content"><div class='highlight'><pre>        save_object: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(entity_name, json)</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            <span class="hljs-keyword">var</span> model = Offline.create_b_model(entity_name);
             model.save(json, {
-                success: <span class="keyword">function</span>() {
-                    <span class="keyword">return</span> dfd.resolve();
+                success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    <span class="hljs-keyword">return</span> dfd.resolve();
                 },
-                error: <span class="keyword">function</span>(model, error) {</pre></div></div>
+                error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span></pre></div></div>
             
         </li>
         
@@ -1811,19 +1801,19 @@ fetches the chunk from server and returns as a backbone collection</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>                    <span class="keyword">if</span> (error.srcElement.error.name == <span class="string">"ConstraintError"</span>) {
-                        <span class="keyword">return</span> dfd.resolve();
+            <div class="content"><div class='highlight'><pre>                    <span class="hljs-keyword">if</span> (error.srcElement.error.name == <span class="hljs-string">"ConstraintError"</span>) {
+                        <span class="hljs-keyword">return</span> dfd.resolve();
                     }
-                    <span class="keyword">return</span> dfd.reject();
+                    <span class="hljs-keyword">return</span> dfd.reject();
                 }
             });
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },
 
-        finish_download: <span class="keyword">function</span>() {
-            <span class="keyword">var</span> dfd = <span class="keyword">new</span> $.Deferred();
-            console.log(<span class="string">"DASHBOARD:DOWNLOAD: In finish download"</span>);
-            <span class="keyword">var</span> that = <span class="keyword">this</span>;
+        finish_download: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> dfd = <span class="hljs-keyword">new</span> $.Deferred();
+            console.log(<span class="hljs-string">"DASHBOARD:DOWNLOAD: In finish download"</span>);
+            <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
             that.db_downloaded();</pre></div></div>
             
         </li>
@@ -1839,27 +1829,27 @@ fetches the chunk from server and returns as a backbone collection</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            Offline.fetch_object(<span class="string">"meta_data"</span>, <span class="string">"key"</span>, <span class="string">"last_full_download"</span>)
-                .done(<span class="keyword">function</span>(model) {
+            <div class="content"><div class='highlight'><pre>            Offline.fetch_object(<span class="hljs-string">"meta_data"</span>, <span class="hljs-string">"key"</span>, <span class="hljs-string">"last_full_download"</span>)
+                .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span> {</span>
                     that.set_timestamp(model, that.start_time)
-                        .done(<span class="keyword">function</span>() {
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                             dfd.resolve();
                         })
-                        .fail(<span class="keyword">function</span>(error) {
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                             dfd.reject(error);
                         });
                 })
-                .fail(<span class="keyword">function</span>(model, error) {
+                .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model, error)</span> {</span>
                     that.set_timestamp(model, that.start_time)
-                        .done(<span class="keyword">function</span>() {
+                        .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
                             dfd.resolve();
                         })
-                        .fail(<span class="keyword">function</span>(error) {
+                        .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> {</span>
                             dfd.reject(error);
                         });
                 });
 
-            <span class="keyword">return</span> dfd;
+            <span class="hljs-keyword">return</span> dfd;
         },</pre></div></div>
             
         </li>
@@ -1875,11 +1865,11 @@ fetches the chunk from server and returns as a backbone collection</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        db_downloaded: <span class="keyword">function</span>() {
-            $(<span class="string">'.list_items'</span>).unbind(<span class="string">'click'</span>, <span class="literal">false</span>);
-            $(<span class="string">'.list_items'</span>).removeClass(<span class="string">"disabled"</span>);
-            console.log(<span class="string">"Dashboard links enabled"</span>);
-            $(<span class="string">"#helptext"</span>).hide();
+            <div class="content"><div class='highlight'><pre>        db_downloaded: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            $(<span class="hljs-string">'.list_items'</span>).unbind(<span class="hljs-string">'click'</span>, <span class="hljs-literal">false</span>);
+            $(<span class="hljs-string">'.list_items'</span>).removeClass(<span class="hljs-string">"disabled"</span>);
+            console.log(<span class="hljs-string">"Dashboard links enabled"</span>);
+            $(<span class="hljs-string">"#helptext"</span>).hide();
         }
 
 
@@ -1887,7 +1877,7 @@ fetches the chunk from server and returns as a backbone collection</p>
 
     });
 
-    <span class="keyword">return</span> FullDownloadView;
+    <span class="hljs-keyword">return</span> FullDownloadView;
 });</pre></div></div>
             
         </li>

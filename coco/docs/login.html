@@ -39,11 +39,6 @@
               </a>
             
               
-              <a class="source" href="configs.html">
-                configs.js
-              </a>
-            
-              
               <a class="source" href="convert_namespace.html">
                 convert_namespace.js
               </a>
@@ -64,11 +59,6 @@
               </a>
             
               
-              <a class="source" href="main_test.html">
-                main_test.js
-              </a>
-            
-              
               <a class="source" href="user_model.html">
                 user_model.js
               </a>
@@ -86,11 +76,6 @@
               
               <a class="source" href="router.html">
                 router.js
-              </a>
-            
-              
-              <a class="source" href="test_login.html">
-                test_login.js
               </a>
             
               
@@ -153,6 +138,11 @@
                 upload.js
               </a>
             
+              
+              <a class="source" href="configs.html">
+                configs.js
+              </a>
+            
           </div>
         </li>
       </ul>
@@ -178,26 +168,26 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>define([
-    <span class="string">'jquery'</span>,
-    <span class="string">'underscore'</span>,
-    <span class="string">'backbone'</span>,
-    <span class="string">'layoutmanager'</span>,
-    <span class="string">'models/user_model'</span>,
-    <span class="string">'auth'</span>,
-	<span class="string">'offline_utils'</span>
-], <span class="keyword">function</span>(jquery, underscore, backbone, layoutmanager, User, Auth, Offline){
+    <span class="hljs-string">'jquery'</span>,
+    <span class="hljs-string">'underscore'</span>,
+    <span class="hljs-string">'backbone'</span>,
+    <span class="hljs-string">'layoutmanager'</span>,
+    <span class="hljs-string">'models/user_model'</span>,
+    <span class="hljs-string">'auth'</span>,
+	<span class="hljs-string">'offline_utils'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(jquery, underscore, backbone, layoutmanager, User, Auth, Offline)</span>{</span>
     
-    <span class="keyword">var</span> LoginView = Backbone.Layout.extend({
-      template: <span class="string">"#login"</span>,
+    <span class="hljs-keyword">var</span> LoginView = Backbone.Layout.extend({
+      template: <span class="hljs-string">"#login"</span>,
       events:{
-          <span class="string">'click #login_button'</span>: <span class="string">'attempt_login'</span>,
-		  <span class="string">'click #change_user'</span> : <span class="string">'change_user'</span>		  
+          <span class="hljs-string">'click #login_button'</span>: <span class="hljs-string">'attempt_login'</span>,
+		  <span class="hljs-string">'click #change_user'</span> : <span class="hljs-string">'change_user'</span>		  
       },
       
-      initialize: <span class="keyword">function</span>(){
-          console.log(<span class="string">"Initializing login view"</span>);
-          _(<span class="keyword">this</span>).bindAll(<span class="string">'render'</span>);
-          <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+      initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+          console.log(<span class="hljs-string">"Initializing login view"</span>);
+          _(<span class="hljs-keyword">this</span>).bindAll(<span class="hljs-string">'render'</span>);
+          <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -213,19 +203,19 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>          User.fetch({
-              success: <span class="keyword">function</span>(model){
-                  console.log(<span class="string">"USERMODEL : successfully fetched"</span>);
+              success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(model)</span>{</span>
+                  console.log(<span class="hljs-string">"USERMODEL : successfully fetched"</span>);
                   that.render();
               },
-              error: <span class="keyword">function</span>(){
-                  console.log(<span class="string">"USERMODEL :  fetch failed"</span>) 
+              error: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+                  console.log(<span class="hljs-string">"USERMODEL :  fetch failed"</span>) 
                   that.render();           
               }
           });
           
       },
       
-      serialize: <span class="keyword">function</span>(){</pre></div></div>
+      serialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span></pre></div></div>
             
         </li>
         
@@ -240,16 +230,16 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>          <span class="keyword">return</span> User.toJSON();
+            <div class="content"><div class='highlight'><pre>          <span class="hljs-keyword">return</span> User.toJSON();
       },
       
-      scrap_view: <span class="keyword">function</span>(){
-           <span class="keyword">this</span>.$(<span class="string">'#login_modal'</span>).modal(<span class="string">'hide'</span>);  
-           <span class="keyword">this</span>.remove();   
+      scrap_view: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+           <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#login_modal'</span>).modal(<span class="hljs-string">'hide'</span>);  
+           <span class="hljs-keyword">this</span>.remove();   
       },
       
-      afterRender: <span class="keyword">function</span>(){
-          console.log(<span class="string">"rendered login view"</span>);</pre></div></div>
+      afterRender: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+          console.log(<span class="hljs-string">"rendered login view"</span>);</pre></div></div>
             
         </li>
         
@@ -264,11 +254,11 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>          <span class="keyword">this</span>.$(<span class="string">'#login_modal'</span>).modal({
-              keyboard: <span class="literal">false</span>,
-              backdrop: <span class="string">"static"</span>,
+            <div class="content"><div class='highlight'><pre>          <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#login_modal'</span>).modal({
+              keyboard: <span class="hljs-literal">false</span>,
+              backdrop: <span class="hljs-string">"static"</span>,
           });
-          <span class="keyword">this</span>.$(<span class="string">'#login_modal'</span>).modal(<span class="string">'show'</span>);
+          <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#login_modal'</span>).modal(<span class="hljs-string">'show'</span>);
       },</pre></div></div>
             
         </li>
@@ -284,13 +274,13 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      attempt_login: <span class="keyword">function</span>(e){
+            <div class="content"><div class='highlight'><pre>      attempt_login: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span>{</span>
 		  e.preventDefault();
-          console.log(<span class="string">"login attempted"</span>);
-          <span class="keyword">this</span>.set_login_button_state(<span class="string">'loading'</span>);
-          <span class="keyword">var</span> username = <span class="keyword">this</span>.$(<span class="string">'#username'</span>).val();
-          <span class="keyword">var</span> password = <span class="keyword">this</span>.$(<span class="string">'#password'</span>).val();
-          <span class="keyword">var</span> that = <span class="keyword">this</span>;</pre></div></div>
+          console.log(<span class="hljs-string">"login attempted"</span>);
+          <span class="hljs-keyword">this</span>.set_login_button_state(<span class="hljs-string">'loading'</span>);
+          <span class="hljs-keyword">var</span> username = <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#username'</span>).val();
+          <span class="hljs-keyword">var</span> password = <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'#password'</span>).val();
+          <span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -306,7 +296,7 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>          Auth.login(username, password)
-              .done(<span class="keyword">function</span>(){</pre></div></div>
+              .done(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span></pre></div></div>
             
         </li>
         
@@ -322,11 +312,11 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>                  that.scrap_view();
-                  window.Router.navigate(<span class="string">""</span>, {
-                      trigger:<span class="literal">true</span>
+                  window.Router.navigate(<span class="hljs-string">""</span>, {
+                      trigger:<span class="hljs-literal">true</span>
                   });
               })
-              .fail(<span class="keyword">function</span>(error){</pre></div></div>
+              .fail(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span>{</span></pre></div></div>
             
         </li>
         
@@ -342,7 +332,7 @@ clear the password</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>			      $(<span class="string">"#password"</span>).val(<span class="string">''</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>			      $(<span class="hljs-string">"#password"</span>).val(<span class="hljs-string">''</span>);</pre></div></div>
             
         </li>
         
@@ -357,8 +347,8 @@ clear the password</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>				  that.$(<span class="string">'#error_msg'</span>).html(error);
-                  that.set_login_button_state(<span class="string">'reset'</span>);
+            <div class="content"><div class='highlight'><pre>				  that.$(<span class="hljs-string">'#error_msg'</span>).html(error);
+                  that.set_login_button_state(<span class="hljs-string">'reset'</span>);
               });
       },</pre></div></div>
             
@@ -375,11 +365,11 @@ clear the password</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      set_login_button_state: <span class="keyword">function</span>(state){
-          <span class="keyword">if</span>(state==<span class="string">"disabled"</span>)
-              <span class="keyword">this</span>.$(<span class="string">"#login_button"</span>).attr(<span class="string">"disabled"</span>,<span class="literal">true</span>);    
-          <span class="keyword">else</span>
-              <span class="keyword">this</span>.$(<span class="string">"#login_button"</span>).button(state);    
+            <div class="content"><div class='highlight'><pre>      set_login_button_state: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(state)</span>{</span>
+          <span class="hljs-keyword">if</span>(state==<span class="hljs-string">"disabled"</span>)
+              <span class="hljs-keyword">this</span>.$(<span class="hljs-string">"#login_button"</span>).attr(<span class="hljs-string">"disabled"</span>,<span class="hljs-literal">true</span>);    
+          <span class="hljs-keyword">else</span>
+              <span class="hljs-keyword">this</span>.$(<span class="hljs-string">"#login_button"</span>).button(state);    
       },</pre></div></div>
             
         </li>
@@ -395,9 +385,9 @@ clear the password</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>	  change_user: <span class="keyword">function</span>(){
-		<span class="keyword">var</span> val = confirm(<span class="string">"Your current database will be deleted and a new database will be downloaded"</span>);
-		<span class="keyword">if</span> (val==<span class="literal">true</span>){
+            <div class="content"><div class='highlight'><pre>	  change_user: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+		<span class="hljs-keyword">var</span> val = confirm(<span class="hljs-string">"Your current database will be deleted and a new database will be downloaded"</span>);
+		<span class="hljs-keyword">if</span> (val==<span class="hljs-literal">true</span>){
 			Offline.reset_database();
 		}
 	  }
@@ -417,7 +407,7 @@ clear the password</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="keyword">return</span> LoginView;
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">return</span> LoginView;
 });</pre></div></div>
             
         </li>

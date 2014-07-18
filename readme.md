@@ -88,7 +88,6 @@ This ofcourse depends upon the REST API used to store information. For a python 
 ###Code Snippets 
 1. models.py
 
-	'''
 	class UserModel(models.Model):
 		user_created = models.ForeignKey(User, related_name="%(class)s_created", editable = False, null=True, blank=True) 
 		time_created = models.DateTimeField(auto_now_add=True, null=True,blank=True)
@@ -104,10 +103,9 @@ This ofcourse depends upon the REST API used to store information. For a python 
 		block_name = models.CharField(max_length=20)
 		district_name = models.CharField(max_length=20)
 		state_name = models.CharField(max_length=20)
-	'''
+
 2. views.py
 
-	'''
 	def exampleapp(request):
 		return render(request,'example_dashboard.html')
     
@@ -127,10 +125,9 @@ This ofcourse depends upon the REST API used to store information. For a python 
 	def logout(request):
 		auth.logout(request)    
 		return HttpResponse("1")
-	'''
+
 3. api.py
 
-	'''
 	class BaseResource(ModelResource): 
 
 		def full_hydrate(self, bundle): 
@@ -159,10 +156,9 @@ This ofcourse depends upon the REST API used to store information. For a python 
 			else: 
 				bundle.data[field_name] = None
 			return bundle
-	'''
+
 4. urls.py
 
-	'''
 	v1_api = Api(api_name='v1')
 	v1_api.register(VillageResource())
 	v1_api.register(GroupResource())
@@ -175,6 +171,6 @@ This ofcourse depends upon the REST API used to store information. For a python 
 	    (r'^debug/', debug),
 	    (r'^$', exampleapp),
 	)
-	'''
+
 
 #### Help us in our endevour to continuosly update the COCO library. Feel Free to fork our code or SEND PULL REQUESTS.

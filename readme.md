@@ -1,5 +1,5 @@
 #COCO.js for data collection
-COCO.js is a library designed to help create a single-page application (SPA) to collect data online or offline in situations with poor internet connectivity. A common use-case is for building applications that are highly mobile but in areas of poor internet connectivity.
+COCO.js is a library designed to help create a single-page application (SPA) to collect data online or offline in situations with poor internet connectivity. An example use-case is a mobile application that has to collect data in an area with poor internet connectivity.
 * Collect any data - specify your data through a JavaScript configuration file - config.js.
 * Use on any device - responsive UI courtesy Bootstrap 3
 * Capture data offline and sync when online

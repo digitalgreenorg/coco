@@ -1,9 +1,9 @@
 #COCO.js for data collection
-COCO.js is a library designed to help you to quickly create a single-page application (SPA) to collect data online or offline despite flaky internet connectivity. It is specially recommended for use cases with high mobility or low connectivity.
+COCO.js is a library designed to help create a single-page application (SPA) to collect data online or offline in situations with poor internet connectivity. A common use-case is for building applications that are highly mobile but in areas of poor internet connectivity.
 * Collect any data - specify your data through a JavaScript configuration file - config.js.
 * Use on any device - responsive UI courtesy Bootstrap 3
 * Capture data offline and sync when online
-* Sort and search and export data to Excel - through datatables.js
+* Sort and search, and export data to Excel - through datatables.js
 * Connect with any database through a REST API
 
 ##3 steps to COCO.js
@@ -14,7 +14,7 @@ COCO.js is a library designed to help you to quickly create a single-page applic
 
 ## Write your configs.js file
 
-Loosely, we configure an entity through the configs.js for each form we want to fill through COCO. To configure an entity:
+We configure an entity through configs.js for forms that need to be populated through COCO. To configure an entity:
 
 	var person_configs = {
 		'entity_name': 'person',
@@ -32,7 +32,7 @@ Loosely, we configure an entity through the configs.js for each form we want to 
 		 },
 	};
 
-Following is the description of above attributes:
+The following is the description of the above attributes:
 
 Attribute Name             | Type        | Description
 ---------------------------|-------------|------------------------------------------------------------------

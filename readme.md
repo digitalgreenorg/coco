@@ -181,4 +181,4 @@ www.digitalgreen.org/coco/docs/
 	)
 	```
 
-#### Help us in our endevour to continuosly update the COCO library. Feel Free to fork our code or SEND PULL REQUESTS.
+#### Help us in our endevour to continuously update the COCO library. Feel Free to fork our code or SEND PULL REQUESTS.

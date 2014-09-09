@@ -84,8 +84,9 @@ And *You're DONE!* You have successfully configured your COCO app to add and edi
 Just keep adding forms in dashboard.html and entities in configs, and build your system.
 
 This ofcourse depends upon the REST API used to store information. For a python specific example please checkout the example app and the tutorial.
+www.digitalgreen.org/coco/docs/
 
-###Code Snippets 
+###Code Snippets for Django based API
 1. models.py
 
 	```

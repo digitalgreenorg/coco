@@ -8,7 +8,7 @@ COCO.js is a library designed to help you to quickly create a single-page applic
 * Sort and search and export data to Excel - through datatables.js
 * Connect with any database through a REST API
 
-##3 steps to COCO.js
+##4 steps to COCO.js
 0. Copy main.js, config.js and dashboard.html from the COCO repository into your code.
 1. Design your forms and put them in dashboard.html. Freely use Bootstrap, mustache/handlebars, chosen, underscore and your own JavaScript to include complex functionality.
 2. Configure your application in configs.js using this documentation.
